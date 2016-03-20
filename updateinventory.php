@@ -41,7 +41,7 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="addinvquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="updateinvquery.php" id="inventory" style="text-align:center">
 
       <label><strong>Product ID Number: </strong></label>
       <input name="prodID" type="text">

@@ -43,9 +43,7 @@
 
   <form method="post" action="addinvquery.php" id="inventory" style="text-align:center">
 
-      <label><strong>Product ID Number: </strong></label>
-      <input name="prodID" type="text">
-      <br><br>
+      
       <label><strong>Store ID Number: </strong></label>
       <input name="storeID" type="text">
       <br><br>

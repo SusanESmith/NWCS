@@ -20,7 +20,7 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
      <div class="row">
        <div class="col-md-6 col-md-offset-3"style="float: none; height: 100%">
 <?php $test=""?>
@@ -29,11 +29,11 @@
       <br>
     <h1><span class="label label-primary">Employee Profile</h1>
 </div>
-<div class="panel-group" style="text-align:left">
+<div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Joe Smith';?>
+      <?php echo 'Susie Jones';?>
     </h4>
 </div>
 
@@ -41,11 +41,42 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong>Employee ID Number:</strong>M1212</p>
-  <p><strong>Employee Address: </strong>1 Main Street, Clarksville, TN</p>
-  <p><strong>Employee Phone Number: </strong>555-555-5555</p>
-  <p><strong><a href="empTransactions.php">Click to see employee transaction history </a></strong></p>
-  <p><strong>Current Store Locations:</strong>Yes</p>
+  <table class="table table-striped"style="text-align:left">
+
+    <thead>
+      <tr>
+        <th>Employee ID Number</th>
+        <th>Employee Name</th>
+        <th>Employee Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Phone</th>
+        <th>Current Store Location</th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>E1001</td>
+        <td>Susie Jones</td>
+        <td>101 Maynard Way</td>
+        <td>Clarksville</td>
+        <td>TN</td>
+        <td>37015</td>
+        <td>931-444-1000</td>
+        <td>S22</td>
+
+
+
+      </tr>
+
+
+    </tbody>
+  </table>
+    <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
   <br><br>
 
 
@@ -110,9 +141,10 @@
               <label><strong>Phone: </strong></label>
               <input name="ephone" type="text">
               <br><br>
-              <label>&nbsp;</label>
-              <input type="submit" name="newEmp" value="Add Employee">
-              <br><br>
+
+          </form>
+          <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
+            <input type="submit" name="newemp" value="Add New Employee">
           </form>
       <?php  }?>
 

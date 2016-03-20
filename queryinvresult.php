@@ -101,8 +101,8 @@
           <td>Pepsi</td>
           <td>N0046</td>
           <td>$1.79</td>
-          <td>27</td>
-          <td style="color:RED">35</td>
+          <td style="color:RED">27</td>
+          <td>35</td>
         </tr>
       </tbody>
     </table>

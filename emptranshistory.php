@@ -2,7 +2,7 @@
 <html lang="en">
 
  <head>
-   <title>Minimum Inventory Check</title>
+   <title>Transaction Details</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -27,13 +27,13 @@
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Minimum Inventory Results</h1>
+    <h1><span class="label label-primary">Transaction Details</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'The following items are below minimum inventory quantity and need to be reordered: ';?>
+        <?php echo 'Transaction Details for (transaction num):';?>
     </h4>
 </div>
 
@@ -55,34 +55,36 @@
 
       <thead>
         <tr>
+          <th>Transaction ID</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Transaction Total</th>
           <th>Store ID</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Current Quantity</th>
-          <th>Minimum Stock Quantity</th>
-
-
+          <th>Transaction Type</th>
+          <th>Transaction Date</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>S13</td>
-          <td>N0021</td>
-          <td>Water</td>
-          <td>12</td>
-          <td>25</td>
+          <td><a href="transdetails.php">T0543</a></td>
+          <td>Beer<br><br>Cheetos<br><br>Doritos</td>
+          <td>$7.99<br><br>$3.99<br><br>1.99</td>
+          <td>$15.30</td>
+          <td>S02</td>
+          <td>Card</td>
+          <td>03/12/2016</td>
         </tr>
-
-
+        <tr>
+          <td><a href="transdetails.php">T0186</a></td>
+          <td>Beer<br><br>More Beer<br><br>All the Beer</td>
+          <td>$7.99<br><br>$7.99<br><br>7.99</td>
+          <td>$26.25</td>
+          <td>S11</td>
+          <td>Cash</td>
+          <td>03/12/2016</td>
+        </tr>
       </tbody>
     </table>
-    <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
-        <label><strong>Go to Order Form? </strong></label>
-        
-
-        <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Go">
-        <br><br>
   </div>
 </div>
 </div>
@@ -94,7 +96,7 @@
 
 
   </div>
-  <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>
+  <p><strong><a href="empprofile.php">Back to the Employee Profile</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

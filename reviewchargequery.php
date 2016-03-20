@@ -2,7 +2,7 @@
 <html lang="en">
 
  <head>
-   <title>Minimum Inventory Check</title>
+   <title>Review a Charge Account</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -20,20 +20,20 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
      <div class="row">
        <div class="col-md-10 col-md-offset-1">
 <?php $test=""?>
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Minimum Inventory Results</h1>
+    <h1><span class="label label-primary">Review a Charge Account</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'The following items are below minimum inventory quantity and need to be reordered: ';?>
+        <?php echo 'Charge Account Customer (charge acct num): ';?>
     </h4>
 </div>
 
@@ -55,34 +55,43 @@
 
       <thead>
         <tr>
-          <th>Store ID</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Current Quantity</th>
-          <th>Minimum Stock Quantity</th>
+          <th>Charge Account ID Number</th>
+          <th>Customer Type</th>
+          <th>Business Name</th>
+          <th>Business ID</th>
+          <th>Customer Last Name</th>
+          <th>Customer First Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip Code</th>
+          <th>Phone</th>
+          <th>Date</th>
 
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>S13</td>
-          <td>N0021</td>
-          <td>Water</td>
-          <td>12</td>
-          <td>25</td>
+          <td>C27</td>
+          <td>Business</td>
+          <td>Muttly's Pet Grooming</td>
+          <td>B312</td>
+          <td>Smith</td>
+          <td>Bill</td>
+          <td>132 Puppy Ave</td>
+          <td>Clarksville</td>
+          <td>TN</td>
+          <td>37015</td>
+          <td>931-792-1111</td>
+          <td>03/18/2016</td>
+
+
         </tr>
 
 
       </tbody>
     </table>
-    <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
-        <label><strong>Go to Order Form? </strong></label>
-        
-
-        <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Go">
-        <br><br>
   </div>
 </div>
 </div>
@@ -94,7 +103,7 @@
 
 
   </div>
-  <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>
+  <p><strong><a href="charge.php">Back to the Charge Account Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

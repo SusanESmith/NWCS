@@ -2,7 +2,7 @@
 <html lang="en">
 
  <head>
-   <title>Minimum Inventory Check</title>
+   <title>Employee Search</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -20,20 +20,20 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
      <div class="row">
        <div class="col-md-10 col-md-offset-1">
 <?php $test=""?>
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Minimum Inventory Results</h1>
+    <h1><span class="label label-primary">Employee Search</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'The following items are below minimum inventory quantity and need to be reordered: ';?>
+        <?php echo 'Employee Search Results: ';?>
     </h4>
 </div>
 
@@ -55,34 +55,47 @@
 
       <thead>
         <tr>
-          <th>Store ID</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Current Quantity</th>
-          <th>Minimum Stock Quantity</th>
+          <th>Employee ID Number</th>
+          <th>Employee Name</th>
+          <th>Employee Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>
+          <th>Phone</th>
+          <th>Current Store Location</th>
+
 
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>S13</td>
-          <td>N0021</td>
-          <td>Water</td>
-          <td>12</td>
-          <td>25</td>
+          <td>E1001</td>
+          <td>Susie Jones</td>
+          <td>101 Maynard Way</td>
+          <td>Clarksville</td>
+          <td>TN</td>
+          <td>37015</td>
+          <td>931-444-1000</td>
+          <td>S22</td>
+
+
+
         </tr>
 
 
       </tbody>
     </table>
-    <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
-        <label><strong>Go to Order Form? </strong></label>
-        
+    <label><a href="">Click to see employee transaction history</a></label>
+    <br><br>
+    <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
+        <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
+        <input name="emp" type="text">
 
         <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Go">
+        <input type="submit" name="enterBtn" value="Search">
         <br><br>
+    </form>
   </div>
 </div>
 </div>
@@ -94,7 +107,7 @@
 
 
   </div>
-  <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>
+  <p><strong><a href="empprofile.php">Back to Employee Profile</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

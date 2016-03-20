@@ -2,7 +2,7 @@
 <html lang="en">
 
  <head>
-   <title>Minimum Inventory Check</title>
+   <title>Business Customer Report</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -20,20 +20,20 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
      <div class="row">
        <div class="col-md-10 col-md-offset-1">
 <?php $test=""?>
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Minimum Inventory Results</h1>
+    <h1><span class="label label-primary">Business Customer Report</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'The following items are below minimum inventory quantity and need to be reordered: ';?>
+        <?php echo 'This Business (business ID or Name) is a NWCS valued customer: ';?>
     </h4>
 </div>
 
@@ -55,34 +55,39 @@
 
       <thead>
         <tr>
-          <th>Store ID</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Current Quantity</th>
-          <th>Minimum Stock Quantity</th>
+
+          <th>Business Name</th>
+          <th>Business ID</th>
+          <th>Business Point of Contact</th>
+          <th>Business Address</th>
+          <th>Business City</th>
+          <th>Business State</th>
+          <th>Business Zip Code</th>
+          <th>Business Phone</th>
+          <th>Charge Account Holder</th>
+
 
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>S13</td>
-          <td>N0021</td>
-          <td>Water</td>
-          <td>12</td>
-          <td>25</td>
-        </tr>
+          <td>Muttly's Pet Grooming</td>
+          <td>B312</td>
+          <td>Bill Smith</td>
+          <td>132 Puppy Avenue</td>
+          <td>Clarksville</td>
+          <td>TN</td>
+          <td>37015</td>
+          <td>931-792-1111</td>
+          <td><a href="reviewchargequery.php">Yes</a></td>
 
+
+
+        </tr>
 
       </tbody>
     </table>
-    <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
-        <label><strong>Go to Order Form? </strong></label>
-        
-
-        <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Go">
-        <br><br>
   </div>
 </div>
 </div>
@@ -94,7 +99,7 @@
 
 
   </div>
-  <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>
+  <p><strong><a href="reporting.php">Back to the Reporting Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

@@ -32,7 +32,7 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-md-offset-3" style="float: none; height: 100%">
         <div class="page-header" style="text-align: center">
@@ -173,7 +173,11 @@
       }
     ?>
 
+
   </div>
+
+  <p><strong><a href="cashiermenu.php">Back to the Cashier Menu</a></strong></p>
+
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

@@ -41,7 +41,7 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="inventoryquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="drawerquery.php" id="register" style="text-align:center">
 
       <br><br>
       <label><strong>One Hundred Dollar Bills: </strong></label>
@@ -49,6 +49,9 @@
       <br><br>
       <label><strong>Fifty Dollar Bills: </strong></label>
       <input name="fifty" type="text">
+      <br><br>
+      <label><strong>Twenty Dollar Bills: </strong></label>
+      <input name="twenty" type="text">
       <br><br>
       <label><strong>Ten Dollar Bills: </strong></label>
       <input name="ten" type="text">
@@ -85,7 +88,7 @@
     </form>
 
   </div>
-  <p><strong><a href="reporting.php">Back to the Reporting Menu</a></strong></p>
+  <p><strong><a href="cashiermenu.php">Back to the Cashier Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

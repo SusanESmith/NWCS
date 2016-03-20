@@ -45,7 +45,7 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong><a href="cashier.php">Cashier Process</a></strong></p>
+	<p><strong><a href="cashiermenu.php">Cashier Menu</a></strong></p>
   <p><strong><a href="inventory.php">Inventory</a></strong></p>
   <p><strong><a href="ordering.php">Ordering</a></strong></p>
   <p><strong><a href="reporting.php">Reports</a></strong></p>

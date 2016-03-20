@@ -1,8 +1,12 @@
+<?php
+  session_start();
+  session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
  <head>
-   <title>Reporting</title>
+   <title>Cash Register Menu</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -20,20 +24,20 @@
 
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
      <div class="row">
        <div class="col-md-6 col-md-offset-3">
 <?php $test=""?>
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Reporting</h1>
+    <h1><span class="label label-primary">Cash Register Menu</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Pick a reporting category:';?>
+      <?php echo 'What would you like to do?';?>
     </h4>
 </div>
 
@@ -41,14 +45,13 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong><a href="salesreport.php">Sales Reporting</a></strong></p>
-  <p><strong><a href="transactionreport.php">Transaction Reporting</a></strong></p>
-  <p><strong><a href="customerreport.php">Customer Reporting</a></strong></p>
+	<p><strong><a href="cashier.php">Cashier Process</a></strong></p>
+  <p><strong><a href="drawercount.php">Cash Register Drawer Count</a></strong></p>
+
 
   </div>
-
-
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
+
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 
   </div>

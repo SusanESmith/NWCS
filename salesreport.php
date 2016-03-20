@@ -41,7 +41,7 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="inventoryquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="salesreportquery.php" id="inventory" style="text-align:center">
     <label>Time parameter:</label>
     <select name="time">
       <!--drop down menu-->
@@ -58,6 +58,12 @@
       <input name="storeID" type="text">
       <br><br>
 
+      <label><strong>Beginning Date: </strong></label>
+      <input name="bDate" type="date">
+      <br><br>
+      <label><strong>Ending Date: </strong></label>
+      <input name="eDate" type="date">
+      <br><br>
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" value="Submit">

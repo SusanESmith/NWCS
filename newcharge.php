@@ -41,7 +41,7 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="reviewchargequery.php" id="reviewcharge" style="text-align:center">
+  <form method="post" action="newchargequery.php" id="reviewcharge" style="text-align:center">
     <label>Customer Type:</label>
     <select name="custType">
       <!--drop down menu-->
@@ -49,12 +49,16 @@
       <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
     </select>
     <br><br>
+    <label><strong>Business Name: </strong></label>
+    <input name="busiName" type="text">
+    <br><br>
     <label><strong>Customer Last Name: </strong></label>
     <input name="custLName" type="text">
     <br><br>
     <label><strong>Customer First Name: </strong></label>
     <input name="custFName" type="text">
     <br><br>
+
     <label><strong>Address: </strong></label>
     <input name="address" type="text">
     <br><br>
@@ -67,21 +71,13 @@
     <label><strong>Zip Code: </strong></label>
     <input name="zip" type="text">
     <br><br>
-    <label><strong>Charge Account ID Number: </strong></label>
-    <input name="chargeID" type="text">
-    <br><br>
-    <label><strong>Customer Address: </strong></label>
-    <input name="custAdd" type="text">
-    <br><br>
     <label><strong>Customer Phone Number: </strong></label>
     <input name="custPhone" type="text">
     <br><br>
     <label><strong>Today's Date: </strong></label>
     <input name="date" type="date">
     <br><br>
-    <label><strong>Business Name: </strong></label>
-    <input name="busiName" type="text">
-    <br><br>
+
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" value="Submit">
