@@ -78,7 +78,7 @@
     </table>
     <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
         <label><strong>Go to Order Form? </strong></label>
-        
+
 
         <label>&nbsp;</label>
         <input type="submit" name="enterBtn" value="Go">
