@@ -57,7 +57,7 @@
       <input name="price" type="text">
       <br><br>
       <label><strong>Current Date: </strong></label>
-      <input name="date" type="date">
+      <input name="orderDate" type="date">
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" value="Submit">

@@ -1,3 +1,30 @@
+<?php
+$storeID = filter_input(INPUT_POST, 'storeID');
+$productID = filter_input(INPUT_POST, 'productID');
+$quantity = filter_input(INPUT_POST, 'quantity');
+$price = filter_input(INPUT_POST, 'price');
+$date = filter_input(INPUT_POST, 'orderDate');
+$productName= 'test item';
+
+require_once('nwcsdatabase.php');
+
+$query = 'INSERT INTO addInvTest
+               (storeID, productID, productName, quantity, price, date)
+            VALUES
+               (:storeID, :productID,:productName, :quantity, :price,:orderDate)';
+
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':productID', $productID);
+  $statement->bindValue(':productName', $productName);
+
+  $statement->bindValue(':quantity', $quantity);
+  $statement->bindValue(':price', $price);
+  $statement->bindValue(':orderDate', $date);
+
+  $statement->execute();
+  $statement->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +60,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'You have successfully added to Store(store ID) inventory: ';?>
+        <?php echo 'You have successfully added to Store '.$storeID.' inventory: ';?>
     </h4>
 </div>
 
@@ -66,12 +93,12 @@
       </thead>
       <tbody>
         <tr>
-          <td>N4315</td>
-          <td>Windex Spray Cleaner</td>
-          <td>S22</td>
-          <td>25</td>
-          <td>$4.99</td>
-          <td>03/17/2016</td>
+          <td><?php echo $productID;?></td>
+          <td><?php echo $productName;?></td>
+          <td><?php echo $storeID;?></td>
+          <td><?php echo $quantity;?></td>
+          <td><?php echo '$'.$price;?></td>
+          <td><?php echo $date;?></td>
 
         </tr>
 
