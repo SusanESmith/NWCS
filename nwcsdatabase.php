@@ -3,7 +3,7 @@
 
 
 //db connection
-	$dsn='mysql:host=localhost; dbname=bruno';
+	$dsn='mysql:host=localhost; dbname=NWCS';
 	$username='root';
 	$password='yEKmgRWvpP';
 

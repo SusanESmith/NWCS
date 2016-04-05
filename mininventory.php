@@ -51,6 +51,7 @@
       <div class="col-md-12 col-md-offset-0">
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
+        <div class="table-responsive">
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -65,7 +66,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="danger">
           <td>S13</td>
           <td>N0021</td>
           <td>Water</td>
@@ -76,12 +77,13 @@
 
       </tbody>
     </table>
+  </div>
     <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
         <label><strong>Go to Order Form? </strong></label>
 
 
         <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Go">
+        <input type="submit" name="enterBtn"class="btn btn-warning"  value="Go">
         <br><br>
   </div>
 </div>

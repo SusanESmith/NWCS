@@ -78,6 +78,7 @@ $query = 'INSERT INTO addInvTest
       <div class="col-md-12 col-md-offset-0">
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
+        <div class="table-responsive">
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -105,6 +106,7 @@ $query = 'INSERT INTO addInvTest
 
       </tbody>
     </table>
+  </div>
   </div>
 </div>
 </div>

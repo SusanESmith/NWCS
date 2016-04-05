@@ -51,6 +51,7 @@
       <div class="col-md-12 col-md-offset-0">
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
+        <div class="table-responsive">
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -86,6 +87,7 @@
 
       </tbody>
     </table>
+  </div>
     <label><a href="">Click to see employee transaction history</a></label>
     <br><br>
     <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">

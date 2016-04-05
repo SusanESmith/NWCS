@@ -45,7 +45,7 @@
 
       <br><br>
       <label><strong>One Hundred Dollar Bills: </strong></label>
-      <input name="hundreds" type="text">
+      <input name="hundred" type="text">
       <br><br>
       <label><strong>Fifty Dollar Bills: </strong></label>
       <input name="fifty" type="text">
@@ -80,8 +80,12 @@
       <label><strong>Number of Card Transactions: </strong></label>
       <input name="card" type="text">
       <br><br>
-
-
+      <label><strong>Register ID Number: </strong></label>
+      <input name="register" type="text">
+      <br><br>
+      <label><strong>Store ID Number: </strong></label>
+      <input name="store" type="text">
+      <br><br>
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" value="Submit">

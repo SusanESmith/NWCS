@@ -20,7 +20,7 @@
 	<footer>
 		<p class="right">
 
-			&copy; <?php echo date("Y"); ?> Susan Smith kung fu school
+			&copy; <?php echo date("Y"); ?> North Willow Convenience Stores
 		</p>
 	</footer>
 

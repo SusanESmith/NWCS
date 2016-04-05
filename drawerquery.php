@@ -1,3 +1,62 @@
+<?php
+$hundred = filter_input(INPUT_POST, 'hundred');
+$fifty = filter_input(INPUT_POST, 'fifty');
+$twenty = filter_input(INPUT_POST, 'twenty');
+$ten = filter_input(INPUT_POST, 'ten');
+$five = filter_input(INPUT_POST, 'five');
+$one = filter_input(INPUT_POST, 'one');
+$quarters = filter_input(INPUT_POST, 'quarters');
+$dimes = filter_input(INPUT_POST, 'dimes');
+$nickels = filter_input(INPUT_POST, 'nickels');
+$pennies = filter_input(INPUT_POST, 'pennies');
+$checks = filter_input(INPUT_POST, 'checks');
+$card = filter_input(INPUT_POST, 'card');
+$regID=filter_input(INPUT_POST, 'register');
+$storeID=filter_input(INPUT_POST, 'store');
+$currentDate = date("Y-m-d");
+
+$cashTotal=$hundred+$fifty+$twenty+$ten+$five+$one+$quarters+$dimes+$nickels+$pennies+$checks+$card;
+
+$productName= 'test item';
+
+require_once('nwcsdatabase.php');
+
+$query = 'INSERT INTO REGISTER_COUNT
+               (COUNT_ID, REGISTER_ID,STORE_ID, COUNT_DATE, MANAGER_ID, EMPLOYEE_ID,HUNDRED_NUM, FIFTY_NUM,
+               TWENTY_NUM, TEN_NUM, FIVE_NUM, ONE_NUM, QUARTER_NUM, DIME_NUM, NICKEL_NUM, PENNY_NUM, REGISTER_TOTAL,
+                NUM_OF_CHECKS, NUM_CARD_TRANS)
+            VALUES
+               (:COUNT_ID, :REGISTER_ID, :STORE_ID, :COUNT_DATE,:MANAGER_ID, :EMPLOYEE_ID, :HUNDRED_NUM,
+               FIFTY_NUM, :TWENTY_NUM, :TEN_NUM, :FIVE_NUM, :ONE_NUM, :QUARTER_NUM, :DIME_NUM, :NICKEL_NUM,
+                :PENNY_NUM, :REGISTER_TOTAL, :NUM_OF_CHECKS, :NUM_CARD_TRANS)';
+
+  $statement = $db->prepare($query);
+  $statement->bindValue(':COUNT_ID', 3);
+  $statement->bindValue(':REGISTER_ID', $regID);
+  $statement->bindValue(':STORE_ID', $storeID);
+  $statement->bindValue(':COUNT_DATE', $currentDate);
+  //$statement->bindValue(':MANAGER_ID', $manID);
+  $statement->bindValue(':MANAGER_ID', 6);
+  //$statement->bindValue(':EMPLOYEE_ID', $empID);
+  $statement->bindValue(':EMPLOYEE_ID', 7);
+  $statement->bindValue(':HUNDRED_NUM', $hundred);
+  $statement->bindValue(':FIFTY_NUM', $fifty);
+  $statement->bindValue(':TWENTY_NUM', $twenty);
+  $statement->bindValue(':TEN_NUM', $ten);
+  $statement->bindValue(':FIVE_NUM', $five);
+  $statement->bindValue(':ONE_NUM', $one);
+  $statement->bindValue(':QUARTER_NUM', $quarters);
+  $statement->bindValue(':DIME_NUM', $dimes);
+  $statement->bindValue(':NICKEL_NUM', $nickels);
+  $statement->bindValue(':PENNY_NUM', $pennies);
+  $statement->bindValue(':HUNDRED_NUM', $hundred);
+  $statement->bindValue(':REGISTER_TOTAL', $cashTotal);
+  $statement->bindValue(':NUM_OF_CHECKS', $checks);
+  $statement->bindValue(':NUM_CARD_TRANS', $card);
+
+  $statement->execute();
+  $statement->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,6 +110,7 @@
       <div class="col-md-12 col-md-offset-0">
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
+    <div class="table-responsive">
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -71,7 +131,8 @@
           <th>Number of checks</th>
           <th>Number of Card Transactions</th>
           <th>Date</th>
-
+          <th>Register ID</th>
+          <th>Store ID</th>
 
 
 
@@ -79,25 +140,29 @@
       </thead>
       <tbody>
         <tr>
-          <td>5</td>
-          <td>0</td>
-          <td>3</td>
-          <td>5</td>
-          <td>2</td>
-          <td>1</td>
-          <td>4</td>
-          <td>2</td>
-          <td>5</td>
-          <td>7</td>
-          <td>622.52</td>
-          <td>5</td>
-          <td>5</td>
-          <td>03/18/2016</td>
+          <td><?php echo $hundred;?></td>
+          <td><?php echo $fifty;?></td>
+          <td><?php echo $twenty;?></td>
+          <td><?php echo $ten;?></td>
+          <td><?php echo $five;?></td>
+          <td><?php echo $one;?></td>
+          <td><?php echo $quarters;?></td>
+          <td><?php echo $dimes;?></td>
+          <td><?php echo $nickels;?></td>
+          <td><?php echo $pennies;?></td>
+          <td><?php echo $cashTotal;?></td>
+          <td><?php echo $checks;?></td>
+          <td><?php echo $card;?></td>
+
+          <td><?php echo $currentDate;?></td>
+          <td><?php echo $regID;?></td>
+          <td><?php echo $storeID;?></td>
 
         </tr>
 
       </tbody>
     </table>
+  </div>
   </div>
 </div>
 </div>

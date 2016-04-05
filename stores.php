@@ -92,14 +92,81 @@
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 
 
+</div>
+</div>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+<div class="panel-group" style="text-align:center">
+<div class="panel panel-default">
+  <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">";?>
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%; ">
+      <?php echo 'Or Add a New Store:';?>
+    </h4>
   </div>
-</div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
+  <!--panel body-->
+  <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+    <form method="post" name="newstore" action="stores.php" id="newstore">
 
+      <input type="submit" name="newstore" class="btn btn-warning"  value="Add Form">
+      <br><br>
+      <?php $new=filter_input(INPUT_POST,'newstore');
+      if (isset($new)){?>
+          <div style="text-align:left">
+          <div class="form-group">
+          <label for="storeID"><strong>Store ID: </strong></label>
+        <input name="id" type="text" class="form-control" id="storeID" placeholder="Store ID">
+
+          </div>
+          <div class="form-group">
+        <label for="storePhone"><strong>Store Phone: </strong></label>
+        <input name="sphone" type="text" class="form-control" id="storePhone" placeholder="Store Phone Number">
+
+          </div>
+          <div class="form-group">
+        <label for="storeAddress"><strong>Store Address: </strong></label>
+        <input name="saddress" type="text" class="form-control" id="storeAddress" placeholder="Store Address">
+
+          </div>
+          <div class="form-group">
+        <label for="storeCity"><strong>Store City: </strong></label>
+        <input name="scity" type="text" class="form-control" id="storeCity" placeholder="Store City">
+
+          </div>
+          <div class="form-group">
+        <label for="storeState"><strong>Store State: </strong></label>
+        <input name="sstate" type="text" class="form-control" id="storeState" placeholder="Store State">
+
+          </div>
+          <div class="form-group">
+        <label for="storeZip"><strong>Store Zip Code: </strong></label>
+        <input name="szip" type="text" class="form-control" id="storeZip" placeholder="Store Zip Code">
+
+          </div>
+          <div class="form-group">
+          <label for="storeManager"><strong>Store Manager: </strong></label>
+        <input name="sitems" type="text" class="form-control" id="storeManager" placeholder="Store Manager">
+
+          </div>
+          </div>
+    </form>
+    <form method="post" name="newstore" action="addstore.php" id="newstore" style="text-align:center">
+      <input type="submit" name="newstore" class="btn btn-warning" value="Click Here to Add New Store">
+    </form>
+    <?php  }?>
   </div>
+  <br><br>
 </div>
 </div>
-
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-md-offset-3" style="text-align: center">
+<?php echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
+</div>
+</div>
+</div>
 </body>
 </html>

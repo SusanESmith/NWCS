@@ -1,3 +1,9 @@
+<?php $lifetime=60*60*24*14;
+session_set_cookie_params($lifetime,'/');
+session_start();
+$_SESSION['login_user']=$username;
+echo $_SESSION['login_user'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,13 +38,13 @@
 
   <form method="post" action="menu.php" id="empLogin" style="text-align:center">
       <label><strong>Employee ID: </strong></label>
-    	<input name="empID" type="text">
+    	<input name="username" type="text">
       <br><br>
       <label><strong>Password: </strong></label>
-    	<input name="password" type="text">
+    	<input name="password" type="password" placeholder="**********">
       <br><br>
       <label>&nbsp;</label>
-			<input type="submit" value="Login">
+			<input type="submit" class="btn btn-warning" value="Login">
 		</form>
 
   </div>

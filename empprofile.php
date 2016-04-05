@@ -40,7 +40,7 @@
 <!--panel body-->
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-
+  <div class="table-responsive">
   <table class="table table-striped"style="text-align:left">
 
     <thead>
@@ -76,6 +76,7 @@
 
     </tbody>
   </table>
+</div>
     <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
   <br><br>
 

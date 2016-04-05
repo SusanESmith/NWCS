@@ -43,24 +43,30 @@
 
   <form method="post" action="addinvquery.php" id="inventory" style="text-align:center">
 
-
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
-      <br><br>
-      <label><strong>Product ID Number: </strong></label>
-      <input name="productID" type="text">
-      <br><br>
-      <label><strong>Quantity of Item: </strong></label>
-      <input name="quantity" type="text">
-      <br><br>
-      <label><strong>Price of Item: </strong></label>
-      <input name="price" type="text">
-      <br><br>
-      <label><strong>Current Date: </strong></label>
-      <input name="orderDate" type="date">
-      <br><br>
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="storeID"><strong>Store ID: </strong></label>
+  <input name="sID" type="text" class="form-control" id="storeID" placeholder="Store ID">
+    </div>
+    <div class="form-group">
+    <label for="productID"><strong>Product ID Number: </strong></label>
+  <input name="pID" type="text" class="form-control" id="productID" placeholder="Product ID">
+    </div>
+    <div class="form-group">
+    <label for="quantity"><strong>Quantity: </strong></label>
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add">
+    </div>
+    <div class="form-group">
+    <label for="price"><strong>Price: </strong></label>
+  <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
+    </div>
+    <div class="form-group">
+    <label for="date"><strong>Date: </strong></label>
+  <input name="date" type="date" class="form-control" id="date" placeholder="Date of Item Added">
+    </div>
+  </div>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit"  class="btn btn-warning" value="Submit">
     </form>
 
   </div>

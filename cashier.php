@@ -60,22 +60,26 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" name="products" action="cashier.php" id="cashiersale" style="text-align:center">
-      <label><strong>Product ID: </strong></label>
-    	<input name="prodID" type="text">
-      <br><br>
-      <label><strong>Quantity: </strong></label>
-    	<input name="quantity" type="text">
-      <br><br>
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="prodID"><strong>Product ID: </strong></label>
+  <input name="pID" type="text" class="form-control" id="prodID" placeholder="Product ID">
+    </div>
+    <div class="form-group">
+    <label for="quantity"><strong>Quantity: </strong></label>
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item">
+    </div>
+  </div>
 
       <br>
       <label>&nbsp;</label>
-			<input type="submit" name="enterBtn" value="Enter Values">
+			<input type="submit" name="enterBtn" class="btn btn-warning" value="Enter Values">
       <br>
 
 	</form>
     <form method="post" name="enter" action="cashier.php" id="cashierpay" style="text-align:center">
       <br>
-    <input type="submit" name="pay" value="Complete Transaction">
+    <input type="submit" name="pay" class="btn btn-warning"value="Complete Transaction">
         <br><br>
         <?php
         $pay=filter_input(INPUT_POST,'pay',FILTER_VALIDATE_FLOAT);
@@ -91,7 +95,7 @@
       <option value="<?php echo "charge";?>"><?php echo "Charge Account";?></option>
     </select>
     <br><br>
-    <input type="submit" name="confirm" value="Confirm Payment Type">
+    <input type="submit" name="confirm" class="btn btn-warning"value="Confirm Payment Type">
 
   <?php } ?>
     <br>
@@ -105,70 +109,95 @@
       echo
         "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
           <br>
-        <label><strong>Total Payment: </strong></label>
-        <input name=\"cash\" type=\"text\">
-        <br><br>
-        <label><strong>Total Cash Received: </strong></label>
-        <input name=\"quarters\" type=\"text\">
-        <br><br>
-        <label><strong>Changed Owed: </strong></label>
-        <input name=\"quarters\" type=\"text\">
-        <br><br>
+        <div style=\"text-align:left\">
+        <div class=\"form-group\">
+        <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
+        <input name=\"cash\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+        </div>
+
+        <div class=\"form-group\">
+        <label for=\"cash\"><strong>Total Cash Received: </strong></label>
+        <input name=\"cash\" type=\"text\"class=\"form-control\" id=\"cash\" placeholder=\"Total Cash Received\">
+          </div>
+
+          <div class=\"form-group\">
+        <label for=\"cash\"><strong>Changed Owed: </strong></label>
+        <input name=\"change\" type=\"text\"class=\"form-control\" id=\"change\" placeholder=\"Change Amount Auto here\">
+          </div>
+
+          </div>
         <label>&nbsp;</label>
-        <input type=\"submit\" value=\"Process Payment\">
+        <input type=\"submit\" class=\"btn btn-warning\"value=\"Process Payment\" >
       </form>";}
       else if ($payment=="card"){
         echo
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
-          <label><strong>Total Payment: </strong></label>
-          <input name=\"card\" type=\"text\">
-          <br><br>
-          <label><strong>Card Number: </strong></label>
-          <input name=\"card\" type=\"text\">
-          <br><br>
+          <div style=\"text-align:left\">
+          <div class=\"form-group\">
+          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
+          <input name=\"card\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+          </div>
 
+          <div class=\"form-group\">
+          <label for=\"num\"><strong>Credit Card Number: </strong></label>
+          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Customer Credit Card Number\">
+          </div>
+          </div>
           <label>&nbsp;</label>
-          <input type=\"submit\" value=\"Process Payment\">
+          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
         </form>";
       }
       else if ($payment=="check"){
         echo
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
-          <label><strong>Check Amount: </strong></label>
-          <input name=\"checkAmount\" type=\"text\">
-          <br><br>
-          <label><strong>Check Number: </strong></label>
-          <input name=\"checkNum\" type=\"text\">
-          <br><br>
-          <label><strong>Name on Check: </strong></label>
-          <input name=\"name\" type=\"text\">
-          <br><br>
-          <label><strong>Phone Number: </strong></label>
-          <input name=\"phone\" type=\"text\">
-          <br><br>
+          <div style=\"text-align:left\">
+          <div class=\"form-group\">
+          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
+          <input name=\"check\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+          </div>
+
+
+          <div class=\"form-group\">
+          <label for=\"num\"><strong>Check Number: </strong></label>
+          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Customer Check Number\">
+          </div>
+
+          <div class=\"form-group\">
+          <label for=\"name\"><strong>Name on Check: </strong></label>
+          <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Customer's Name on Check\">
+          </div>
+
+          </div>
 
           <label>&nbsp;</label>
-          <input type=\"submit\" value=\"Process Payment\">
+          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
         </form>";
       }
       else if ($payment=="charge"){
         echo
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
-          <label><strong>Charge Amount: </strong></label>
-          <input name=\"chargeAmount\" type=\"text\">
-          <br><br>
-          <label><strong>Charge Account ID Number: </strong></label>
-          <input name=\"checkNum\" type=\"text\">
-          <br><br>
-          <label><strong>Name on Account: </strong></label>
-          <input name=\"name\" type=\"text\">
-          <br><br>
+          <div style=\"text-align:left\">
+          <div class=\"form-group\">
+          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
+          <input name=\"check\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+          </div>
+
+          <div class=\"form-group\">
+          <label for=\"cID\"><strong>Charge Account Number: </strong></label>
+          <input name=\"cID\" type=\"text\" class=\"form-control\" id=\"cID\" placeholder=\"Charge Account Identification Number\">
+          </div>
+
+          <div class=\"form-group\">
+          <label for=\"name\"><strong>Customer Name: </strong></label>
+          <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name on Customer Charge Account\">
+          </div>
+          </div>
 
           <label>&nbsp;</label>
-          <input type=\"submit\" value=\"Process Payment\">
+          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
         </form>";
       }
     ?>
