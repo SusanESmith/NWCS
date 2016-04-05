@@ -88,16 +88,16 @@
       </tbody>
     </table>
   </div>
-    <label><a href="">Click to see employee transaction history</a></label>
+    <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
     <br><br>
-    <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
-        <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-        <input name="emp" type="text">
+    <div class="form-group">
+    <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
 
-        <label>&nbsp;</label>
-        <input type="submit" name="enterBtn" value="Search">
-        <br><br>
-    </form>
+  <input name="emp" type="text"  id="newemp" >
+  <button type="button" class="btn btn-warning" onclick="window.location.href='empsearch.php'"><strong>Search</strong></button>
+  <br><br>
+    </div>
+
   </div>
 </div>
 </div>

@@ -56,10 +56,15 @@
     <label for="quantity"><strong>Quantity: </strong></label>
   <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add">
     </div>
-    <div class="form-group">
-    <label for="price"><strong>Price: </strong></label>
-  <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
-    </div>
+    <form class="form-inline">
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" id="price" placeholder="Price of Item">
+      </div>
+  </div>
+  
     <div class="form-group">
     <label for="date"><strong>Date: </strong></label>
   <input name="date" type="date" class="form-control" id="date" placeholder="Date of Item Added">

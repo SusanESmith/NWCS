@@ -45,8 +45,10 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong><a href="cashier.php">Cashier Process</a></strong></p>
-  <p><strong><a href="drawercount.php">Cash Register Drawer Count</a></strong></p>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='cashier.php'"><strong>Cash Register Processes</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='drawercount.php'"><strong>Cash Register Drawer Count</strong></button>
+
 
 
   </div>

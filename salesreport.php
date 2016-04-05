@@ -42,8 +42,9 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="salesreportquery.php" id="inventory" style="text-align:center">
+    <div style="text-align:left">
     <label>Time parameter:</label>
-    <select name="time">
+    <select name="time"class="form-control">
       <!--drop down menu-->
       <option value="<?php echo "hourly";?>"><?php echo "hourly";?></option>
       <option value="<?php echo "daily";?>"><?php echo "daily";?></option>
@@ -53,20 +54,24 @@
       <option value="<?php echo "yearly";?>"><?php echo "yearly";?></option>
 
     </select>
-      <br><br>
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
-      <br><br>
 
-      <label><strong>Beginning Date: </strong></label>
-      <input name="bDate" type="date">
-      <br><br>
-      <label><strong>Ending Date: </strong></label>
-      <input name="eDate" type="date">
-      <br><br>
-      <br><br>
+    <div class="form-group">
+    <label for="storeID"><strong>Store ID: </strong></label>
+  <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
+    </div>
+
+    <div class="form-group">
+    <label for="bDate"><strong>Beginning Date: </strong></label>
+    <input name="bDate" type="date" class="form-control" id="bDate" placeholder="Beginning Date for Sales Report">
+    </div>
+
+    <div class="form-group">
+    <label for="eDate"><strong>Ending Date: </strong></label>
+  <input name="eDate" type="date" class="form-control" id="eDate" placeholder="Ending Date for Sales Report">
+    </div>
+  </div>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit"class="btn btn-warning" value="Submit">
     </form>
 
   </div>

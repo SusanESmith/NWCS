@@ -42,19 +42,21 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="reviewchargequery.php" id="reviewcharge" style="text-align:center">
+    <div style="text-align:left">
     <label>Customer Type:</label>
-    <select name="custType">
+    <select name="custType" class="form-control">
       <!--drop down menu-->
       <option value="<?php echo "Individual";?>"><?php echo "Individual";?></option>
       <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
     </select>
-    <br><br>
-    <label><strong>Or Enter a Specific Charge Account ID Number: </strong></label>
-    <input name="chargeID" type="text">
-    <br><br>
-      <br><br>
+    <div class="form-group">
+    <label for="chargeID"><strong>Or Search For a Specific Charge Account: </strong></label>
+  <input name="chargeID" type="text" class="form-control" id="chargeID" placeholder="Charge Account Identification Number">
+</div>
+</div>
+
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning"  value="Submit">
     </form>
 
   </div>

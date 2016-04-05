@@ -45,13 +45,23 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong><a href="cashiermenu.php">Cashier Menu</a></strong></p>
-  <p><strong><a href="inventory.php">Inventory</a></strong></p>
-  <p><strong><a href="ordering.php">Ordering</a></strong></p>
-  <p><strong><a href="reporting.php">Reports</a></strong></p>
-  <p><strong><a href="charge.php">Charge Accounts</a></strong></p>
-  <p><strong><a href="contacts.php">Contacts</a></strong></p>
-  <p><strong><a href="empprofile.php">Employee Profile</a></strong></p>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='cashiermenu.php'"><strong>Cashier Menu</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='inventory.php'"><strong>Inventory</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='ordering.php'"><strong>Ordering</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reporting.php'"><strong>Reports</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='charge.php'"><strong>Charge Accounts</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='contacts.php'"><strong>Contacts</strong></button>
+<br><br>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='empprofile.php'"><strong>Employee Profile</strong></button>
+
+
+
+
 
   </div>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>

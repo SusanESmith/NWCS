@@ -44,51 +44,79 @@
   <form method="post" action="drawerquery.php" id="register" style="text-align:center">
 
       <br><br>
-      <label><strong>One Hundred Dollar Bills: </strong></label>
-      <input name="hundred" type="text">
-      <br><br>
-      <label><strong>Fifty Dollar Bills: </strong></label>
-      <input name="fifty" type="text">
-      <br><br>
-      <label><strong>Twenty Dollar Bills: </strong></label>
-      <input name="twenty" type="text">
-      <br><br>
-      <label><strong>Ten Dollar Bills: </strong></label>
-      <input name="ten" type="text">
-      <br><br>
-      <label><strong>Five Dollar Bills: </strong></label>
-      <input name="five" type="text">
-      <br><br>
-      <label><strong>One Dollar Bills: </strong></label>
-      <input name="one" type="text">
-      <br><br>
-      <label><strong>Quarters: </strong></label>
-      <input name="quarters" type="text">
-      <br><br>
-      <label><strong>Dimes: </strong></label>
-      <input name="dimes" type="text">
-      <br><br>
-      <label><strong>Nickels: </strong></label>
-      <input name="nickels" type="text">
-      <br><br>
-      <label><strong>Pennies: </strong></label>
-      <input name="pennies" type="text">
-      <br><br>
-      <label><strong>Number of Checks: </strong></label>
-      <input name="checks" type="text">
-      <br><br>
-      <label><strong>Number of Card Transactions: </strong></label>
-      <input name="card" type="text">
-      <br><br>
-      <label><strong>Register ID Number: </strong></label>
-      <input name="register" type="text">
-      <br><br>
-      <label><strong>Store ID Number: </strong></label>
-      <input name="store" type="text">
-      <br><br>
-      <br><br>
+      <div style="text-align:left">
+      <div class="form-group">
+      <label for="hundred"><strong>$ 100's: </strong></label>
+    <input name="hundred" type="text" class="form-control" id="hundred" placeholder="Number of One Hundred Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="fifty"><strong>$ 50's: </strong></label>
+    <input name="fifty" type="text" class="form-control" id="fifty" placeholder="Number of Fifty Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="twenty"><strong>$ 20's: </strong></label>
+    <input name="twenty" type="text" class="form-control" id="twenty" placeholder="Number of Twenty Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="ten"><strong>$ 10's: </strong></label>
+    <input name="ten" type="text" class="form-control" id="ten" placeholder="Number of Ten Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="five"><strong>$ 5's: </strong></label>
+    <input name="five" type="text" class="form-control" id="five" placeholder="Number of Five Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="one"><strong>$ 1's: </strong></label>
+    <input name="one" type="text" class="form-control" id="one" placeholder="Number of One  Dollar Bills">
+      </div>
+
+      <div class="form-group">
+      <label for="quarters"><strong>25 &cent;: </strong></label>
+    <input name="quarters" type="text" class="form-control" id="quarters" placeholder="Number of Quarters">
+      </div>
+
+      <div class="form-group">
+      <label for="dimes"><strong>10 &cent;: </strong></label>
+    <input name="dimes" type="text" class="form-control" id="dimes" placeholder="Number of Dimes">
+      </div>
+
+      <div class="form-group">
+      <label for="nickels"><strong>5 &cent;: </strong></label>
+    <input name="nickels" type="text" class="form-control" id="nickels" placeholder="Number of Nickels">
+      </div>
+
+      <div class="form-group">
+      <label for="pennies"><strong>1 &cent;: </strong></label>
+    <input name="pennies" type="text" class="form-control" id="pennies" placeholder="Number of Pennies">
+      </div>
+
+      <div class="form-group">
+      <label for="checks"><strong>Checks: </strong></label>
+    <input name="checks" type="text" class="form-control" id="checks" placeholder="Number of Checks">
+      </div>
+
+      <div class="form-group">
+      <label for="card"><strong>Cards: </strong></label>
+      <input name="card" type="text" class="form-control" id="card" placeholder="Number of Card Transactions">
+      </div>
+
+      <div class="form-group">
+      <label for="register"><strong>Register Number: </strong></label>
+    <input name="register" type="text" class="form-control" id="register" placeholder="Register Identification Number">
+      </div>
+
+      <div class="form-group">
+      <label for="store"><strong>Store Number: </strong></label>
+      <input name="store" type="text" class="form-control" id="store" placeholder="Store Identification Number">
+      </div>
+    </div>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

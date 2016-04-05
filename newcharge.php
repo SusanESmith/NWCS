@@ -42,45 +42,62 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="newchargequery.php" id="reviewcharge" style="text-align:center">
+      <div style="text-align:left" >
     <label>Customer Type:</label>
-    <select name="custType">
+    <select name="custType" class="form-control">
       <!--drop down menu-->
       <option value="<?php echo "Individual";?>"><?php echo "Individual";?></option>
       <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
     </select>
-    <br><br>
-    <label><strong>Business Name: </strong></label>
-    <input name="busiName" type="text">
-    <br><br>
-    <label><strong>Customer Last Name: </strong></label>
-    <input name="custLName" type="text">
-    <br><br>
-    <label><strong>Customer First Name: </strong></label>
-    <input name="custFName" type="text">
-    <br><br>
 
-    <label><strong>Address: </strong></label>
-    <input name="address" type="text">
-    <br><br>
-    <label><strong>City: </strong></label>
-    <input name="city" type="text">
-    <br><br>
-    <label><strong>State: </strong></label>
-    <input name="state" type="text">
-    <br><br>
-    <label><strong>Zip Code: </strong></label>
-    <input name="zip" type="text">
-    <br><br>
-    <label><strong>Customer Phone Number: </strong></label>
-    <input name="custPhone" type="text">
-    <br><br>
-    <label><strong>Today's Date: </strong></label>
-    <input name="date" type="date">
-    <br><br>
+    <div class="form-group">
+    <label for="busName"><strong>Business Name: </strong></label>
+  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business">
+    </div>
 
+    <div class="form-group">
+    <label for="custLName"><strong>Last Name: </strong></label>
+  <input name="custLName" type="text" class="form-control" id="custLName" placeholder="Last name of Customer/Point of Contact">
+    </div>
+
+    <div class="form-group">
+    <label for="custFName"><strong>First Name: </strong></label>
+  <input name="custFName" type="text" class="form-control" id="custFName" placeholder="First name of Customer/Point of Contact">
+    </div>
+
+    <div class="form-group">
+    <label for="address"><strong>Address: </strong></label>
+    <input name="address" type="text" class="form-control" id="address" placeholder="Business/Individual Address">
+    </div>
+
+    <div class="form-group">
+    <label for="city"><strong>City: </strong></label>
+  <input name="city" type="text" class="form-control" id="city" placeholder="Business/Individual City">
+    </div>
+
+    <div class="form-group">
+    <label for="state"><strong>State: </strong></label>
+  <input name="state" type="text" class="form-control" id="state" placeholder="Business/Individual State">
+    </div>
+
+    <div class="form-group">
+    <label for="zip"><strong>Zip Code: </strong></label>
+  <input name="zip" type="text" class="form-control" id="zip" placeholder="Business/Individual Zip Code">
+    </div>
+
+    <div class="form-group">
+    <label for="custPhone"><strong>Customer Phone Number: </strong></label>
+  <input name="custPhone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="custPhone" placeholder="Phone Number">
+    </div>
+
+    <div class="form-group">
+    <label for="date"><strong>Date of Request: </strong></label>
+  <input name="date" type="date" class="form-control" id="date" placeholder="date">
+    </div>
+</div>
       <br><br>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

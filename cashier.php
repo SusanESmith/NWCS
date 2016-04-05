@@ -87,7 +87,7 @@
 
         if (isset($pay)){?>
     <label>Payment Type:</label>
-    <select name="payment">
+    <select name="payment" class="form-control">
       <!--drop down menu-->
     <option value="<?php echo "cash";?>"><?php echo "Cash";?></option>
       <option value="<?php echo "card";?>"><?php echo "Credit or Debit";?></option>
@@ -110,20 +110,33 @@
         "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
           <br>
         <div style=\"text-align:left\">
-        <div class=\"form-group\">
-        <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
-        <input name=\"cash\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
-        </div>
-
-        <div class=\"form-group\">
-        <label for=\"cash\"><strong>Total Cash Received: </strong></label>
-        <input name=\"cash\" type=\"text\"class=\"form-control\" id=\"cash\" placeholder=\"Total Cash Received\">
-          </div>
-
+        <form class=\"form-inline\">
           <div class=\"form-group\">
-        <label for=\"cash\"><strong>Changed Owed: </strong></label>
-        <input name=\"change\" type=\"text\"class=\"form-control\" id=\"change\" placeholder=\"Change Amount Auto here\">
+            <label  for=\"payment\">Total Amount Owed: </label>
+          <div class=\"input-group\">
+          <div class=\"input-group-addon\">$</div>
+            <input type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
           </div>
+          </div>
+
+          <form class=\"form-inline\">
+            <div class=\"form-group\">
+              <label  for=\"cash\">Total Cash Received: </label>
+            <div class=\"input-group\">
+            <div class=\"input-group-addon\">$</div>
+              <input type=\"text\" class=\"form-control\" id=\"cash\" placeholder=\"Total Cash Received\">
+            </div>
+            </div>
+
+            <form class=\"form-inline\">
+              <div class=\"form-group\">
+                <label  for=\"payment\">Change Owed: </label>
+              <div class=\"input-group\">
+              <div class=\"input-group-addon\">$</div>
+                <input type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Change Amount Auto here\">
+              </div>
+              </div>
+
 
           </div>
         <label>&nbsp;</label>
@@ -134,15 +147,20 @@
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
           <div style=\"text-align:left\">
-          <div class=\"form-group\">
-          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
-          <input name=\"card\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
-          </div>
+          <form class=\"form-inline\">
+            <div class=\"form-group\">
+              <label  for=\"payment\">Total Amount Owed: </label>
+            <div class=\"input-group\">
+            <div class=\"input-group-addon\">$</div>
+              <input type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+            </div>
+            </div>
 
-          <div class=\"form-group\">
-          <label for=\"num\"><strong>Credit Card Number: </strong></label>
-          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Customer Credit Card Number\">
-          </div>
+            <div class=\"form-group\">
+            <label for=\"card\"><strong>Credit Card Number: </strong></label>
+            <input name=\"card\" type=\"text\" class=\"form-control\" id=\"card\" placeholder=\"Customer's Credit Card Number\">
+            </div>
+
           </div>
           <label>&nbsp;</label>
           <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
@@ -153,10 +171,15 @@
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
           <div style=\"text-align:left\">
-          <div class=\"form-group\">
-          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
-          <input name=\"check\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
-          </div>
+          <form class=\"form-inline\">
+            <div class=\"form-group\">
+              <label  for=\"payment\">Total Amount Owed: </label>
+            <div class=\"input-group\">
+            <div class=\"input-group-addon\">$</div>
+              <input type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+            </div>
+            </div>
+
 
 
           <div class=\"form-group\">
@@ -180,10 +203,16 @@
 
           "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
           <div style=\"text-align:left\">
-          <div class=\"form-group\">
-          <label for=\"payment\"><strong>Total Amount Owed: </strong></label>
-          <input name=\"check\" type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
-          </div>
+
+          <form class=\"form-inline\">
+            <div class=\"form-group\">
+              <label  for=\"payment\">Total Amount Owed: </label>
+            <div class=\"input-group\">
+            <div class=\"input-group-addon\">$</div>
+              <input type=\"text\" class=\"form-control\" id=\"payment\" placeholder=\"Total Transaction Amount\">
+            </div>
+            </div>
+
 
           <div class=\"form-group\">
           <label for=\"cID\"><strong>Charge Account Number: </strong></label>

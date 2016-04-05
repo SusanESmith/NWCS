@@ -40,12 +40,13 @@
 <!--panel body-->
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-
-	<p><strong><a href="queryinventory.php">Look at Current Inventory</a></strong></p>
-  <p><strong><a href="addinventory.php">Add Inventory</a></strong></p>
-  <p><strong><a href="updateinventory.php">Update Current Inventory</a></strong></p>
-  <p><strong><a href="storeIDinv.php">Items that are Below Minimum Inventory Quantity</a></strong></p>
-
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='queryinventory.php'"><strong>Look at Current Inventory</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='addinventory.php'"><strong>Add Inventory</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='updateinventory.php'"><strong>Update Current Inventory</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='storeIDinv.php'"><strong>Items that are Below Minimum Inventory Quantity</strong></button>
 
 
   </div>

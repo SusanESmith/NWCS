@@ -43,20 +43,27 @@
 
   <form method="post" action="transreportquery.php" id="inventory" style="text-align:center">
 
-      <br><br>
-      <label><strong>Employee ID Number: </strong></label>
-      <input name="empID" type="text">
-      <br><br>
-      <label><strong>Transaction ID Number: </strong></label>
-      <input name="transID" type="text">
-      <br><br>
-      <label><strong>Date of Transaction: </strong></label>
-      <input name="transDate" type="date">
-      <br><br>
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="empID"><strong>Employee ID: </strong></label>
+  <input name="empID" type="text" class="form-control" id="empID" placeholder="Employee Identification Number">
+    </div>
+
+    <div class="form-group">
+    <label for="storeID"><strong>Transaction ID: </strong></label>
+  <input name="transID" type="text" class="form-control" id="transID" placeholder="Transaction Identification Number">
+    </div>
+
+    <div class="form-group">
+    <label for="transDate"><strong>Date of Transaction: </strong></label>
+  <input name="transDate" type="text" class="form-control" id="transDate" placeholder="Date of Transaction">
+
+    </div>
+  </div>
 
       <br><br>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

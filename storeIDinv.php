@@ -42,14 +42,15 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="mininventory.php" id="inventory" style="text-align:center">
-
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
-      <br><br>
-
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="storeID"><strong>Store ID: </strong></label>
+  <input name="id" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
+    </div>
+  </div>
 
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

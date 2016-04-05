@@ -42,24 +42,39 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="updateinvquery.php" id="inventory" style="text-align:center">
+      <div style="text-align:left">
+        <div class="form-group">
+      <label for="prodID"><strong>Product ID: </strong></label>
+      <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
+        </div>
 
-      <label><strong>Product ID Number: </strong></label>
-      <input name="prodID" type="text">
-      <br><br>
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
-      <br><br>
-      <label><strong>Price of Item: </strong></label>
-      <input name="price" type="text">
-      <br><br>
-      <label><strong>Minimum Item Quantity: </strong></label>
-      <input name="min" type="text">
-      <br><br>
-      <label><strong>Current Date: </strong></label>
-      <input name="date" type="date">
-      <br><br>
+        <div class="form-group">
+      <label for="storeID"><strong>Store ID: </strong></label>
+      <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
+        </div>
+
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="price">Price: </label>
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="price" placeholder="Price of Item">
+            </div>
+          </div>
+  
+
+        <div class="form-group">
+      <label for="min"><strong>Minimum Quantity: </strong></label>
+      <input name="min" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock">
+        </div>
+
+        <div class="form-group">
+      <label for="date"><strong>Date: </strong></label>
+      <input name="date" type="text" class="form-control" id="date" placeholder="Date of Inventory Update">
+        </div>
+      </div>
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

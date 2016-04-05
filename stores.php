@@ -58,7 +58,10 @@
           <th>Store ID</th>
           <th>Store Phone</th>
           <th>Store Manager</th>
-
+          <th>Store Address</th>
+          <th>Store City</th>
+          <th>Store State</th>
+          <th>Store Zip Code</th>
 
 
         </tr>
@@ -68,7 +71,10 @@
           <td>S16</td>
           <td>931-792-2301</td>
           <td>Larry Brown</td>
-
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
 
 
         </tr>
@@ -122,7 +128,7 @@
           </div>
           <div class="form-group">
         <label for="storePhone"><strong>Store Phone: </strong></label>
-        <input name="sphone" type="text" class="form-control" id="storePhone" placeholder="Store Phone Number">
+        <input name="sphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="storePhone" placeholder="Store Phone Number">
 
           </div>
           <div class="form-group">

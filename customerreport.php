@@ -43,17 +43,20 @@
 
   <form method="post" action="businessreportquery.php" id="inventory" style="text-align:center">
 
-      <br><br>
-      <label><strong>Business ID Number: </strong></label>
-      <input name="busiID" type="text">
-      <br><br>
-      <label><strong>Business Name: </strong></label>
-      <input name="busiName" type="text">
-      <br><br>
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="busID"><strong>Business ID: </strong></label>
+  <input name="busID" type="text" class="form-control" id="busID" placeholder="Business Identification Number">
+    </div>
 
-      <br><br>
+    <div class="form-group">
+    <label for="busName"><strong>Business Name: </strong></label>
+  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business">
+    </div>
+  </div>
+
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 
   </div>

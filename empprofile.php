@@ -105,47 +105,71 @@
       <!--panel body-->
 
       <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-        <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
-            <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-            <input name="emp" type="text">
 
-            <label>&nbsp;</label>
-            <input type="submit" name="enterBtn" value="Search">
-            <br><br>
-        </form>
+          <div class="form-group">
+          <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
+              <br>
+        <input name="emp" type="text"  id="newemp" >
+        <button type="button" class="btn btn-warning" onclick="window.location.href='empsearch.php'"><strong>Search</strong></button>
+        <br><br>
+          </div>
+
+
+
 
 
           <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
-            <label><strong>Or add a new employee by entering an employee ID number: </strong></label>
-            <input type="submit" name="newemp" value="Add New Employee">
-            <br><br>
+
+            <div class="form-group">
+            <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
+              <br>
+          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add New Employee">
+
+
+            </div>
+
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
-              <label><strong>Employee Last Name: </strong></label>
-              <input name="lName" type="text">
-              <br><br>
-              <label><strong>Employee First Name: </strong></label>
-              <input name="fName" type="text">
-              <br><br>
-              <label><strong>Employee Street Address: </strong></label>
-              <input name="eAdd" type="text">
-              <br><br>
-              <label><strong>Employee City: </strong></label>
-              <input name="city" type="text">
-              <br><br>
-              <label><strong>Employee State: </strong></label>
-              <input name="state" type="text">
-              <br><br>
-              <label><strong>Employee Zip Code: </strong></label>
-              <input name="zip" type="text">
-              <br><br>
-              <label><strong>Phone: </strong></label>
-              <input name="ephone" type="text">
-              <br><br>
+              <div style="text-align:left">
+              <div class="form-group">
+              <label for="lName"><strong>Last Name: </strong></label>
+            <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name">
+              </div>
+
+              <div class="form-group">
+              <label for="fName"><strong>First Name: </strong></label>
+            <input name="fName" type="text" class="form-control" id="fName" placeholder="Employee First Name">
+              </div>
+
+              <div class="form-group">
+              <label for="add"><strong>Address: </strong></label>
+            <input name="add" type="text" class="form-control" id="add" placeholder="Employee Street Address">
+              </div>
+
+              <div class="form-group">
+              <label for="city"><strong>City: </strong></label>
+            <input name="city" type="text" class="form-control" id="city" placeholder="Employee City">
+              </div>
+
+              <div class="form-group">
+              <label for="state"><strong>State: </strong></label>
+            <input name="state" type="text" class="form-control" id="state" placeholder="Employee State">
+              </div>
+
+              <div class="form-group">
+              <label for="zip"><strong>Zip Code: </strong></label>
+            <input name="zip" type="text" class="form-control" id="zip" placeholder="Employee Zip Code">
+              </div>
+
+              <div class="form-group">
+              <label for="phone"><strong> Phone Number: </strong></label>
+            <input name="phone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="phone" placeholder="Employee Phone Number">
+              </div>
+        </div>
 
           </form>
           <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
-            <input type="submit" name="newemp" value="Add New Employee">
+            <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
           </form>
       <?php  }?>
 

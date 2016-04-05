@@ -41,11 +41,15 @@
 
         <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-        	<p><strong><a href="vendors.php">Vendors</a></strong></p>
-          <p><strong><a href="stores.php">Stores</a></strong></p>
-          <p><strong><a href="central.php">Central Office</a></strong></p>
-          <p><strong><a href="warehouse.php">Warehouse</a></strong></p>
+          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='vendors.php'"><strong>Vendors</strong></button>
+          <br><br>
+          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='stores.php'"><strong>Stores</strong></button>
+          <br><br>
+          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='central.php'"><strong>Central</strong></button>
+          <br><br>
+          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='warehouse.php'"><strong>Warehouse</strong></button>
 
+        	
           </div>
             <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
             <p><strong><a href="logout.php">Click here to logout</a></strong></p>

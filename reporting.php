@@ -41,10 +41,11 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-	<p><strong><a href="salesreport.php">Sales Reporting</a></strong></p>
-  <p><strong><a href="transactionreport.php">Transaction Reporting</a></strong></p>
-  <p><strong><a href="customerreport.php">Customer Reporting</a></strong></p>
-
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='salesreport.php'"><strong>Sales Reporting</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='transactionreport.php'"><strong>Transaction Reporting</strong></button>
+  <br><br>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='customerreport.php'"><strong>Customer Reporting</strong></button>
   </div>
 
 

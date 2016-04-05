@@ -102,34 +102,50 @@
               <!--panel body-->
               <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
                 <form method="post" name="newvendor" action="vendors.php" id="newvendor" style="text-align:center">
-                  <input type="submit" name="newvendor" value="Add Form">
+                  <input type="submit" name="newvendor" class="btn btn-warning" value="Add Form">
                   <br><br>
                   <?php $new=filter_input(INPUT_POST,'newvendor');
                   if (isset($new)){?>
-                    <label><strong>Vendor Name: </strong></label>
-                    <input name="Name" type="text">
-                    <br><br>
-                    <label><strong>Vendor phone: </strong></label>
-                    <input name="vphone" type="text">
-                    <br><br>
-                    <label><strong>Vendor Address: </strong></label>
-                    <input name="vaddress" type="text">
-                    <br><br>
-                    <label><strong>Vendor City: </strong></label>
-                    <input name="vcity" type="text">
-                    <br><br>
-                    <label><strong>Vendor State: </strong></label>
-                    <input name="vstate" type="text">
-                    <br><br>
-                    <label><strong>Vendor Zip Code: </strong></label>
-                    <input name="vzip" type="text">
-                    <br><br>
-                    <label><strong>Vendor Items: </strong></label>
-                    <input name="vitems" type="text">
-                    <br><br>
+                    <div style="text-align:left">
+                    <div class="form-group">
+                    <label for="name"><strong>Vendor Name: </strong></label>
+                  <input name="name" type="text" class="form-control" id="name" placeholder="Vendor Name">
+                    </div>
+
+                  <div class="form-group">
+                    <label for="vphone"><strong>Vendor Phone: </strong></label>
+                  <input name="vphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="vphone" placeholder="Vendor Phone Number">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="vaddress"><strong>Vendor Address: </strong></label>
+                    <input name="vaddress" type="text" class="form-control" id="vaddress" placeholder="Vendor Street Address">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="vcity"><strong>Vendor City: </strong></label>
+                      <input name="vcity" type="text" class="form-control" id="vcity" placeholder="Vendor City">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="vstate"><strong>Vendor State: </strong></label>
+                        <input name="vstate" type="text" class="form-control" id="vstate" placeholder="Vendor State">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="vzip"><strong>Vendor Zip Code: </strong></label>
+                          <input name="vzip" type="text" class="form-control" id="vzip" placeholder="Vendor Zip Code">
+                            </div>
+
+                            <div class="form-group">
+                              <label for="vitems"><strong>Vendor Items: </strong></label>
+                            <input name="vitems" type="text" class="form-control" id="vitems" placeholder="Items Supplied by this Vendor">
+                              </div>
+
+                  </div>
                 </form>
                 <form method="post" name="newvendor" action="addvendor.php" id="newvendor" style="text-align:center">
-                  <input type="submit" name="newvendor" value="Click Here to Add New Vendor">
+                  <input type="submit" name="newvendor" class="btn btn-warning" value="Click Here to Add New Vendor">
                 </form>
                 <?php  }?>
               </div>

@@ -47,25 +47,32 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="ordering.php" id="ordering" style="text-align:center">
+    <div style="text-align:left">
+    <div class="form-group">
+    <label for="orderDate"><strong>Order Date: </strong></label>
+  <input name="orderDate" type="text" class="form-control" id="orderDate" placeholder="Date Order is to be submitted">
+    </div>
 
+    <div class="form-group">
+    <label for="storeID"><strong>Store ID: </strong></label>
+  <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identiification Number">
+    </div>
 
-      <label><strong>Order Date: </strong></label>
-      <input name="orderDate" type="date">
-      <br><br>
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
-      <br><br>
-      <label><strong>Product ID Number: </strong></label>
-      <input name="ProdID" type="text">
-      <br><br>
-      <label><strong>Product Quantity: </strong></label>
-      <input name="quantity" type="text">
-      <br><br>
+    <div class="form-group">
+    <label for="prodID"><strong>Product ID: </strong></label>
+  <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
+    </div>
+
+    <div class="form-group">
+    <label for="quantity"><strong>Quantity of Item to be Ordered: </strong></label>
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to be Ordered">
+    </div>
+  </div>
       <label>&nbsp;</label>
-      <input type="submit" value="Add item to Order">
+      <input type="submit" class="btn btn-warning" value="Add item to Order">
 
       <label>&nbsp;</label>
-      <input type="submit" value="Submit Order">
+      <input type="submit" class="btn btn-warning" value="Submit Order">
     </form>
 
   </div>

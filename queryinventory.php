@@ -42,8 +42,9 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
   <form method="post" action="queryinvresult.php" id="inventory" style="text-align:center">
+      <div style="text-align:left">
     <label>Choose a Category:</label>
-    <select name="catID">
+    <select name="catID" class="form-control">
       <!--drop down menu-->
       <option value="<?php echo "Category1";?>"><?php echo "Category1";?></option>
       <option value="<?php echo "Category2";?>"><?php echo "Category2";?></option>
@@ -52,18 +53,25 @@
       <option value="<?php echo "Category5";?>"><?php echo "Category5";?></option>
     </select>
       <br><br>
-      <label><strong>Product ID Number: </strong></label>
-      <input name="prodID" type="text">
-      <br><br>
-      <label><strong>Store ID Number: </strong></label>
-      <input name="storeID" type="text">
 
+      <div class="form-group">
+      <label for="prodID"><strong>Product ID: </strong></label>
+    <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
+      </div>
+      <div style="text-align:left">
+      <div class="form-group">
+      <label for="storeID"><strong>Store ID: </strong></label>
+    <input name="id" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
+      </div>
+      </div>
+      </div>
       <br><br>
+
       <label>&nbsp;</label>
-      <input type="submit" value="Submit">
+      <input type="submit" class="btn btn-warning" value="Submit">
     </form>
+</div>
 
-  </div>
   <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
