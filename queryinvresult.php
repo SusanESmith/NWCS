@@ -1,3 +1,39 @@
+<?php
+$prodID= filter_input(INPUT_POST, 'product');
+$storeID = filter_input(INPUT_POST, 'store');
+
+require_once('nwcsdatabase.php');
+//$productName= 'test item';
+
+
+$inv="SELECT * FROM STOCK WHERE PRODUCT_ID=$prodID AND STORE_ID=$storeID";
+$statement2= $db->prepare($inv);
+$statement2->execute();
+$stock= $statement2->fetch();
+$statement2->closeCursor();
+
+$pName="SELECT PRODUCT_NAME FROM PRODUCTS WHERE PRODUCT_ID=$prodID";
+$statement1= $db->prepare($pName);
+$statement1->execute();
+$prodName= $statement1->fetchColumn();
+$statement1->closeCursor();
+
+$CAT="SELECT CATEGORY_NAME FROM CATEGORY, PRODUCTS WHERE PRODUCT_ID=$prodID AND CATEGORY.CATEGORY_ID=PRODUCTS.CATEGORY_ID";
+$statement3= $db->prepare($CAT);
+$statement3->execute();
+$category= $statement3->fetchColumn();
+$statement3->closeCursor();
+
+$pPRICE="SELECT PRODUCT_PRICE FROM PRODUCTS WHERE PRODUCT_ID=$prodID";
+$statement4= $db->prepare($pPRICE);
+$statement4->execute();
+$price= $statement4->fetchColumn();
+$statement4->closeCursor();
+
+
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,13 +63,13 @@
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">These items are currently in stock at the chosen location</h1>
+    <h1><span class="label label-primary">Stock Information for the Chosen Location</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'These items are in stock at (store location number):';?>
+        <?php echo "<span style=\"color:ORANGE\">'".$prodName.'\' </span>Inventory Information at Store ID Number <span style="color:ORANGE">\''.$storeID.'\'</span>: ';?>
     </h4>
 </div>
 
@@ -56,55 +92,32 @@
 
       <thead>
         <tr>
-          <th>Category</th>
+
           <th>Product</th>
           <th>Product ID</th>
+          <th>Category</th>
           <th>Price</th>
           <th>Quantity in stock</th>
           <th>Minimum Quantity</th>
+          <th>Last Restock Date</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Beer</td>
-          <td>Dos Perros</td>
-          <td>N4545</td>
-          <td>$7.99</td>
-          <td>15</td>
-          <td>7</td>
+
+          <td><?php echo $prodName; ?></td>
+          <td><?php echo $stock['PRODUCT_ID']; ?></td>
+          <td><?php echo $category; ?></td>
+          <td><?php echo $price; ?></td>
+          
+          <td><?php if ($stock['STOCK_QTY']<$stock['STOCK_MIN_QTY']){
+               echo "<span style=\"color:RED\">".$stock['STOCK_QTY']."</span>";}
+           else {echo $stock['STOCK_QTY'];} ?></td>
+
+          <td><?php echo $stock['STOCK_MIN_QTY']; ?></td>
+          <td><?php echo $stock['STOCK_LAST_RESTOCK']; ?></td>
         </tr>
-        <tr>
-          <td>Pharmaceutical</td>
-          <td>Tylenol</td>
-          <td>N3215</td>
-          <td>$3.99</td>
-          <td>53</td>
-          <td>30</td>
-        </tr>
-        <tr>
-          <td>Snack Food</td>
-          <td>Combos</td>
-          <td>N6841</td>
-          <td>$2.50</td>
-          <td>68</td>
-          <td>25</td>
-        </tr>
-        <tr>
-          <td>Tobacco Products</td>
-          <td>Marlboro</td>
-          <td>N9199</td>
-          <td>$4.99</td>
-          <td>48</td>
-          <td>30</td>
-        </tr>
-        <tr>
-          <td>Soft Drinks</td>
-          <td>Pepsi</td>
-          <td>N0046</td>
-          <td>$1.79</td>
-          <td style="color:RED">27</td>
-          <td>35</td>
-        </tr>
+
       </tbody>
     </table>
   </div>

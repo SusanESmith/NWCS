@@ -268,7 +268,7 @@
               array_push($_SESSION["arrayID"], $prodID);
               array_push($_SESSION["arrayQ"], $quantity);
               for($i = 0; $i < count($_SESSION["arrayID"]); $i++) {
-                echo "<label>Item:</label> ".$_SESSION["arrayID"][$i]."         "."<button>Delete Item</button>";
+                echo "<label>Item:</label> ".$_SESSION["arrayID"][$i]."         "."<button class= \"btn btn-warning\">Delete Item</button>";
                 echo "<br>";
               }
             }

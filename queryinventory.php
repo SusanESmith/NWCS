@@ -1,3 +1,17 @@
+<?php
+include('nwcsdatabase.php');
+$PRODUCT='SELECT * FROM PRODUCTS';
+$statement= $db->prepare($PRODUCT);
+$statement->execute();
+$PRODUCTS = $statement->fetchAll();
+$statement->closeCursor();
+
+$STORE='SELECT * FROM STORE';
+$statement1= $db->prepare($STORE);
+$statement1->execute();
+$STORES = $statement1->fetchAll();
+$statement1->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,27 +57,20 @@
 
   <form method="post" action="queryinvresult.php" id="inventory" style="text-align:center">
       <div style="text-align:left">
-    <label>Choose a Category:</label>
-    <select name="catID" class="form-control">
-      <!--drop down menu-->
-      <option value="<?php echo "Category1";?>"><?php echo "Category1";?></option>
-      <option value="<?php echo "Category2";?>"><?php echo "Category2";?></option>
-      <option value="<?php echo "Category3";?>"><?php echo "Category3";?></option>
-      <option value="<?php echo "Category4";?>"><?php echo "Category4";?></option>
-      <option value="<?php echo "Category5";?>"><?php echo "Category5";?></option>
-    </select>
-      <br><br>
 
-      <div class="form-group">
-      <label for="prodID"><strong>Product ID: </strong></label>
-    <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
-      </div>
-      <div style="text-align:left">
-      <div class="form-group">
-      <label for="storeID"><strong>Store ID: </strong></label>
-    <input name="id" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
-      </div>
-      </div>
+
+        <label>Store ID:</label>
+        <select name="store" class="form-control">
+          <?php foreach ($STORES as $s):?>
+          <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID'];?></option>
+        <?php endforeach;  ?>
+        </select>
+        <label>Product:</label>
+        <select name="product" class="form-control">
+          <?php foreach ($PRODUCTS as $p):?>
+          <option value="<?php echo $p['PRODUCT_ID'];?>"><?php echo $p['PRODUCT_ID']." - ".$p['PRODUCT_NAME']." - ".$p['PRODUCT_DESCRIPTION'];?></option>
+        <?php endforeach;  ?>
+        </select>
       </div>
       <br><br>
 

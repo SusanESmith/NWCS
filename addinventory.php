@@ -1,3 +1,36 @@
+<?php
+include('nwcsdatabase.php');
+/*$query='INSERT INTO STOCK (PRODUCT_ID, STORE_ID, CATEGORY_ID, STOCK_QTY, STOCK_MIN_QTY)
+VALUES (:PRODUCT_ID,:STORE_ID,:CATEGORY_ID,:STOCK_QTY, :STOCK_MIN_QTY)';
+
+$statement= $db->prepare($query);
+$statement->bindValue(':PRODUCT_ID',$PRODUCT_ID);
+$statement->bindValue(':STORE_ID',$STORE_ID);
+$statement->bindValue(':CATEGORY_ID',$CATEGORY_ID);
+$statement->bindValue(':STOCK_QTY',$STOCK_QTY);
+$statement->bindValue(':STOCK_MIN_QTY',$STOCK_MIN_QTY);
+$statement->execute();
+$statement->closeCursor();*/
+
+//get all categories from db
+$CAT='SELECT * FROM CATEGORY';
+$statement= $db->prepare($CAT);
+$statement->execute();
+$CATEGORIES = $statement->fetchAll();
+$statement->closeCursor();
+
+$STORE='SELECT * FROM STORE';
+$statement= $db->prepare($STORE);
+$statement->execute();
+$STORES = $statement->fetchAll();
+$statement->closeCursor();
+
+$VENDOR='SELECT * FROM VENDOR';
+$statement= $db->prepare($VENDOR);
+$statement->execute();
+$VENDORS = $statement->fetchAll();
+$statement->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,31 +77,57 @@
   <form method="post" action="addinvquery.php" id="inventory" style="text-align:center">
 
     <div style="text-align:left">
+      <label>Store ID:</label>
+      <select name="store" class="form-control">
+        <?php foreach ($STORES as $s):?>
+        <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID'];?></option>
+      <?php endforeach;  ?>
+      </select>
+
+    <label>Vendor:</label>
+    <select name="vendor" class="form-control">
+      <?php foreach ($VENDORS as $v):?>
+      <option value="<?php echo $v['VENDOR_ID'];?>"><?php echo $v['VENDOR_NAME'];?></option>
+    <?php endforeach;  ?>
+    </select>
+
+    <label>Category:</label>
+    <select name="category" class="form-control">
+      <?php foreach ($CATEGORIES as $c):?>
+      <option value="<?php echo $c['CATEGORY_ID'];?>"><?php echo $c['CATEGORY_NAME'];?></option>
+    <?php endforeach;  ?>
+    </select>
+
+
     <div class="form-group">
-    <label for="storeID"><strong>Store ID: </strong></label>
-  <input name="sID" type="text" class="form-control" id="storeID" placeholder="Store ID">
-    </div>
-    <div class="form-group">
-    <label for="productID"><strong>Product ID Number: </strong></label>
-  <input name="pID" type="text" class="form-control" id="productID" placeholder="Product ID">
-    </div>
+  <label for="minStock"><strong>Minimum Stock Quantity: </strong></label>
+<input name="minStock" type="text" class="form-control" id="minStock" placeholder="Minimum Stock Quantity for this Item">
+  </div>
+
     <div class="form-group">
     <label for="quantity"><strong>Quantity: </strong></label>
   <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add">
     </div>
+
+    <div class="form-group">
+    <label for="prodName"><strong>Product Name: </strong></label>
+  <input name="prodName" type="text" class="form-control" id="prodName" placeholder="Name of New Inventory Item">
+    </div>
+
     <form class="form-inline">
   <div class="form-group">
     <label for="price">Price:</label>
     <div class="input-group">
       <div class="input-group-addon">$</div>
-      <input type="text" class="form-control" id="price" placeholder="Price of Item">
+      <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
       </div>
   </div>
-  
-    <div class="form-group">
-    <label for="date"><strong>Date: </strong></label>
-  <input name="date" type="date" class="form-control" id="date" placeholder="Date of Item Added">
-    </div>
+
+  <div class="form-group">
+  <label for="pDesc"><strong>Product Description: </strong></label>
+<input name="pDesc" type="text" class="form-control" id="pDesc" placeholder="Short Description of This Product">
+  </div>
+
   </div>
       <label>&nbsp;</label>
       <input type="submit"  class="btn btn-warning" value="Submit">

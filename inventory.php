@@ -46,7 +46,7 @@
   <br><br>
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='updateinventory.php'"><strong>Update Current Inventory</strong></button>
   <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='storeIDinv.php'"><strong>Items that are Below Minimum Inventory Quantity</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='storeIDinv.php'"><strong>Items Below Minimum Inventory Quantity</strong></button>
 
 
   </div>
