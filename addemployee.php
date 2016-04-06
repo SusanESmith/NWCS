@@ -1,3 +1,25 @@
+<?php
+require_once('nwcsdatabase.php');
+
+$lastname = $_POST['lName'];
+$firstname = $_POST['fName'];
+$address = $_POST['eAdd'];
+$city = $_POST['city'];
+$state = $_POST['state'];
+$zip = $_POST['zip'];
+$phone = $_POST['ephone'];
+$store = $_POST['store'];
+
+$query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE)
+VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone')"; 
+
+
+$db->exec($query);
+$employeeid = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = '$firstname'"; //testing for right now
+$positionid = "SELECT POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = '$firstname'";
+$query2 = "INSERT INTO EMPLOYEE_STORE(STORE_ID, EMPLOYEE_ID, POSITION_ID) VALUES ('$store', '$employeeid', '$positionid')";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,15 +94,14 @@
       </thead>
       <tbody>
         <tr>
-          <td>E1001</td>
-          <td>Susie Jones</td>
-          <td>101 Maynard Way</td>
-          <td>Clarksville</td>
-          <td>TN</td>
-          <td>37015</td>
-          <td>931-444-1000</td>
-          <td>S22</td>
-
+          <td><?php echo $employeeid; ?></td>
+          <td><?php echo $firstname." ".$lastname; ?></td>
+          <td><?php echo $address; ?></td>
+          <td><?php echo $city; ?></td>
+          <td><?php echo $state; ?></td>
+          <td><?php echo $zip; ?></td>
+          <td><?php echo $phone; ?></td>
+		  <td><?php echo $store; ?></td>
 
 
         </tr>
