@@ -1,3 +1,14 @@
+<?php
+require_once('nwcsdatabase.php');
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+FROM EMPLOYEE E, EMPLOYEE_STORE ES
+WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
+AND E.EMPLOYEE_ID = 1001";
+$statement = $db->prepare($query);
+$statement->execute();
+$profile = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +44,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Susie Jones';?>
+      <?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME'];?>
     </h4>
 </div>
 
@@ -60,20 +71,18 @@
     </thead>
     <tbody>
       <tr>
-        <td>E1001</td>
-        <td>Susie Jones</td>
-        <td>101 Maynard Way</td>
-        <td>Clarksville</td>
-        <td>TN</td>
-        <td>37015</td>
-        <td>931-444-1000</td>
-        <td>S22</td>
+        <td><?php echo $profile['EMPLOYEE_ID']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ADDRESS']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_CITY']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_STATE']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ZIP']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_PHONE']; ?></td>
+        <td><?php echo $profile['STORE_ID']; ?></td>
 
 
-
+		
       </tr>
-
-
     </tbody>
   </table>
 </div>
@@ -105,31 +114,30 @@
       <!--panel body-->
 
       <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+        <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
+            <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
+            <input name="emp" type="text">
 
-          <div class="form-group">
-          <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-              <br>
-        <input name="emp" type="text"  id="newemp" >
-        <button type="button" class="btn btn-warning" onclick="window.location.href='empsearch.php'"><strong>Search</strong></button>
-        <br><br>
-          </div>
-
-
+            <label>&nbsp;</label>
+            <input type="submit" name="enterBtn" class="btn btn-warning" value="Search">
+            <br><br>
+        </form>
 
 
-
-          <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
+           <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
 
             <div class="form-group">
             <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
               <br>
-          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add New Employee">
+          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
 
 
-            </div>
-
+            <br><br>
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
+            </form>
+            <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
+
               <div style="text-align:left">
               <div class="form-group">
               <label for="lName"><strong>Last Name: </strong></label>
@@ -164,11 +172,21 @@
               <div class="form-group">
               <label for="phone"><strong> Phone Number: </strong></label>
             <input name="phone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="phone" placeholder="Employee Phone Number">
-              </div>
+          </div>
+
+          <div class="form-group">
+          <label for="pword"><strong> Employee Password: </strong></label>
+        <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
+          </div>
+		  
+		  <div class="form-group">
+          <label for="store"><strong> Current Store Location: </strong></label>
+        <input name="store" type="text" class="form-control" id="store" placeholder="Store Employee Is Working At">
+          </div>
+		  
         </div>
 
-          </form>
-          <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
+
             <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
           </form>
       <?php  }?>
