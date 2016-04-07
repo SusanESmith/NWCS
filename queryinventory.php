@@ -62,7 +62,7 @@ $statement1->closeCursor();
         <label>Store ID:</label>
         <select name="store" class="form-control">
           <?php foreach ($STORES as $s):?>
-          <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID'];?></option>
+          <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
         <?php endforeach;  ?>
         </select>
         <label>Product:</label>

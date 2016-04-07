@@ -1,3 +1,13 @@
+<?php
+include('nwcsdatabase.php');
+$STORE='SELECT * FROM STORE';
+$statement1= $db->prepare($STORE);
+$statement1->execute();
+$STORES = $statement1->fetchAll();
+$statement1->closeCursor();
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,10 +51,57 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="drawerquery.php" id="register" style="text-align:center">
+  <form method="post" action="drawercount.php" id="register" style="text-align:center">
+  <div style="text-align:left">
+    <label>Store ID:</label>
+    <select name="store" class="form-control">
+      <?php foreach ($STORES as $s):?>
+      <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+    <?php endforeach;  ?>
+    </select>
+  </div>
+  <br>
+    <input name="storebtn" type="submit"  class="btn btn-warning" id="storebtn" value="Confirm Store">
 
-      <br><br>
-      <div style="text-align:left">
+  </form>
+  <?php $new=filter_input(INPUT_POST,'storebtn');
+  if (isset($new)){
+
+    $storeNum= filter_input(INPUT_POST, 'store');
+    //echo $storeNum;
+    $reg='SELECT REGISTER_ID FROM REGISTER WHERE :store=REGISTER.STORE_ID';
+    $statement1= $db->prepare($reg);
+   $statement1->bindValue(':store', $storeNum);
+    $statement1->execute();
+    $register = $statement1->fetchAll();
+    $statement1->closeCursor();
+
+    $mgr='SELECT MANAGER_ID FROM MANAGEMENT WHERE :store=MANAGEMENT.STORE_ID';
+    $statement2= $db->prepare($mgr);
+   $statement2->bindValue(':store', $storeNum);
+    $statement2->execute();
+    $manager = $statement2->fetchAll();
+    $statement2->closeCursor();
+     ?>
+
+    <form method="post" name="reg" action="drawerquery.php" id="newemp" style="text-align:center">
+
+
+<div style="text-align:left">
+    <label>Register ID:</label>
+    <select name="register" class="form-control">
+      <?php foreach ($register as $r):?>
+      <option value="<?php echo $r['REGISTER_ID'];?>"><?php echo $r['REGISTER_ID'];?></option>
+    <?php endforeach;  ?>
+    </select>
+
+    <label>Manager:</label>
+    <select name="manager" class="form-control">
+      <?php foreach ($manager as $m):?>
+      <option value="<?php echo $m['MANAGER_ID'];?>"><?php echo $m['MANAGER_ID'];?></option>
+    <?php endforeach;  ?>
+    </select>
+
       <div class="form-group">
       <label for="hundred"><strong>$ 100's: </strong></label>
     <input name="hundred" type="text" class="form-control" id="hundred" placeholder="Number of One Hundred Dollar Bills">
@@ -105,20 +162,12 @@
       <input name="card" type="text" class="form-control" id="card" placeholder="Number of Card Transactions">
       </div>
 
-      <div class="form-group">
-      <label for="register"><strong>Register Number: </strong></label>
-    <input name="register" type="text" class="form-control" id="register" placeholder="Register Identification Number">
-      </div>
-
-      <div class="form-group">
-      <label for="store"><strong>Store Number: </strong></label>
-      <input name="store" type="text" class="form-control" id="store" placeholder="Store Identification Number">
-      </div>
     </div>
       <label>&nbsp;</label>
+      <input name="store" type="hidden" class="form-control" id="store" value="<?php echo $storeNum?>">
       <input type="submit" class="btn btn-warning" value="Submit">
     </form>
-
+<?php }?>
   </div>
   <p><strong><a href="cashiermenu.php">Back to the Cashier Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>

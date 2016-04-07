@@ -1,4 +1,5 @@
 <?php
+require_once('nwcsdatabase.php');
 $hundred = filter_input(INPUT_POST, 'hundred');
 $fifty = filter_input(INPUT_POST, 'fifty');
 $twenty = filter_input(INPUT_POST, 'twenty');
@@ -12,33 +13,54 @@ $pennies = filter_input(INPUT_POST, 'pennies');
 $checks = filter_input(INPUT_POST, 'checks');
 $card = filter_input(INPUT_POST, 'card');
 $regID=filter_input(INPUT_POST, 'register');
-$storeID=filter_input(INPUT_POST, 'store');
+$store=filter_input(INPUT_POST, 'store');
+$manager=filter_input(INPUT_POST, 'manager');
+
+
 $currentDate = date("Y-m-d");
 
-$cashTotal=$hundred+$fifty+$twenty+$ten+$five+$one+$quarters+$dimes+$nickels+$pennies+$checks+$card;
+$q=$quarters*.25;
+$d=$dimes*.1;
+$n=$nickels*.05;
+$p=$pennies*.01;
+$hun=$hundred*100;
+$fif=$fifty*50;
+$twe=$twenty*20;
+$te=$ten*10;
+$fiv=$five*5;
 
-$productName= 'test item';
 
-require_once('nwcsdatabase.php');
+$cashTotal=$hun+$fif+$twe+$te+$fiv+$one+$q+$d+$n+$p+$checks+$card;
+
+$emp='SELECT EMPLOYEE_ID FROM MANAGEMENT WHERE MANAGEMENT.MANAGER_ID=:manager';
+$statement2= $db->prepare($emp);
+$statement2->bindValue(':manager', $manager);
+$statement2->execute();
+$empID = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+
+
+//$productName= 'test item';
+
+
 
 $query = 'INSERT INTO REGISTER_COUNT
-               (COUNT_ID, REGISTER_ID,STORE_ID, COUNT_DATE, MANAGER_ID, EMPLOYEE_ID,HUNDRED_NUM, FIFTY_NUM,
+               (REGISTER_ID,STORE_ID, COUNT_DATE, MANAGER_ID, EMPLOYEE_ID,HUNDRED_NUM, FIFTY_NUM,
                TWENTY_NUM, TEN_NUM, FIVE_NUM, ONE_NUM, QUARTER_NUM, DIME_NUM, NICKEL_NUM, PENNY_NUM, REGISTER_TOTAL,
                 NUM_OF_CHECKS, NUM_CARD_TRANS)
             VALUES
-               (:COUNT_ID, :REGISTER_ID, :STORE_ID, :COUNT_DATE,:MANAGER_ID, :EMPLOYEE_ID, :HUNDRED_NUM,
-               FIFTY_NUM, :TWENTY_NUM, :TEN_NUM, :FIVE_NUM, :ONE_NUM, :QUARTER_NUM, :DIME_NUM, :NICKEL_NUM,
+               ( :REGISTER_ID, :STORE_ID, :COUNT_DATE,:MANAGER_ID, :EMPLOYEE_ID, :HUNDRED_NUM,
+               :FIFTY_NUM, :TWENTY_NUM, :TEN_NUM, :FIVE_NUM, :ONE_NUM, :QUARTER_NUM, :DIME_NUM, :NICKEL_NUM,
                 :PENNY_NUM, :REGISTER_TOTAL, :NUM_OF_CHECKS, :NUM_CARD_TRANS)';
 
   $statement = $db->prepare($query);
-  $statement->bindValue(':COUNT_ID', 3);
+
   $statement->bindValue(':REGISTER_ID', $regID);
-  $statement->bindValue(':STORE_ID', $storeID);
+  $statement->bindValue(':STORE_ID', $store);
   $statement->bindValue(':COUNT_DATE', $currentDate);
-  //$statement->bindValue(':MANAGER_ID', $manID);
-  $statement->bindValue(':MANAGER_ID', 6);
-  //$statement->bindValue(':EMPLOYEE_ID', $empID);
-  $statement->bindValue(':EMPLOYEE_ID', 7);
+  $statement->bindValue(':MANAGER_ID', $manager);
+  $statement->bindValue(':EMPLOYEE_ID', $empID);
   $statement->bindValue(':HUNDRED_NUM', $hundred);
   $statement->bindValue(':FIFTY_NUM', $fifty);
   $statement->bindValue(':TWENTY_NUM', $twenty);
@@ -49,11 +71,9 @@ $query = 'INSERT INTO REGISTER_COUNT
   $statement->bindValue(':DIME_NUM', $dimes);
   $statement->bindValue(':NICKEL_NUM', $nickels);
   $statement->bindValue(':PENNY_NUM', $pennies);
-  $statement->bindValue(':HUNDRED_NUM', $hundred);
   $statement->bindValue(':REGISTER_TOTAL', $cashTotal);
   $statement->bindValue(':NUM_OF_CHECKS', $checks);
   $statement->bindValue(':NUM_CARD_TRANS', $card);
-
   $statement->execute();
   $statement->closeCursor();
  ?>
@@ -92,7 +112,7 @@ $query = 'INSERT INTO REGISTER_COUNT
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Itemized Copy of your current drawer count: ';?>
+        <?php echo 'Itemized Copy of Register Number <span style=color:orange>\''.$regID.'\' </span>at Store Number <span style=color:orange>\''.$store.'\'</span>:';?>
     </h4>
 </div>
 
@@ -156,7 +176,7 @@ $query = 'INSERT INTO REGISTER_COUNT
 
           <td><?php echo $currentDate;?></td>
           <td><?php echo $regID;?></td>
-          <td><?php echo $storeID;?></td>
+          <td><?php echo $store;?></td>
 
         </tr>
 
@@ -174,7 +194,7 @@ $query = 'INSERT INTO REGISTER_COUNT
 
 
   </div>
-  <p><strong><a href="reporting.php">Back to the Reporting Menu</a></strong></p>
+  <p><strong><a href="cashier.php">Back to the Cashier Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 
