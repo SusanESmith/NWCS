@@ -139,6 +139,20 @@ $statement->closeCursor();
             <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
 
               <div style="text-align:left">
+ <label>Employee Position:</label>
+                <select name="pos" class="form-control">
+                  <?php foreach ($position as $p):?>
+                  <option value="<?php echo $p['POSITION_ID'];?>"><?php echo $p['POSITION_NAME'];?></option>
+                <?php endforeach;  ?>
+                </select>
+
+                  <label>Assign Employee to a Current Store Location:</label>
+                <select name="store" class="form-control">
+                  <?php foreach ($store as $s):?>
+                  <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+                <?php endforeach;  ?>
+                </select>
+
               <div class="form-group">
               <label for="lName"><strong>Last Name: </strong></label>
             <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name">
@@ -178,13 +192,8 @@ $statement->closeCursor();
           <label for="pword"><strong> Employee Password: </strong></label>
         <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
           </div>
-		  
-		  <div class="form-group">
-          <label for="store"><strong> Current Store Location: </strong></label>
-        <input name="store" type="text" class="form-control" id="store" placeholder="Store Employee Is Working At">
-          </div>
-		  
         </div>
+
 
 
             <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
