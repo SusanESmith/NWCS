@@ -1,9 +1,13 @@
 <?php
-include('nwcsdatabase.php');
-$query = "SELECT EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+require_once('nwcsdatabase.php');
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
-WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID";
-$employees = $db->query($query);
+WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
+AND E.EMPLOYEE_ID = 1001";
+$statement = $db->prepare($query);
+$statement->execute();
+$profile = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +44,7 @@ $employees = $db->query($query);
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Susie Jones';?>
+      <?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME'];?>
     </h4>
 </div>
 
@@ -66,22 +70,19 @@ $employees = $db->query($query);
       </tr>
     </thead>
     <tbody>
-	<? foreach ($employees as $e) { ?>
       <tr>
-        <td><?php echo $e['EMPLOYEE_ID']; ?></td>
-        <td><?php echo $e['EMPLOYEE_FNAME']." ".$e['EMPLOYEE_LNAME']; ?></td>
-        <td><?php echo $e['EMPLOYEE_ADDRESS']; ?></td>
-        <td><?php echo $e['EMPLOYEE_CITY']; ?></td>
-        <td><?php echo $e['EMPLOYEE_STATE']; ?></td>
-        <td><?php echo $e['EMPLOYEE_ZIP']; ?></td>
-        <td><?php echo $e['EMPLOYEE_PHONE']; ?></td>
-        <td><?php echo $e['STORE_ID']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ID']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ADDRESS']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_CITY']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_STATE']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ZIP']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_PHONE']; ?></td>
+        <td><?php echo $profile['STORE_ID']; ?></td>
 
 
 		
       </tr>
-	<?php } ?>
-
     </tbody>
   </table>
 </div>
@@ -118,45 +119,75 @@ $employees = $db->query($query);
             <input name="emp" type="text">
 
             <label>&nbsp;</label>
-            <input type="submit" name="enterBtn" value="Search">
+            <input type="submit" name="enterBtn" class="btn btn-warning" value="Search">
             <br><br>
         </form>
 
 
-          <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
-            <label><strong>Or add a new employee by entering an employee ID number: </strong></label>
-            <input type="submit" name="newemp" value="Add New Employee">
+           <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
+
+            <div class="form-group">
+            <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
+              <br>
+          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
+
+
             <br><br>
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
-              <label><strong>Employee Last Name: </strong></label>
-              <input name="lName" type="text">
-              <br><br>
-              <label><strong>Employee First Name: </strong></label>
-              <input name="fName" type="text">
-              <br><br>
-              <label><strong>Employee Street Address: </strong></label>
-              <input name="eAdd" type="text">
-              <br><br>
-              <label><strong>Employee City: </strong></label>
-              <input name="city" type="text">
-              <br><br>
-              <label><strong>Employee State: </strong></label>
-              <input name="state" type="text">
-              <br><br>
-              <label><strong>Employee Zip Code: </strong></label>
-              <input name="zip" type="text">
-              <br><br>
-              <label><strong>Phone: </strong></label>
-              <input name="ephone" type="text">
-              <br><br>
-			  <label><strong>Current Store Location: </strong></label>
-              <input name="store" type="text">
-              <br><br>
+            </form>
+            <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
 
-          </form>
-          <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
-            <input type="submit" name="newemp" value="Add New Employee">
+              <div style="text-align:left">
+              <div class="form-group">
+              <label for="lName"><strong>Last Name: </strong></label>
+            <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name">
+              </div>
+
+              <div class="form-group">
+              <label for="fName"><strong>First Name: </strong></label>
+            <input name="fName" type="text" class="form-control" id="fName" placeholder="Employee First Name">
+              </div>
+
+              <div class="form-group">
+              <label for="add"><strong>Address: </strong></label>
+            <input name="add" type="text" class="form-control" id="add" placeholder="Employee Street Address">
+              </div>
+
+              <div class="form-group">
+              <label for="city"><strong>City: </strong></label>
+            <input name="city" type="text" class="form-control" id="city" placeholder="Employee City">
+              </div>
+
+              <div class="form-group">
+              <label for="state"><strong>State: </strong></label>
+            <input name="state" type="text" class="form-control" id="state" placeholder="Employee State">
+              </div>
+
+              <div class="form-group">
+              <label for="zip"><strong>Zip Code: </strong></label>
+            <input name="zip" type="text" class="form-control" id="zip" placeholder="Employee Zip Code">
+              </div>
+
+              <div class="form-group">
+              <label for="phone"><strong> Phone Number: </strong></label>
+            <input name="phone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="phone" placeholder="Employee Phone Number">
+          </div>
+
+          <div class="form-group">
+          <label for="pword"><strong> Employee Password: </strong></label>
+        <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
+          </div>
+		  
+		  <div class="form-group">
+          <label for="store"><strong> Current Store Location: </strong></label>
+        <input name="store" type="text" class="form-control" id="store" placeholder="Store Employee Is Working At">
+          </div>
+		  
+        </div>
+
+
+            <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
           </form>
       <?php  }?>
 

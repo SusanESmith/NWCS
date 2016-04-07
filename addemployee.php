@@ -1,24 +1,107 @@
 <?php
 require_once('nwcsdatabase.php');
+$lastname = filter_input(INPUT_POST, 'lName');
+$firstname = filter_input(INPUT_POST, 'fName');
+$address = filter_input(INPUT_POST, 'add');
+$city = filter_input(INPUT_POST, 'city');
+$state = filter_input(INPUT_POST, 'state');
+$zip=filter_input(INPUT_POST, 'zip');
+$phone=filter_input(INPUT_POST, 'phone');
+$password=filter_input(INPUT_POST, 'pword');
+$position=filter_input(INPUT_POST, 'pos');
+$store=filter_input(INPUT_POST, 'store');
 
-$lastname = $_POST['lName'];
-$firstname = $_POST['fName'];
-$address = $_POST['eAdd'];
-$city = $_POST['city'];
-$state = $_POST['state'];
-$zip = $_POST['zip'];
-$phone = $_POST['ephone'];
-$store = $_POST['store'];
-
-$query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE)
-VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone')"; 
+/* $query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE)
+VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone')";
 
 
 $db->exec($query);
-$employeeid = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = '$firstname'"; //testing for right now
-$positionid = "SELECT POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = '$firstname'";
 $query2 = "INSERT INTO EMPLOYEE_STORE(STORE_ID, EMPLOYEE_ID, POSITION_ID) VALUES ('$store', '$employeeid', '$positionid')";
+$db->exec($query2); */
 
+/* $lastname = filter_input(INPUT_POST, 'lName');
+$firstname = filter_input(INPUT_POST, 'fName');
+$address = filter_input(INPUT_POST, 'address');
+$city = filter_input(INPUT_POST, 'city');
+$state = filter_input(INPUT_POST, 'state');
+$zip = filter_input(INPUT_POST, 'zip');
+$phone = filter_input(INPUT_POST, 'phone');
+$store = filter_input(INPUT_POST, 'store');
+$password = filter_input(INPUT_POST, 'pword'); */
+
+echo $position."<br>";
+echo $firstname."<br>";
+echo $lastname."<br>";
+echo $address."<br>";
+echo $city."<br>";
+echo $zip."<br>";
+echo $phone."<br>";
+echo $password."<br>";
+
+
+$query='INSERT INTO EMPLOYEE
+               (POSITION_ID, EMPLOYEE_FNAME, EMPLOYEE_LNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_ZIP, EMPLOYEE_PHONE, EMPLOYEE_PASSWORD)
+            VALUES
+               (:position_id, :fname, :lname, :add, :city, :zip, :phone, :pword )';
+
+              $statement = $db->prepare($query);
+              $statement->bindValue(':position_id', $position);
+              $statement->bindValue(':fname', $firstname);
+              $statement->bindValue(':lname', $lastname);
+              $statement->bindValue(':add', $address);
+              $statement->bindValue(':city', $city);
+              $statement->bindValue(':zip', $zip);
+              $statement->bindValue(':phone', $phone);
+              $statement->bindValue(':pword', $password);
+              $statement->execute();
+             $statement->closeCursor();
+
+             $empID='SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=LAST_INSERT_ID()';
+             $statement2= $db->prepare($empID);
+             $statement2->execute();
+             $newID= $statement2->fetchColumn();
+             $statement2->closeCursor();
+             echo $newID;
+
+             $query2='INSERT INTO EMPLOYEE_STORE
+                            (STORE_ID, EMPLOYEE_ID, POSITION_ID)
+                         VALUES
+                            (:store_id, :employee_id, :position_id)';
+
+                           $statement3 = $db->prepare($query2);
+                           $statement3->bindValue(':store_id', $store);
+                           $statement3->bindValue(':employee_id', $newID);
+                           $statement3->bindValue(':position_id', $position);
+                         $statement3->execute();
+                          $statement3->closeCursor();
+
+
+
+
+/*$query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, EMPLOYEE_PASSWORD)
+VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone', '$password')";
+$statement = $db->prepare($query);
+$statement->execute();
+$employee = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+
+$query2 = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_PHONE = '$phone'";
+$statement2 = $db->prepare($query2);
+$statement2->execute();
+$employee_id = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+$query3 = "SELECT POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_ID = '$employee_id'";
+$statement3 = $db->prepare($query3);
+$statement3->execute();
+$position_id = $statement3->fetchColumn();
+$statement3->closeCursor();
+
+$query4 = "INSERT INTO EMPLOYEE_STORE(STORE_ID, EMPLOYEE_ID, POSITION_ID) VALUES ('$store', '$employee_id', '$position_id')";
+$statement4 = $db->prepare($query4);
+$statement4->execute();
+$employee_store = $statement4->fetch(PDO::FETCH_ASSOC);
+$statement4->closeCursor();*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,13 +177,13 @@ $query2 = "INSERT INTO EMPLOYEE_STORE(STORE_ID, EMPLOYEE_ID, POSITION_ID) VALUES
       </thead>
       <tbody>
         <tr>
-          <td><?php echo $employeeid; ?></td>
+          <td><?php echo $newID; ?></td>
           <td><?php echo $firstname." ".$lastname; ?></td>
-          <td><?php echo $address; ?></td>
-          <td><?php echo $city; ?></td>
-          <td><?php echo $state; ?></td>
-          <td><?php echo $zip; ?></td>
-          <td><?php echo $phone; ?></td>
+        <td><?php echo $address; ?></td>
+        <td><?php echo $city; ?></td>
+        <td><?php echo $state; ?></td>
+        <td><?php echo $zip; ?></td>
+        <td><?php echo $phone; ?></td>
 		  <td><?php echo $store; ?></td>
 
 

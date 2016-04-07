@@ -1,3 +1,18 @@
+<?php
+require_once('nwcsdatabase.php');
+
+$query = "SELECT T.TRANSACTION_ID, P.PRODUCT_NAME, TRANS_PROD_TOTAL, TRANSACTION_TOTAL, STORE_ID, TRANSACTION_TYPE, T.TRANSACTION_DATE
+FROM TRANSACTIONS T, TRANSACTION_DETAILS TD, PRODUCTS P 
+WHERE P.PRODUCT_ID = T.PRODUCT.ID
+AND T.TRANSACTION_ID = TD.TRANSACTION_ID
+AND EMPLOYEE_ID = 1001";
+
+$statement = $db->prepare($query);
+$statement->execute();
+$transaction = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,24 +81,17 @@
         </tr>
       </thead>
       <tbody>
+	  <?php foreach ($transaction as $t) { ?>
         <tr>
-          <td><a href="transdetails.php">T0543</a></td>
-          <td>Beer<br><br>Cheetos<br><br>Doritos</td>
-          <td>$7.99<br><br>$3.99<br><br>1.99</td>
-          <td>$15.30</td>
-          <td>S02</td>
-          <td>Card</td>
-          <td>03/12/2016</td>
+          <td><a href="transdetails.php"><?php echo $t['TRANSACTION_ID'] ?></a></td>
+          <td><?php echo $t['PRODUCT_NAME'] ?></td>
+          <td><?php echo $t['TRANS_PROD_TOTAL'] ?></td>
+          <td><?php echo $t['TRANSACTION_TOTAL'] ?></td>
+          <td><?php echo $t['STORE_ID'] ?></td>
+          <td><?php echo $t['TRANSACTION_TYPE'] ?></td>
+          <td><?php echo $t['TRANSACTION_DATE'] ?></td>
         </tr>
-        <tr>
-          <td><a href="transdetails.php">T0186</a></td>
-          <td>Beer<br><br>More Beer<br><br>All the Beer</td>
-          <td>$7.99<br><br>$7.99<br><br>7.99</td>
-          <td>$26.25</td>
-          <td>S11</td>
-          <td>Cash</td>
-          <td>03/12/2016</td>
-        </tr>
+	  <?php } ?>
       </tbody>
     </table>
   </div>
