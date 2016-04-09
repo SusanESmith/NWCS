@@ -101,32 +101,27 @@ $statement->closeCursor();
 
     <div class="form-group">
   <label for="minStock"><strong>Minimum Stock Quantity: </strong></label>
-<input name="minStock" type="text" class="form-control" id="minStock" placeholder="Minimum Stock Quantity for this Item">
-  </div>
+<input name="minStock" type="text" class="form-control" id="minStock" placeholder="Minimum Stock Quantity for this Item" required>  </div>
 
     <div class="form-group">
     <label for="quantity"><strong>Quantity: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add">
-    </div>
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add" required>  </div>
 
     <div class="form-group">
     <label for="prodName"><strong>Product Name: </strong></label>
-  <input name="prodName" type="text" class="form-control" id="prodName" placeholder="Name of New Inventory Item">
-    </div>
+  <input name="prodName" type="text" class="form-control" id="prodName" placeholder="Name of New Inventory Item" required>  </div>
 
     <form class="form-inline">
   <div class="form-group">
     <label for="price">Price:</label>
     <div class="input-group">
       <div class="input-group-addon">$</div>
-      <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
-      </div>
+      <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item" required >    </div>
   </div>
 
   <div class="form-group">
   <label for="pDesc"><strong>Product Description: </strong></label>
-<input name="pDesc" type="text" class="form-control" id="pDesc" placeholder="Short Description of This Product">
-  </div>
+<input name="pDesc" type="text" class="form-control" id="pDesc" placeholder="Short Description of This Product" required >  </div>
 
   </div>
       <label>&nbsp;</label>

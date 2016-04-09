@@ -127,6 +127,7 @@ $queryStock = 'INSERT INTO STOCK
           <th>Minimum Stock Quantity</th>
           <th>Quantity</th>
           <th>Price</th>
+          <th>Vendor</th>
           <th>Date Added</th>
 
         </tr>
@@ -139,6 +140,7 @@ $queryStock = 'INSERT INTO STOCK
           <td><?php echo $minStock;?></td>
           <td><?php echo $quantity;?></td>
           <td><?php echo '$'.$price;?></td>
+            <td><?php echo $vendor;?></td>
           <td><?php echo $date;?></td>
 
         </tr>

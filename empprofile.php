@@ -1,3 +1,18 @@
+<?php
+include('nwcsdatabase.php');
+
+$pos='SELECT * FROM POSITIONS';
+$statement= $db->prepare($pos);
+$statement->execute();
+$position = $statement->fetchAll();
+$statement->closeCursor();
+
+$stores='SELECT * FROM STORE';
+$statement1= $db->prepare($stores);
+$statement1->execute();
+$store = $statement1->fetchAll();
+$statement1->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -123,14 +138,31 @@
             <div class="form-group">
             <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
               <br>
-          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add New Employee">
+          <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
 
 
             </div>
-
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
+            </form>
+            <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
+
               <div style="text-align:left">
+
+                <label>Employee Position:</label>
+                <select name="pos" class="form-control">
+                  <?php foreach ($position as $p):?>
+                  <option value="<?php echo $p['POSITION_ID'];?>"><?php echo $p['POSITION_NAME'];?></option>
+                <?php endforeach;  ?>
+                </select>
+
+                  <label>Assign Employee to a Current Store Location:</label>
+                <select name="store" class="form-control">
+                  <?php foreach ($store as $s):?>
+                  <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+                <?php endforeach;  ?>
+                </select>
+
               <div class="form-group">
               <label for="lName"><strong>Last Name: </strong></label>
             <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name">
@@ -164,11 +196,15 @@
               <div class="form-group">
               <label for="phone"><strong> Phone Number: </strong></label>
             <input name="phone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="phone" placeholder="Employee Phone Number">
-              </div>
+          </div>
+
+          <div class="form-group">
+          <label for="pword"><strong> Employee Password: </strong></label>
+        <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
+          </div>
         </div>
 
-          </form>
-          <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
+
             <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
           </form>
       <?php  }?>

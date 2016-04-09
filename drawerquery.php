@@ -170,7 +170,7 @@ $query = 'INSERT INTO REGISTER_COUNT
           <td><?php echo $dimes;?></td>
           <td><?php echo $nickels;?></td>
           <td><?php echo $pennies;?></td>
-          <td><?php echo $cashTotal;?></td>
+          <td><?php echo '$'.$cashTotal;?></td>
           <td><?php echo $checks;?></td>
           <td><?php echo $card;?></td>
 
