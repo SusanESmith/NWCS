@@ -1,3 +1,11 @@
+<?php include('nwcsdatabase.php');
+$store='SELECT * FROM STORE';
+$statement= $db->prepare($store);
+$statement->execute();
+$storeID = $statement->fetchAll();
+$statement->closeCursor();
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,13 +51,16 @@
 
   <form method="post" action="mininventory.php" id="inventory" style="text-align:center">
     <div style="text-align:left">
-    <div class="form-group">
-    <label for="storeID"><strong>Store ID: </strong></label>
-  <input name="id" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
-    </div>
+      <label>Store ID:</label>
+      <select name="store" class="form-control">
+        <?php foreach ($storeID as $s):?>
+        <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+      <?php endforeach;  ?>
+      </select>
   </div>
 
       <label>&nbsp;</label>
+      <br>
       <input type="submit" class="btn btn-warning" value="Submit">
     </form>
 

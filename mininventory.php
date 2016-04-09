@@ -1,3 +1,31 @@
+<?php include('nwcsdatabase.php');
+
+$stID = filter_input(INPUT_POST, 'store');
+
+
+$store='SELECT * FROM STORE WHERE :store=STORE_ID';
+$statement= $db->prepare($store);
+$statement->bindValue(':store', $stID);
+$statement->execute();
+$storeID = $statement->fetch();
+$statement->closeCursor();
+
+
+//echo $storeID['STORE_']."<br>";
+$query='SELECT * FROM STOCK,PRODUCTS WHERE :store=STORE_ID and STOCK_QTY<STOCK_MIN_QTY AND STOCK.PRODUCT_ID=PRODUCTS.PRODUCT_ID';
+$statement1= $db->prepare($query);
+$statement1->bindValue(':store', $stID);
+$statement1->execute();
+$stock = $statement1->fetchAll();
+$statement1->closeCursor();
+
+$check=count($stock);
+
+
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +61,16 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'The following items are below minimum inventory quantity and need to be reordered: ';?>
+      <?php if ($check==0){
+        echo 'All Items at Store Location <span style=color:orange>\''.$stID." - ".$storeID['STORE_ADDRESS'].'\' </span> are in Stock Above the Minimum Inventory Amount. ';?>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 col-md-offset-0">
+
+      <?php }
+      else{
+       echo 'The Following Items are below Minimum Stock Quantity at Store Location <span style=color:orange>\''.$stID." - ".$storeID['STORE_ADDRESS'].'\' </span> and need to be reordered: ';?>
     </h4>
 </div>
 
@@ -66,12 +103,16 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach ($stock as $s){?>
         <tr class="danger">
-          <td>S13</td>
-          <td>N0021</td>
-          <td>Water</td>
-          <td>12</td>
-          <td>25</td>
+        <td><?php echo $s['STORE_ID'] ?></td>
+        <td><?php echo $s['PRODUCT_ID'] ?></td>
+        <td><?php echo $s['PRODUCT_NAME'] ?></td>
+        <td><?php echo $s['STOCK_QTY'] ?></td>
+        <td><?php echo $s['STOCK_MIN_QTY'] ?></td>
+
+      <?php } ?>
+
         </tr>
 
 
@@ -84,6 +125,7 @@
 
         <label>&nbsp;</label>
         <input type="submit" name="enterBtn"class="btn btn-warning"  value="Go">
+          <?php } ?>
         <br><br>
   </div>
 </div>
