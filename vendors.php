@@ -1,3 +1,18 @@
+<?php
+include('nwcsdatabase.php');
+$query='SELECT * FROM VENDOR';
+$statement1= $db->prepare($query);
+$statement1->execute();
+$vend= $statement1->fetchAll();
+$statement1->closeCursor();
+
+$query2='SELECT * FROM PRODUCTS';
+$statement2= $db->prepare($query2);
+$statement2->execute();
+$products= $statement2->fetchAll();
+$statement2->closeCursor();
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,19 +76,42 @@
                                 <th>Vendor City</th>
                                 <th>Vendor State</th>
                                 <th>Vendor Zip Code</th>
+
                                 <th>Vendor Products</th>
                               </tr>
                             </thead>
                             <tbody>
+                              <?php foreach ($vend as $v){?>
                               <tr>
-                                <td>V42</td>
-                                <td>Ed's Beer</td>
-                                <td>931-324-1010</td>
-                                <td>100 Beer Way</td>
-                                <td>Clarksville</td>
-                                <td>TN</td>
-                                <td>37221</td>
-                                <td>beer</td>
+                                <td><?php echo $v['VENDOR_ID']?></td>
+                                <td><?php echo $v['VENDOR_NAME']?></td>
+                                <td><?php echo $v['VENDOR_POC_PHONE']?></td>
+                                <td><?php echo $v['VENDOR_ADDRESS']?></td>
+                                <td><?php echo $v['VENDOR_CITY']?></td>
+                                <td><?php echo $v['VENDOR_STATE']?></td>
+                                <td><?php echo $v['VENDOR_ZIP']?></td>
+                                <td>
+                                  <div class="dropdown" class="form-control">
+                                    <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Vendor Products
+ <span class="caret"></span></button>
+  <ul class="dropdown-menu" style="height:auto;max-height:300px; overflow-x:hidden;">
+                                <?php
+
+                                foreach ($products as $p){
+                                  if ($p['VENDOR_ID']==$v['VENDOR_ID']){
+                                  ?>
+                                  <li><?php echo $p['PRODUCT_NAME']." - ".$p['PRODUCT_DESCRIPTION']?></li>
+
+                                    <?php }}?></ul></div></td><?php } ?>
+
+
+
+
+
+
+
+
+
                               </tr>
                             </tbody>
                           </table>
@@ -137,10 +175,7 @@
                           <input name="vzip" type="text" class="form-control" id="vzip" placeholder="Vendor Zip Code">
                             </div>
 
-                            <div class="form-group">
-                              <label for="vitems"><strong>Vendor Items: </strong></label>
-                            <input name="vitems" type="text" class="form-control" id="vitems" placeholder="Items Supplied by this Vendor">
-                              </div>
+
 
                   </div>
                 </form>
