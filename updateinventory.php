@@ -24,6 +24,8 @@ $statement= $db->prepare($STORES);
 $statement->execute();
 $store = $statement->fetchAll();
 $statement->closeCursor();
+
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,8 +70,9 @@ $statement->closeCursor();
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="updateinvquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="updateinventory.php" id="inventory" style="text-align:center">
       <div style="text-align:left">
+
         <label>Product:</label>
         <select name="prodID" class="form-control">
           <?php foreach ($PRODUCTS as $p):?>
@@ -83,27 +86,66 @@ $statement->closeCursor();
           <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
         <?php endforeach;  ?>
         </select>
+      </div>
+      <br>
+        <input type="submit" name="confirm" class="btn btn-warning" value="Confirm Store and Product to Continue" id="confirm">
+      </form>
+          <br><br>
+          <?php $new=filter_input(INPUT_POST,'confirm');
+          if (isset($new)){
 
+            $storeID= filter_input(INPUT_POST, 'storeID');
+            $prodID= filter_input(INPUT_POST, 'prodID');
+
+            $current='SELECT * FROM STOCK WHERE :PRODUCT=PRODUCT_ID AND :store=STORE_ID';
+            $statement1= $db->prepare($current);
+            $statement1->bindValue(':store', $storeID);
+            $statement1->bindValue(':PRODUCT', $prodID);
+            $statement1->execute();
+            $curItem= $statement1->fetch();
+            $statement1->closeCursor();
+
+            $PR='SELECT * FROM PRODUCTS WHERE :PRODUCT=PRODUCT_ID';
+            $statement2= $db->prepare($PR);
+            $statement2->bindValue(':PRODUCT', $prodID);
+            $statement2->execute();
+            $curPrice= $statement2->fetch();
+            $statement2->closeCursor();
+
+            ?>
+
+        <form method="post" action="updateinvquery.php" id="inventory" style="text-align:center">
+
+          <div style="text-align:left">
+        <div class="alert alert-warning" role="alert">
+          <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+          <span class=""><strong>  Current Inventory Information for <u>Item</u>: <?php echo $curPrice['PRODUCT_NAME']." - <u>Product ID:</u> ". $prodID ?> at <u>Store</u> <?php echo $storeID ?>:</strong></span><br><br>
+          <strong>Price: </strong> <?php echo "$".$curPrice['PRODUCT_PRICE'] ?><br>
+          <strong>Current Quantity: </strong> <?php echo $curItem['STOCK_QTY'] ?><br>
+          <strong>Current Minimum Quantity: </strong> <?php echo $curItem['STOCK_MIN_QTY'] ?><br>
+          <strong>Last Inventory Update for this Item: </strong> <?php echo $curItem['STOCK_LAST_RESTOCK'] ?><br>
+
+        </div>
         <form class="form-inline">
           <div class="form-group">
             <label for="price">Price: </label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
+              <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
             </div>
           </div>
 
           <div class="form-group">
           <label for="stock"><strong>Add to Current Quantity: </strong></label>
-          <input name="stock" type="text" class="form-control" id="stock" placeholder="Add Quantity to Current Stock">
+          <input name="stock" type="text" class="form-control" id="stock" placeholder="Add this Amount to Current Stock"  required data-fv-notempty-message="The Quantity is required.  If you don't wish to change it, use the current value." >
           </div>
 
         <div class="form-group">
       <label for="min"><strong>Minimum Quantity: </strong></label>
-      <input name="stockMin" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock">
+      <input name="stockMin" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock"  required data-fv-notempty-message="The Minimum Quantity is required. If you don't wish to change it, enter zero." >
         </div>
 
-  
+
 
         <div class="form-group">
       <label for="date"><strong>Date: </strong></label>
@@ -111,8 +153,13 @@ $statement->closeCursor();
         </div>
       </div>
       <label>&nbsp;</label>
+      <input name="storeID" type="hidden" class="form-control" id="storeID" value="<?php echo $storeID?>">
+      <input name="prodID" type="hidden" class="form-control" id="prodID" value="<?php echo $prodID?>">
+
+
       <input type="submit" class="btn btn-warning" value="Submit">
     </form>
+    <?php } ?>
 
   </div>
   <p><strong><a href="inventory.php">Back to the Inventory Menu</a></strong></p>

@@ -21,6 +21,7 @@ $statement2->closeCursor();
 $addStock=$stock+$stockq;
 
 
+
 /*$CAT='SELECT CATEGORY_ID FROM PRODUCTS, CATEGORY WHERE STOCK.CATEGORY_ID=STOCK.CATEGORY_ID';
 $statement3= $db->prepare($CAT);
 $statement3->execute();
@@ -30,7 +31,7 @@ echo $catID."<br>";*/
 
 $query='UPDATE STOCK SET STOCK_QTY=:STOCK_QTY, STOCK_MIN_QTY=:STOCK_MIN_QTY,
 STOCK_LAST_RESTOCK=:STOCK_LAST_RESTOCK
-WHERE STOCK.STORE_ID=:STORE_ID AND STOCK.PRODUCT_ID=:PRODUCT_ID;';
+WHERE STORE_ID=:STORE_ID AND PRODUCT_ID=:PRODUCT_ID;';
 $statement= $db->prepare($query);
 $statement->bindValue(':PRODUCT_ID',$prodID);
 $statement->bindValue(':STORE_ID',$storeID);
@@ -66,6 +67,8 @@ $statement->bindValue(':PRODUCT_ID',$prodID);
 $statement->execute();
 $pDesc = $statement->fetchColumn();
 $statement->closeCursor();
+
+
 
 $STORES='SELECT STORE_ADDRESS FROM STORE WHERE STORE_ID=:STORE_ID';
 $statement2= $db->prepare($STORES);
@@ -148,6 +151,7 @@ $statement2->closeCursor();
       </thead>
       <tbody>
         <tr>
+
           <td><?php echo $prodID ?></td>
           <td><?php echo $prodName?></td>
           <td><?php echo $storeID?></td>
