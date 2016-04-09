@@ -1,3 +1,36 @@
+<?php
+require_once('nwcsdatabase.php');
+$name = filter_input(INPUT_POST, 'name');
+$phone = filter_input(INPUT_POST, 'vphone');
+$address = filter_input(INPUT_POST, 'vaddress');
+$city = filter_input(INPUT_POST, 'vcity');
+$state = filter_input(INPUT_POST, 'vstate');
+$zip = filter_input(INPUT_POST, 'vzip');
+
+$query = 'INSERT INTO VENDOR 
+(VENDOR_NAME, VENDOR_POC_PHONE, VENDOR_ADDRESS, VENDOR_CITY, VENDOR_STATE, VENDOR_ZIP) 
+VALUES (:name, :phone, :address, :city, :state, :zip)';
+
+$statement = $db->prepare($query);
+
+$statement->bindValue(':name', $name);
+$statement->bindValue(':phone', $phone);
+$statement->bindValue(':address', $address);
+$statement->bindValue(':city', $city);
+$statement->bindValue(':state', $state);
+$statement->bindValue(':zip', $zip);
+$statement->execute();
+$statement->closeCursor();
+
+$id = 'SELECT VENDOR_ID FROM VENDOR WHERE VENDOR_ID=LAST_INSERT_ID()';
+$statement2= $db->prepare($id);
+$statement2->execute();
+$newID= $statement2->fetchColumn();
+$statement2->closeCursor();
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,8 +95,8 @@
           <th>Vendor Phone</th>
           <th>Vendor Address</th>
           <th>Vendor City</th>
-          <th>Vendor Zip Code</th>
-          <th>Vendor Products</th>
+          <th>Vendor State</th>
+          <th>Vendor ZIP</th>
 
 
 
@@ -72,16 +105,13 @@
       </thead>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-
-
-
+          <td><?php echo $newID; ?></td>
+          <td><?php echo $name; ?></td>
+          <td><?php echo $phone; ?></td>
+          <td><?php echo $address; ?></td>
+          <td><?php echo $city; ?></td>
+          <td><?php echo $state; ?></td>
+          <td><?php echo $zip; ?></td>
         </tr>
 
 

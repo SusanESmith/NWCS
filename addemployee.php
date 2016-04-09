@@ -29,14 +29,14 @@ $phone = filter_input(INPUT_POST, 'phone');
 $store = filter_input(INPUT_POST, 'store');
 $password = filter_input(INPUT_POST, 'pword'); */
 
-echo $position."<br>";
+/*echo $position."<br>";
 echo $firstname."<br>";
 echo $lastname."<br>";
 echo $address."<br>";
 echo $city."<br>";
 echo $zip."<br>";
 echo $phone."<br>";
-echo $password."<br>";
+echo $password."<br>";*/
 
 
 $query='INSERT INTO EMPLOYEE
