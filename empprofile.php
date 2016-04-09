@@ -1,4 +1,5 @@
 <?php
+
 include('nwcsdatabase.php');
 
 $pos='SELECT * FROM POSITIONS';
@@ -12,7 +13,19 @@ $statement1= $db->prepare($stores);
 $statement1->execute();
 $store = $statement1->fetchAll();
 $statement1->closeCursor();
- ?>
+
+
+
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+FROM EMPLOYEE E, EMPLOYEE_STORE ES
+WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
+AND E.EMPLOYEE_ID = 1001";
+$statement = $db->prepare($query);
+$statement->execute();
+$profile = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +61,7 @@ $statement1->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Susie Jones';?>
+      <?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME'];?>
     </h4>
 </div>
 
@@ -75,20 +88,18 @@ $statement1->closeCursor();
     </thead>
     <tbody>
       <tr>
-        <td>E1001</td>
-        <td>Susie Jones</td>
-        <td>101 Maynard Way</td>
-        <td>Clarksville</td>
-        <td>TN</td>
-        <td>37015</td>
-        <td>931-444-1000</td>
-        <td>S22</td>
+        <td><?php echo $profile['EMPLOYEE_ID']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ADDRESS']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_CITY']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_STATE']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_ZIP']; ?></td>
+        <td><?php echo $profile['EMPLOYEE_PHONE']; ?></td>
+        <td><?php echo $profile['STORE_ID']; ?></td>
 
 
 
       </tr>
-
-
     </tbody>
   </table>
 </div>
@@ -120,20 +131,17 @@ $statement1->closeCursor();
       <!--panel body-->
 
       <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+        <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
+            <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
+            <input name="emp" type="text">
 
-          <div class="form-group">
-          <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-              <br>
-        <input name="emp" type="text"  id="newemp" >
-        <button type="button" class="btn btn-warning" onclick="window.location.href='empsearch.php'"><strong>Search</strong></button>
-        <br><br>
-          </div>
-
-
+            <label>&nbsp;</label>
+            <input type="submit" name="enterBtn" class="btn btn-warning" value="Search">
+            <br><br>
+        </form>
 
 
-
-          <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
+           <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
 
             <div class="form-group">
             <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
@@ -141,7 +149,13 @@ $statement1->closeCursor();
           <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
 
 
+
             </div>
+
+
+
+            <br><br>
+
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
             </form>
@@ -149,7 +163,10 @@ $statement1->closeCursor();
 
               <div style="text-align:left">
 
+
                 <label>Employee Position:</label>
+
+
                 <select name="pos" class="form-control">
                   <?php foreach ($position as $p):?>
                   <option value="<?php echo $p['POSITION_ID'];?>"><?php echo $p['POSITION_NAME'];?></option>

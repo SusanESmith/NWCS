@@ -1,3 +1,18 @@
+<?php
+require_once('nwcsdatabase.php');
+
+$emp = $_POST['emp'];
+
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+FROM EMPLOYEE E, EMPLOYEE_STORE ES
+WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
+AND E.EMPLOYEE_ID = '$emp'";
+
+$statement = $db->prepare($query);
+$statement->execute();
+$employee = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,14 +86,14 @@
       </thead>
       <tbody>
         <tr>
-          <td>E1001</td>
-          <td>Susie Jones</td>
-          <td>101 Maynard Way</td>
-          <td>Clarksville</td>
-          <td>TN</td>
-          <td>37015</td>
-          <td>931-444-1000</td>
-          <td>S22</td>
+        <td><?php echo $employee['EMPLOYEE_ID']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_FNAME']." ".$employee['EMPLOYEE_LNAME']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_ADDRESS']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_CITY']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_STATE']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_ZIP']; ?></td>
+        <td><?php echo $employee['EMPLOYEE_PHONE']; ?></td>
+        <td><?php echo $employee['STORE_ID']; ?></td>
 
 
 
@@ -91,10 +106,12 @@
     <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
     <br><br>
     <div class="form-group">
+	 <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
     <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
 
   <input name="emp" type="text"  id="newemp" >
-  <button type="button" class="btn btn-warning" onclick="window.location.href='empsearch.php'"><strong>Search</strong></button>
+  <input type="submit" class="btn btn-warning" onclick="window.location.href='empsearch.php'" value="Search">
+  </form>
   <br><br>
     </div>
 
