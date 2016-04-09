@@ -103,10 +103,7 @@ $statement->closeCursor();
       <input name="stockMin" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock">
         </div>
 
-        <div class="form-group">
-      <label for="pDesc"><strong>Product Description: </strong></label>
-      <input name="pDesc" type="text" class="form-control" id="pDesc" placeholder="Description of Product">
-        </div>
+  
 
         <div class="form-group">
       <label for="date"><strong>Date: </strong></label>

@@ -8,7 +8,7 @@ $price=filter_input(INPUT_POST, 'price');
 $stockq=filter_input(INPUT_POST, 'stock');
 $stockMin=filter_input(INPUT_POST, 'stockMin');
 $date=filter_input(INPUT_POST, 'date');
-$pDesc=filter_input(INPUT_POST, 'pDesc');
+//$pDesc=filter_input(INPUT_POST, 'pDesc');
 
 $select='SELECT STOCK_QTY FROM STOCK WHERE PRODUCT_ID=:PRODUCT_ID AND :STORE_ID=STORE_ID';
 $statement2= $db->prepare($select);
@@ -43,13 +43,13 @@ $statement->closeCursor();
 
 
 
-$query1='UPDATE PRODUCTS SET PRODUCT_PRICE=:PRODUCT_PRICE, PRODUCT_DESCRIPTION=:P_DESC
+$query1='UPDATE PRODUCTS SET PRODUCT_PRICE=:PRODUCT_PRICE
 
 WHERE PRODUCTS.PRODUCT_ID=:PRODUCT_ID;';
 $statement1= $db->prepare($query1);
 $statement1->bindValue(':PRODUCT_PRICE',$price);
 $statement1->bindValue(':PRODUCT_ID',$prodID);
-$statement1->bindValue(':P_DESC',$pDesc);
+//$statement1->bindValue(':P_DESC',$pDesc);
 $statement1->execute();
 $statement1->closeCursor();
 
@@ -58,6 +58,13 @@ $statement= $db->prepare($PRODUCT);
 $statement->bindValue(':PRODUCT_ID',$prodID);
 $statement->execute();
 $prodName = $statement->fetchColumn();
+$statement->closeCursor();
+
+$PRODUCTS='SELECT PRODUCT_DESCRIPTION FROM PRODUCTS WHERE PRODUCT_ID=:PRODUCT_ID';
+$statement= $db->prepare($PRODUCTS);
+$statement->bindValue(':PRODUCT_ID',$prodID);
+$statement->execute();
+$pDesc = $statement->fetchColumn();
 $statement->closeCursor();
 
 $STORES='SELECT STORE_ADDRESS FROM STORE WHERE STORE_ID=:STORE_ID';
