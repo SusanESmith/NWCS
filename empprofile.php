@@ -1,5 +1,21 @@
 <?php
-require_once('nwcsdatabase.php');
+
+include('nwcsdatabase.php');
+
+$pos='SELECT * FROM POSITIONS';
+$statement= $db->prepare($pos);
+$statement->execute();
+$position = $statement->fetchAll();
+$statement->closeCursor();
+
+$stores='SELECT * FROM STORE';
+$statement1= $db->prepare($stores);
+$statement1->execute();
+$store = $statement1->fetchAll();
+$statement1->closeCursor();
+
+
+
 $query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
 WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
@@ -9,6 +25,7 @@ $statement->execute();
 $profile = $statement->fetch(PDO::FETCH_ASSOC);
 $statement->closeCursor();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +98,7 @@ $statement->closeCursor();
         <td><?php echo $profile['STORE_ID']; ?></td>
 
 
-		
+
       </tr>
     </tbody>
   </table>
@@ -132,14 +149,24 @@ $statement->closeCursor();
           <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
 
 
+
+            </div>
+
+
+
             <br><br>
+
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
             </form>
             <form method="post" name="newemp" action="addemployee.php" id="newemp" style="text-align:center">
 
               <div style="text-align:left">
- <label>Employee Position:</label>
+
+
+                <label>Employee Position:</label>
+
+
                 <select name="pos" class="form-control">
                   <?php foreach ($position as $p):?>
                   <option value="<?php echo $p['POSITION_ID'];?>"><?php echo $p['POSITION_NAME'];?></option>
@@ -193,7 +220,6 @@ $statement->closeCursor();
         <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
           </div>
         </div>
-
 
 
             <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">

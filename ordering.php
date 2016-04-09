@@ -1,3 +1,17 @@
+<?php
+include('nwcsdatabase.php');
+$PRODUCT='SELECT * FROM PRODUCTS';
+$statement= $db->prepare($PRODUCT);
+$statement->execute();
+$PRODUCTS = $statement->fetchAll();
+$statement->closeCursor();
+
+$STORE='SELECT * FROM STORE';
+$statement= $db->prepare($STORE);
+$statement->execute();
+$STORES = $statement->fetchAll();
+$statement->closeCursor(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,24 +62,31 @@
 
   <form method="post" action="ordering.php" id="ordering" style="text-align:center">
     <div style="text-align:left">
-    <div class="form-group">
-    <label for="orderDate"><strong>Order Date: </strong></label>
-  <input name="orderDate" type="text" class="form-control" id="orderDate" placeholder="Date Order is to be submitted">
-    </div>
 
-    <div class="form-group">
-    <label for="storeID"><strong>Store ID: </strong></label>
-  <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identiification Number">
-    </div>
+      <label>Store:</label>
 
-    <div class="form-group">
-    <label for="prodID"><strong>Product ID: </strong></label>
-  <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
-    </div>
+    <select name="store" class="form-control">
+      <?php foreach ($STORES as $s):?>
+      <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+    <?php endforeach;  ?>
+    </select>
+
+    <label>Product:</label>
+
+    <select name="prodID" class="form-control">
+      <?php foreach ($PRODUCTS as $p):?>
+      <option value="<?php echo $p['PRODUCT_ID'];?>"><?php echo $p['PRODUCT_ID']." - ".$p['PRODUCT_NAME']." - ".$p['PRODUCT_DESCRIPTION'];?></option>
+    <?php endforeach;  ?>
+    </select>
 
     <div class="form-group">
     <label for="quantity"><strong>Quantity of Item to be Ordered: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to be Ordered">
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to be Ordered" required>
+    </div>
+
+    <div class="form-group">
+    <label for="orderDate"><strong>Order Date: </strong></label>
+  <input name="orderDate" value="<?php echo date("Y-m-d");?>" type="date" class="form-control" id="orderDate" placeholder="Date Order is to be submitted">
     </div>
   </div>
       <label>&nbsp;</label>
@@ -124,6 +145,7 @@
                   <td>S12</td>
                   <td>N3312</td>
                   <td>20</td>
+                  <td><button class= "btn btn-warning">Delete Item</button></td>
 
 
                 </tr>

@@ -1,6 +1,20 @@
 <?php
   session_start();
-  session_destroy();
+
+
+  $user=filter_input(INPUT_POST, 'username');
+  $store=filter_input(INPUT_POST, 'store');
+  $password=filter_input(INPUT_POST, 'password');
+
+
+  $_SESSION['username']=$user;
+  $_SESSION['store']=$store;
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

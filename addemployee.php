@@ -11,6 +11,7 @@ $password=filter_input(INPUT_POST, 'pword');
 $position=filter_input(INPUT_POST, 'pos');
 $store=filter_input(INPUT_POST, 'store');
 
+
 /* $query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE)
 VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone')";
 
@@ -29,6 +30,7 @@ $phone = filter_input(INPUT_POST, 'phone');
 $store = filter_input(INPUT_POST, 'store');
 $password = filter_input(INPUT_POST, 'pword'); */
 
+<<<<<<< HEAD
 /*echo $position."<br>";
 echo $firstname."<br>";
 echo $lastname."<br>";
@@ -39,10 +41,12 @@ echo $phone."<br>";
 echo $password."<br>";*/
 
 
+=======
+>>>>>>> origin/master
 $query='INSERT INTO EMPLOYEE
-               (POSITION_ID, EMPLOYEE_FNAME, EMPLOYEE_LNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_ZIP, EMPLOYEE_PHONE, EMPLOYEE_PASSWORD)
+               (POSITION_ID, EMPLOYEE_FNAME, EMPLOYEE_LNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, EMPLOYEE_PASSWORD)
             VALUES
-               (:position_id, :fname, :lname, :add, :city, :zip, :phone, :pword )';
+               (:position_id, :fname, :lname, :add, :city, :state, :zip, :phone, :pword )';
 
               $statement = $db->prepare($query);
               $statement->bindValue(':position_id', $position);
@@ -50,6 +54,7 @@ $query='INSERT INTO EMPLOYEE
               $statement->bindValue(':lname', $lastname);
               $statement->bindValue(':add', $address);
               $statement->bindValue(':city', $city);
+              $statement->bindValue(':state', $state);
               $statement->bindValue(':zip', $zip);
               $statement->bindValue(':phone', $phone);
               $statement->bindValue(':pword', $password);
@@ -179,12 +184,12 @@ $statement4->closeCursor();*/
         <tr>
           <td><?php echo $newID; ?></td>
           <td><?php echo $firstname." ".$lastname; ?></td>
-        <td><?php echo $address; ?></td>
-        <td><?php echo $city; ?></td>
-        <td><?php echo $state; ?></td>
-        <td><?php echo $zip; ?></td>
-        <td><?php echo $phone; ?></td>
-		  <td><?php echo $store; ?></td>
+          <td><?php echo $address; ?></td>
+          <td><?php echo $city; ?></td>
+          <td><?php echo $state; ?></td>
+          <td><?php echo $zip; ?></td>
+          <td><?php echo $phone; ?></td>
+		      <td><?php echo $store; ?></td>
 
 
         </tr>

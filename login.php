@@ -4,6 +4,13 @@ session_start();
 $username="Employee ID";
 $_SESSION['login_user']=$username;
 //echo $_SESSION['login_user'];
+
+include('nwcsdatabase.php');
+$STORE='SELECT * FROM STORE';
+$statement= $db->prepare($STORE);
+$statement->execute();
+$STORES = $statement->fetchAll();
+$statement->closeCursor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +51,13 @@ $_SESSION['login_user']=$username;
   <input name="username" type="text" class="form-control" id="username" placeholder="Employee Identification Number">
     </div>
 
-
+    <label>Store Location:</label>
+    <select name="store" class="form-control">
+      <?php foreach ($STORES as $s):?>
+      <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+    <?php endforeach;  ?>
+    </select>
+<br>
     <div class="form-group">
     <label for="password"><strong>Employee Password: </strong></label>
   <input name="password" type="password" class="form-control" id="password" placeholder="Employee Password">

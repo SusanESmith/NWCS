@@ -1,5 +1,26 @@
 <?php
   session_start();
+
+$storeID=$_SESSION['store'];
+
+$empID=$_SESSION['username'];
+
+  include('nwcsdatabase.php');
+
+
+  $register='SELECT REGISTER_ID, STORE_ADDRESS FROM REGISTER, STORE WHERE :STORE=REGISTER.STORE_ID AND REGISTER.STORE_ID=STORE.STORE_ID';
+  $statement= $db->prepare($register);
+  $statement->bindValue(':STORE', $storeID);
+  $statement->execute();
+  $reg= $statement->fetchAll();
+  $statement->closeCursor();
+
+  $PRODUCTS='SELECT * FROM PRODUCTS, STOCK WHERE STOCK_QTY>0 AND STOCK.PRODUCT_ID=PRODUCTS.PRODUCT_ID and STOCK.STORE_ID=:STORE';
+  $statement1= $db->prepare($PRODUCTS);
+  $statement1->bindValue(':STORE', $storeID);
+  $statement1->execute();
+  $prodSelect = $statement1->fetchAll();
+  $statement1->closeCursor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,23 +72,46 @@
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
 
-      <?php echo 'Cashier Transaction:';?>
+      <?php echo 'Cashier Transaction at Store ID: <span style=color:orange>\''.$storeID.'\'</span> by Employee ID: <span style=color:orange>\''.$empID.'\'</span>.';?>
     </h4>
 </div>
 
 <!--panel body-->
-
+  <?php $confirm=filter_input(INPUT_POST, 'confirm');
+  if (isset($confirm)){
+  $_SESSION['regID']=filter_input(INPUT_POST,'register');}?>
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+  <?php if (!isset($_SESSION['regID'])){ ?>
+  <form method="post" action="cashier.php" id="storereg" style="text-align:center">
+      <div style="text-align:left">
 
+        <label>Register ID:</label>
+        <select name="register" class="form-control">
+          <?php foreach ($reg as $r):?>
+          <option value="<?php echo $r['REGISTER_ID'];?>"><?php echo $r['REGISTER_ID']." - ".$r['STORE_ADDRESS'];?></option>
+        <?php endforeach;  ?>
+        </select>
+      </div>
+      <br>
+        <input type="submit" name="confirm" class="btn btn-warning" value="Confirm Register to Continue" id="confirm">
+      </form>
+      <?php }
+      if (isset($_SESSION['regID'])){
+          //echo $_SESSION['regID'];
+        $regID= filter_input(INPUT_POST, 'register');
+        ?>
   <form method="post" name="products" action="cashier.php" id="cashiersale" style="text-align:center">
     <div style="text-align:left">
-    <div class="form-group">
-    <label for="prodID"><strong>Product ID: </strong></label>
-  <input name="pID" type="text" class="form-control" id="prodID" placeholder="Product ID">
-    </div>
+      <label>Product:</label>
+      <select name="product" class="form-control">
+        <?php foreach ($prodSelect as $p):?>
+        <option value="<?php echo $p['PRODUCT_ID'];?>"><?php echo $p['PRODUCT_ID']." - ".$p['PRODUCT_NAME']." - ".$p['PRODUCT_DESCRIPTION'];?></option>
+      <?php endforeach;  ?>
+      </select>
+
     <div class="form-group">
     <label for="quantity"><strong>Quantity: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item">
+  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item" required>
     </div>
   </div>
 
@@ -75,11 +119,12 @@
       <label>&nbsp;</label>
 			<input type="submit" name="enterBtn" class="btn btn-warning" value="Enter Values">
       <br>
-
-	</form>
-    <form method="post" name="enter" action="cashier.php" id="cashierpay" style="text-align:center">
       <br>
     <input type="submit" name="pay" class="btn btn-warning"value="Complete Transaction">
+	</form>
+  <?php } ?>
+    <form method="post" name="enter" action="cashier.php" id="cashierpay" style="text-align:center">
+
         <br><br>
         <?php
         $pay=filter_input(INPUT_POST,'pay',FILTER_VALIDATE_FLOAT);
@@ -264,13 +309,16 @@
             $quantity=filter_input(INPUT_POST,'quantity');
 
 
+
+
             if (isset($enterBtn)){
               array_push($_SESSION["arrayID"], $prodID);
               array_push($_SESSION["arrayQ"], $quantity);
-              for($i = 0; $i < count($_SESSION["arrayID"]); $i++) {
-                echo "<label>Item:</label> ".$_SESSION["arrayID"][$i]."         "."<button class= \"btn btn-warning\">Delete Item</button>";
-                echo "<br>";
-              }
+
+            }
+            for($i = 0; $i < count($_SESSION["arrayID"]); $i++) {
+              echo "<label>Product:</label> ".$_SESSION["arrayID"][$i]."         "."<button class= \"btn btn-warning\">Delete Item</button>";
+              echo "<br>";
             }
           ?>
         </div>

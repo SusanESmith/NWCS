@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 require_once('nwcsdatabase.php');
 $name = filter_input(INPUT_POST, 'name');
@@ -31,6 +32,10 @@ $statement2->closeCursor();
 
 
 ?>
+=======
+
+
+>>>>>>> origin/master
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,7 +125,7 @@ $statement2->closeCursor();
   </div>
 
     <br><br>
-    
+
   </div>
 </div>
 </div>
