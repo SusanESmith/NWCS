@@ -1,3 +1,74 @@
+<?php
+include('nwcsdatabase.php');
+
+$prodID=filter_input(INPUT_POST, 'prodID');
+$storeID=filter_input(INPUT_POST, 'storeID');
+$price=filter_input(INPUT_POST, 'price');
+//$catID=filter_input(INPUT_POST, 'catID');
+$stockq=filter_input(INPUT_POST, 'stock');
+$stockMin=filter_input(INPUT_POST, 'stockMin');
+$date=filter_input(INPUT_POST, 'date');
+$pDesc=filter_input(INPUT_POST, 'pDesc');
+
+$select='SELECT STOCK_QTY FROM STOCK WHERE PRODUCT_ID=:PRODUCT_ID AND :STORE_ID=STORE_ID';
+$statement2= $db->prepare($select);
+$statement2->bindValue(':PRODUCT_ID', $prodID);
+$statement2->bindValue(':STORE_ID', $storeID);
+$statement2->execute();
+$stock = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+$addStock=$stock+$stockq;
+
+
+/*$CAT='SELECT CATEGORY_ID FROM PRODUCTS, CATEGORY WHERE STOCK.CATEGORY_ID=STOCK.CATEGORY_ID';
+$statement3= $db->prepare($CAT);
+$statement3->execute();
+$catID = $statement3->fetch();
+$statement3->closeCursor();
+echo $catID."<br>";*/
+
+$query='UPDATE STOCK SET STOCK_QTY=:STOCK_QTY, STOCK_MIN_QTY=:STOCK_MIN_QTY,
+STOCK_LAST_RESTOCK=:STOCK_LAST_RESTOCK
+WHERE STOCK.STORE_ID=:STORE_ID AND STOCK.PRODUCT_ID=:PRODUCT_ID;';
+$statement= $db->prepare($query);
+$statement->bindValue(':PRODUCT_ID',$prodID);
+$statement->bindValue(':STORE_ID',$storeID);
+//$statement->bindValue(':CATEGORY_ID',$catID);
+$statement->bindValue(':STOCK_QTY',$addStock);
+$statement->bindValue(':STOCK_MIN_QTY',$stockMin);
+$statement->bindValue(':STOCK_LAST_RESTOCK',$date);
+$statement->execute();
+$statement->closeCursor();
+
+
+
+$query1='UPDATE PRODUCTS SET PRODUCT_PRICE=:PRODUCT_PRICE, PRODUCT_DESCRIPTION=:P_DESC
+
+WHERE PRODUCTS.PRODUCT_ID=:PRODUCT_ID;';
+$statement1= $db->prepare($query1);
+$statement1->bindValue(':PRODUCT_PRICE',$price);
+$statement1->bindValue(':PRODUCT_ID',$prodID);
+$statement1->bindValue(':P_DESC',$pDesc);
+$statement1->execute();
+$statement1->closeCursor();
+
+$PRODUCT='SELECT PRODUCT_NAME FROM PRODUCTS WHERE PRODUCT_ID=:PRODUCT_ID';
+$statement= $db->prepare($PRODUCT);
+$statement->bindValue(':PRODUCT_ID',$prodID);
+$statement->execute();
+$prodName = $statement->fetchColumn();
+$statement->closeCursor();
+
+$STORES='SELECT STORE_ADDRESS FROM STORE WHERE STORE_ID=:STORE_ID';
+$statement2= $db->prepare($STORES);
+$statement2->bindValue(':STORE_ID',$storeID);
+$statement2->execute();
+$store = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +104,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'You have successfully updated Store(store ID) inventory: ';?>
+      <?php echo "Product Information for Item: <span style=\"color:ORANGE\">'".$prodID." - ".$prodName.'\' </span>Inventory Information updated at Store ID Number <span style="color:ORANGE">\''.$storeID." - ".$store.'\'</span>: ';?>
     </h4>
 </div>
 
@@ -60,20 +131,24 @@
           <th>Product Name</th>
           <th>Store ID Number</th>
           <th>Price</th>
+          <th>Item Quantity</th>
           <th>Minimum Item Quantity</th>
           <th>Date Added</th>
+          <th>Product Description</th>
 
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>N2014</td>
-          <td>Bandaids</td>
-          <td>S18</td>
-          <td>$2.99</td>
-          <td>18</td>
-          <td>03/17/2016</td>
+          <td><?php echo $prodID ?></td>
+          <td><?php echo $prodName?></td>
+          <td><?php echo $storeID?></td>
+          <td><?php echo "$".$price ?></td>
+          <td><?php echo $addStock ?></td>
+          <td><?php echo $stockMin ?></td>
+          <td><?php echo $date ?></td>
+          <td><?php echo $pDesc ?></td>
 
         </tr>
 

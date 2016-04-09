@@ -1,3 +1,30 @@
+<?php
+/*$query='UPDATE STOCK SET PRODUCT_ID=$PRODUCT_ID, STORE_ID=$STORE_ID, PRICE=$PRICE, CATEGORY_ID=$CATEGORY_ID, STOCK_QTY=$STOCK_QTY,STOCK_MIN_QTY=$STOCK_MIN_QTY, DATE=$DATE
+VALUES (:PRODUCT_ID,:STORE_ID,:CATEGORY_ID,:STOCK_QTY, :STOCK_MIN_QTY, :DATE)
+WHERE STOCK.STORE_ID=STORE.STORE_ID AND PRODUCT.PRODUCT_ID=STOCK.PRODUCT_ID;';
+$statement= $db->prepare($query);
+$statement->bindValue(':PRODUCT_ID',$PRODUCT_ID);
+$statement->bindValue(':STORE_ID',$STORE_ID);
+$statement->bindValue(':CATEGORY_ID',$CATEGORY_ID);
+$statement->bindValue(':STOCK_QTY',$STOCK_QTY);
+$statement->bindValue(':STOCK_MIN_QTY',$STOCK_MIN_QTY);
+$statement->bindValue(':DATE',$DATE);
+$statement->execute();
+$statement->closeCursor();*/
+
+include('nwcsdatabase.php');
+$PRODUCT='SELECT * FROM PRODUCTS';
+$statement= $db->prepare($PRODUCT);
+$statement->execute();
+$PRODUCTS = $statement->fetchAll();
+$statement->closeCursor();
+
+$STORES='SELECT * FROM STORE';
+$statement= $db->prepare($STORES);
+$statement->execute();
+$store = $statement->fetchAll();
+$statement->closeCursor();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,34 +70,47 @@
 
   <form method="post" action="updateinvquery.php" id="inventory" style="text-align:center">
       <div style="text-align:left">
-        <div class="form-group">
-      <label for="prodID"><strong>Product ID: </strong></label>
-      <input name="prodID" type="text" class="form-control" id="prodID" placeholder="Product Identification Number">
-        </div>
+        <label>Product:</label>
+        <select name="prodID" class="form-control">
+          <?php foreach ($PRODUCTS as $p):?>
+          <option value="<?php echo $p['PRODUCT_ID'];?>"><?php echo $p['PRODUCT_ID']." - ".$p['PRODUCT_NAME']." - ".$p['PRODUCT_DESCRIPTION'];?></option>
+        <?php endforeach;  ?>
+        </select>
 
-        <div class="form-group">
-      <label for="storeID"><strong>Store ID: </strong></label>
-      <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
-        </div>
+        <label>Store ID:</label>
+        <select name="storeID" class="form-control">
+          <?php foreach ($store as $s):?>
+          <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+        <?php endforeach;  ?>
+        </select>
 
         <form class="form-inline">
           <div class="form-group">
             <label for="price">Price: </label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input type="text" class="form-control" id="price" placeholder="Price of Item">
+              <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item">
             </div>
           </div>
-  
+
+          <div class="form-group">
+          <label for="stock"><strong>Add to Current Quantity: </strong></label>
+          <input name="stock" type="text" class="form-control" id="stock" placeholder="Add Quantity to Current Stock">
+          </div>
 
         <div class="form-group">
       <label for="min"><strong>Minimum Quantity: </strong></label>
-      <input name="min" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock">
+      <input name="stockMin" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock">
+        </div>
+
+        <div class="form-group">
+      <label for="pDesc"><strong>Product Description: </strong></label>
+      <input name="pDesc" type="text" class="form-control" id="pDesc" placeholder="Description of Product">
         </div>
 
         <div class="form-group">
       <label for="date"><strong>Date: </strong></label>
-      <input name="date" type="text" class="form-control" id="date" placeholder="Date of Inventory Update">
+      <input name="date" value ="<?php echo date("Y-m-d");?>" type="date" class="form-control" id="date" placeholder="Date of Inventory Update">
         </div>
       </div>
       <label>&nbsp;</label>
