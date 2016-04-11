@@ -1,3 +1,13 @@
+<?php
+include('nwcsdatabase.php');
+
+$query = "SELECT VENDOR_ID, VENDOR_ADDRESS, VENDOR_POC_PHONE FROM VENDOR WHERE VENDOR_ID = 11";
+
+$statement = $db->prepare($query);
+$statement->execute();
+$warehouse = $statement->fetch();
+$statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,9 +76,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>1900 Clarksville Hwy</td>
-          <td>931-792-4440</td>
-          <td>V001</td>
+          <td><?php echo $warehouse['VENDOR_ADDRESS']; ?></td>
+          <td><?php echo $warehouse['VENDOR_POC_PHONE']; ?></td>
+          <td><?php echo $warehouse['VENDOR_ID']; ?></td>
 
 
 

@@ -139,11 +139,13 @@ $statement2->closeCursor();
               </div>
               <!--panel body-->
               <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-                <form method="post" name="newvendor" action="addvendor.php" id="newvendor" style="text-align:center">
+                <form method="post" name="newvendor" action="vendors.php" id="newvendor" style="text-align:center">
                   <input type="submit" name="newvendor" class="btn btn-warning" value="Add Form">
                   <br><br>
                   <?php $new=filter_input(INPUT_POST,'newvendor');
                   if (isset($new)){?>
+					</form>
+					<form method="post" name="newvendor" action="addvendor.php" id="newemp" style="text-align:center">
                     <div style="text-align:left">
                     <div class="form-group">
                     <label for="name"><strong>Vendor Name: </strong></label>
