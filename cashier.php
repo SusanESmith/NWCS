@@ -86,7 +86,7 @@ $empID=$_SESSION['username'];
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
 
-      <?php echo 'Cashier Transaction at Store ID: <span style=color:orange>\''.$storeID.'\'</span> by Employee ID: <span style=color:orange>\''.$empID.'\'</span>.';?>
+      <?php echo '</span>Cashier Transaction at Store ID: <span style=color:orange>\''.$storeID.'\'</span> by Employee ID: <span style=color:orange>\''.$empID.'\'</span>.';?>
     </h4>
 </div>
 
@@ -131,7 +131,7 @@ $empID=$_SESSION['username'];
 
       <br>
       <label>&nbsp;</label>
-			<input type="submit" name="enterBtn" class="btn btn-warning" value="Enter Values">
+			<input type="submit" name="enterBtn" class="btn btn-warning" value="Add to Cart">
       <br>
       <br>
       	</form>
@@ -145,7 +145,7 @@ $empID=$_SESSION['username'];
         <br><br>
         <?php
         $pay=filter_input(INPUT_POST,'pay',FILTER_VALIDATE_FLOAT);
-        $confirm=filter_input(INPUT_POST,'confirm',FILTER_VALIDATE_FLOAT);
+        $conf=filter_input(INPUT_POST,'conf',FILTER_VALIDATE_FLOAT);
 
         if (isset($pay)){?>
     <label>Payment Type:</label>
@@ -157,7 +157,7 @@ $empID=$_SESSION['username'];
       <option value="<?php echo "charge";?>"><?php echo "Charge Account";?></option>
     </select>
     <br><br>
-    <input type="submit" name="confirm" class="btn btn-warning"value="Confirm Payment Type">
+    <input type="submit" name="conf" class="btn btn-warning"value="Confirm Payment Type">
 
   <?php } ?>
     <br>
@@ -248,7 +248,7 @@ $empID=$_SESSION['username'];
           <div style=\"text-align:left\">
 
           <form class=\"form-inline\">
-          
+
 
 
           <div class=\"form-group\">
@@ -288,7 +288,7 @@ $empID=$_SESSION['username'];
       <div class="panel panel-default">
         <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">";?>
           <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-            <?php echo 'Shopping Cart:';?>
+            <?php echo 'Shopping Cart:';?> <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
           </h4>
         </div>
 
@@ -373,7 +373,7 @@ $empID=$_SESSION['username'];
         <br>
 
 <h3><span class="label label-primary"><?php echo "<strong>Total Cost: $</strong>".number_format($total, 2);?></span></h3>
-    <?php if (isset($pay)||isset($confirm)){
+    <?php if (isset($pay)||isset($conf)){
       $tax=$total*.095;
       $cartTotal=$total+$tax;?>
       <h3><span class="label label-primary"><?php echo "<strong>Tax: $</strong>".number_format($tax, 2);?></span></h3>

@@ -120,7 +120,7 @@ $statement->closeCursor();
         <div class="alert alert-warning" role="alert">
           <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
           <span class=""><strong>  Current Inventory Information for <u>Item</u>: <?php echo $curPrice['PRODUCT_NAME']." - <u>Product ID:</u> ". $prodID ?> at <u>Store</u> <?php echo $storeID ?>:</strong></span><br><br>
-          <strong>Price: </strong> <?php echo "$".$curPrice['PRODUCT_PRICE'] ?><br>
+          <strong>Price: </strong> <?php echo "$".$curItem['STOCK_PRICE'] ?><br>
           <strong>Current Quantity: </strong> <?php echo $curItem['STOCK_QTY'] ?><br>
           <strong>Current Minimum Quantity: </strong> <?php echo $curItem['STOCK_MIN_QTY'] ?><br>
           <strong>Last Inventory Update for this Item: </strong> <?php echo $curItem['STOCK_LAST_RESTOCK'] ?><br>

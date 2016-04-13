@@ -2,7 +2,7 @@
 <html lang="en">
 
  <head>
-   <title>Inventory</title>
+   <title>Orders</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -27,7 +27,7 @@
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Inventory</h1>
+    <h1><span class="label label-primary">Orders</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
@@ -40,14 +40,10 @@
 <!--panel body-->
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='queryinventory.php'"><strong>Look at Current Inventory</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='vieworders.php'"><strong>View Current Open Orders</strong></button>
   <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='addinventory.php'"><strong>Add New Inventory Stock Item</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='ordering.php'"><strong>Order Form</strong></button>
   <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='updateinventory.php'"><strong>Update Current Inventory</strong></button>
-  <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='storeIDinv.php'"><strong>Items Below Minimum Inventory Quantity</strong></button>
-
 
   </div>
 

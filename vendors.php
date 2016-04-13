@@ -42,7 +42,7 @@ $statement2->closeCursor();
            <div class="page-header" style="text-align: center">
              <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
              <br>
-             <h1><span class="label label-primary">Vendors Information</h1>
+             <h1><span class="label label-primary">Vendor Information</h1>
            </div>
          </div>
        </div>
@@ -149,32 +149,32 @@ $statement2->closeCursor();
                     <div style="text-align:left">
                     <div class="form-group">
                     <label for="name"><strong>Vendor Name: </strong></label>
-                  <input name="name" type="text" class="form-control" id="name" placeholder="Vendor Name">
+                  <input name="name" type="text" required class="form-control" id="name" placeholder="Vendor Name">
                     </div>
 
                   <div class="form-group">
                     <label for="vphone"><strong>Vendor Phone: </strong></label>
-                  <input name="vphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="vphone" placeholder="Vendor Phone Number">
+                  <input name="vphone" type="text"  required class="input-medium bfh-phone; form-control" data-country="US" id="vphone" placeholder="Vendor Phone Number">
                     </div>
 
 					<div class="form-group">
                       <label for="vaddress"><strong>Vendor Address: </strong></label>
-                    <input name="vaddress" type="text" class="form-control" id="vaddress" placeholder="Vendor Street Address">
+                    <input name="vaddress" required type="text" class="form-control" id="vaddress" placeholder="Vendor Street Address">
                       </div>
 
                       <div class="form-group">
                         <label for="vcity"><strong>Vendor City: </strong></label>
-                      <input name="vcity" type="text" class="form-control" id="vcity" placeholder="Vendor City">
+                      <input name="vcity" required type="text" class="form-control" id="vcity" placeholder="Vendor City">
                         </div>
 
                         <div class="form-group">
                           <label for="vstate"><strong>Vendor State: </strong></label>
-                        <input name="vstate" type="text" class="form-control" id="vstate" placeholder="Vendor State">
+                        <input name="vstate" required type="text" class="form-control" id="vstate" placeholder="Vendor State">
                           </div>
 
                           <div class="form-group">
                             <label for="vzip"><strong>Vendor Zip Code: </strong></label>
-                          <input name="vzip" type="text" class="form-control" id="vzip" placeholder="Vendor Zip Code">
+                          <input name="vzip" required type="text" class="form-control" id="vzip" placeholder="Vendor Zip Code">
                             </div>
 
 
@@ -182,8 +182,8 @@ $statement2->closeCursor();
                   </div>
 				  <input type="submit" name="newvendor" class="btn btn-warning" value="Click Here to Add New Vendor">
                 </form>
-                
-                  
+
+
                 <?php  }?>
               </div>
               <br><br>

@@ -24,11 +24,11 @@ $statement3->execute();
 $category= $statement3->fetchColumn();
 $statement3->closeCursor();
 
-$pPRICE="SELECT PRODUCT_PRICE FROM PRODUCTS WHERE PRODUCT_ID=$prodID";
+/*$pPRICE="SELECT PRODUCT_PRICE FROM PRODUCTS WHERE PRODUCT_ID=$prodID";
 $statement4= $db->prepare($pPRICE);
 $statement4->execute();
 $price= $statement4->fetchColumn();
-$statement4->closeCursor();
+$statement4->closeCursor();*/
 
 
 
@@ -108,8 +108,8 @@ $statement4->closeCursor();
           <td><?php echo $prodName; ?></td>
           <td><?php echo $stock['PRODUCT_ID']; ?></td>
           <td><?php echo $category; ?></td>
-          <td><?php echo $price; ?></td>
-          
+          <td><?php echo "$".$stock['STOCK_PRICE']; ?></td>
+
           <td><?php if ($stock['STOCK_QTY']<$stock['STOCK_MIN_QTY']){
                echo "<span style=\"color:RED\">".$stock['STOCK_QTY']."</span>";}
            else {echo $stock['STOCK_QTY'];} ?></td>

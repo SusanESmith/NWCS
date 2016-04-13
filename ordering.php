@@ -1,16 +1,60 @@
 <?php
+session_start();
+
+$confirm=filter_input(INPUT_POST, 'confirm');
+if (isset($confirm)){
+$_SESSION['vendID']=filter_input(INPUT_POST,'vendor');}
+
+if (isset($_SESSION['vendID'])){
+  $vendorID=$_SESSION['vendID'];
+}
+$pid=filter_input(INPUT_GET, 'pid');
+if ($pid!==NULL){
+$temp=array();
+$cnt=0;
+
+foreach($_SESSION['order'] as $ca){
+  if ($cnt!=$pid){
+    array_push($temp,$ca);
+  }$cnt++;
+}
+unset($_SESSION['order']);
+$_SESSION['order']=$temp;
+}
+//$storeID=$_SESSION['store'];
+
+$empID=$_SESSION['username'];
+
 include('nwcsdatabase.php');
-$PRODUCT='SELECT * FROM PRODUCTS';
-$statement= $db->prepare($PRODUCT);
+$VENDOR='SELECT * FROM VENDOR';
+$statement= $db->prepare($VENDOR);
 $statement->execute();
-$PRODUCTS = $statement->fetchAll();
+$vend = $statement->fetchAll();
 $statement->closeCursor();
+if (isset($vendorID)){
+$PRODUCT='SELECT * FROM PRODUCTS WHERE VENDOR_ID=:VENDOR_ID';
+$statement1= $db->prepare($PRODUCT);
+$statement1->bindValue(':VENDOR_ID', $vendorID);
+$statement1->execute();
+$PRODUCTS = $statement1->fetchAll();
+$statement1->closeCursor();
+}
 
 $STORE='SELECT * FROM STORE';
-$statement= $db->prepare($STORE);
-$statement->execute();
-$STORES = $statement->fetchAll();
-$statement->closeCursor(); ?>
+$statement2= $db->prepare($STORE);
+$statement2->execute();
+$STORES = $statement2->fetchAll();
+$statement2->closeCursor();
+$total=0;
+$count=0;
+$orderDate=date("Y-m-d");
+$display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
+
+
+
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,8 +102,33 @@ $statement->closeCursor(); ?>
 
 <!--panel body-->
 
-<div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
+<div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+<?php if (!isset($_SESSION['vendID'])){ ?>
+  <form method="post" action="ordering.php" id="ordering" style="text-align:center">
+    <div style="text-align:left">
+
+      <label>Vendor:</label>
+
+    <select name="vendor" class="form-control">
+      <?php foreach ($vend as $v):?>
+      <option value="<?php echo $v['VENDOR_ID'];?>"><?php echo $v['VENDOR_ID']." - ".$v['VENDOR_NAME'];?></option>
+    <?php endforeach;  ?>
+    </select>
+  </div><br>
+    <input type="submit" name="confirm" class="btn btn-warning" value="Confirm Vendor" id="confirm">
+  </form>
+  <?php }
+  if (isset($_SESSION['vendID'])){
+      //echo $_SESSION['vendID'];
+    $vendID= filter_input(INPUT_POST, 'vendor');
+    $VENDing='SELECT VENDOR_NAME FROM VENDOR WHERE VENDOR_ID=:VENDid';
+    $statement4= $db->prepare($VENDing);
+    $statement4->bindValue(':VENDid', $vendorID);
+    $statement4->execute();
+    $vendors = $statement4->fetchColumn();
+    $statement4->closeCursor();
+    ?>
   <form method="post" action="ordering.php" id="ordering" style="text-align:center">
     <div style="text-align:left">
 
@@ -89,14 +158,21 @@ $statement->closeCursor(); ?>
   <input name="orderDate" value="<?php echo date("Y-m-d");?>" type="date" class="form-control" id="orderDate" placeholder="Date Order is to be submitted">
     </div>
   </div>
-      <label>&nbsp;</label>
-      <input type="submit" class="btn btn-warning" value="Add item to Order">
-
-      <label>&nbsp;</label>
+  <label>&nbsp;</label>
+  <input type="submit" name="add" class="btn btn-warning" value="Add item to Order">
+</form>
+<?php } ?>
+  <form method="post" name="enter" action="ordering.php" id="ordeSubmit" style="text-align:center">
+<br>
+        <label>&nbsp;</label>
       <input type="submit" class="btn btn-warning" value="Submit Order">
     </form>
 
   </div>
+
+
+  <p><strong><a href="orders.php">Back to the Orders Menu</a></strong></p>
+
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 
@@ -109,15 +185,45 @@ $statement->closeCursor(); ?>
 
     <div class="panel-group" style="text-align:center">
       <div class="panel panel-default">
-        <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">";?>
+        <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">"; ?>
           <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-            <?php echo 'Order Details:';?>
+            <?php if (!isset($vendorID)) {
+              echo "Order Details: ";}
+              else if (isset($vendorID)){
+            echo "Order Date:<span style=\"color:ORANGE\"> '".$orderDate."'</span><br><br> Vendor: <span style=\"color:ORANGE\">'".$vendorID." - ".$vendors."'</span>";}?>
           </h4>
         </div>
 
         <!--panel body-->
 
         <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+          <?php
+            $add=filter_input(INPUT_POST,'add', FILTER_VALIDATE_FLOAT);
+            $prodID=filter_input(INPUT_POST,'prodID');
+            $quantity=filter_input(INPUT_POST,'quantity');
+            $store=filter_input(INPUT_POST,'store');
+            $orderDate=filter_input(INPUT_POST,'orderDate');
+
+
+
+
+            if (isset($add)){
+
+              $query='SELECT  STOCK_PRICE FROM STOCK WHERE PRODUCT_ID=:PRODID  AND STORE_ID=:STOREID';
+              $statement3= $db->prepare($query);
+              $statement3->bindValue(':STOREID', $store);
+              $statement3->bindValue(':PRODID', $prodID);
+              $statement3->execute();
+              $shop = $statement3->fetch();
+              $statement3->closeCursor();
+
+              $price=$shop['STOCK_PRICE'];
+
+              $item=array("store"=>$store,"prodID"=>$prodID, "quantity"=>$quantity, "price"=>$price);
+
+              $_SESSION['order'][]=$item;
+
+            }?>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12 col-md-offset-0">
@@ -128,55 +234,75 @@ $statement->closeCursor(); ?>
 
               <thead>
                 <tr>
-                  <th>Order Id Number</th>
-                  <th>Order Date</th>
+                  <!--<th>Order Id Number</th>-->
+                  <!--<th>Order Date</th>-->
                   <th>Store ID</th>
                   <th>Product ID</th>
-                  <th>Quantity</th>
+                  <th>Order Quantity</th>
 
 
 
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>03/17/2016</td>
-                  <td>S12</td>
-                  <td>N3312</td>
-                  <td>20</td>
-                  <td><button class= "btn btn-warning">Delete Item</button></td>
+                <?php
 
+                if (isset($_SESSION['order'])){
+
+
+              foreach($_SESSION['order'] as $c) {?>
+                <tr>
+                  <!--<td>1</td>-->
+                  <!--<td>03/17/2016</td>-->
+                  <td><?php echo $c['store'] ?></td>
+                  <td><?php echo $c['prodID'] ?></td>
+                  <td><?php echo $c['quantity'] ?></td>
+                  <td><button class= "btn btn-warning" onclick="window.location.href='ordering.php?pid=<?php echo $count?>'">Delete Item</button></td>
+                  <?php $count++;
+                  //not going to output price
+                  $total=$c['price']*$c['quantity']+$total;?>
 
                 </tr>
+              <?php  }?>
 
 
               </tbody>
             </table>
           </div>
           </div>
-        </div>
-        </div>
+        </div><?php }?>
+                </div>
+                <br>
+
+                </div>
+
+
+            <?php if (isset($add)){
+              $tax=$total*.095;
+              $orderTotal=$total+$tax;?>
+                <h3><span class="label label-primary"><?php echo "<strong>Total Cost: $</strong>".number_format($total, 2);?></span></h3>
+            <h3><span class="label label-primary"><?php echo "<strong>Tax: $</strong>".number_format($tax, 2);?></span></h3>
+                <h3><span class="label label-primary" ><?php echo "<strong>Total Amount for this Order: $</strong>"?> <span id="due"><?php echo number_format($orderTotal, 2); ?></span></span></h3>
+        <?php } ?>
+
 
         </div>
 
         <br><br>
 
       </div>
+
     </div>
 
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3" style="text-align: center">
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
-</div>
+  <!--<div class="row">
+    <div class="col-md-6 col-md-offset-3" style="text-align: center">
+      <?php echo $display; ?>-->
+    </div>
   </div>
-</div>
-</div>
 </div>
 
 </body>
+
 </html>

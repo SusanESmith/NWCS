@@ -63,7 +63,7 @@
 <br><br>
 <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='inventory.php'"><strong>Inventory</strong></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='ordering.php'"><strong>Ordering</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='orders.php'"><strong>Ordering</strong></button>
 <br><br>
 <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reporting.php'"><strong>Reports</strong></button>
 <br><br>

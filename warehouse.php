@@ -1,7 +1,7 @@
 <?php
 include('nwcsdatabase.php');
 
-$query = "SELECT VENDOR_ID, VENDOR_ADDRESS, VENDOR_POC_PHONE FROM VENDOR WHERE VENDOR_ID = 11";
+$query = "SELECT VENDOR_ID, VENDOR_ADDRESS, VENDOR_CITY, VENDOR_STATE, VENDOR_ZIP, VENDOR_POC_PHONE FROM VENDOR WHERE VENDOR_ID = 11";
 
 $statement = $db->prepare($query);
 $statement->execute();
@@ -43,7 +43,7 @@ $statement->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'This is the warehouse information for the NWCS Central Office: ';?>
+        <?php echo 'This is the contact information for the NWCS Warehouse: ';?>
     </h4>
 </div>
 
@@ -67,7 +67,12 @@ $statement->closeCursor();
       <thead>
         <tr>
           <th>Warehouse Address</th>
-          <th>Central Office Phone</th>
+
+          <th> City</th>
+
+          <th> State</th>
+          <th> Zip</th>
+          <th> Phone</th>
           <th>Warehouse ID</th>
 
 
@@ -77,6 +82,10 @@ $statement->closeCursor();
       <tbody>
         <tr>
           <td><?php echo $warehouse['VENDOR_ADDRESS']; ?></td>
+          <td><?php echo $warehouse['VENDOR_CITY']; ?></td>
+          <td><?php echo $warehouse['VENDOR_STATE']; ?></td>
+          <td><?php echo $warehouse['VENDOR_ZIP']; ?></td>
+
           <td><?php echo $warehouse['VENDOR_POC_PHONE']; ?></td>
           <td><?php echo $warehouse['VENDOR_ID']; ?></td>
 
