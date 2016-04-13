@@ -1,3 +1,17 @@
+<?php
+include('nwcsdatabase.php');
+
+$query = "SELECT S.STORE_ID, STORE_PHONE, EMPLOYEE_FNAME, EMPLOYEE_LNAME, STORE_ADDRESS, STORE_CITY, STORE_STATE, STORE_ZIP
+FROM STORE S, MANAGEMENT M, EMPLOYEE E
+WHERE S.STORE_ID = M.STORE_ID
+AND M.EMPLOYEE_ID = E.EMPLOYEE_ID";
+
+$statement = $db->prepare($query);
+$statement->execute();
+$stores = $statement->fetchAll();
+$statement->closeCursor();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,19 +81,19 @@
         </tr>
       </thead>
       <tbody>
+          <?php foreach ($stores as $s) : ?>
         <tr>
-          <td>S16</td>
-          <td>931-792-2301</td>
-          <td>Larry Brown</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><?php echo $s['STORE_ID']; ?></td>
+          <td><?php echo $s['STORE_PHONE']; ?></td>
+          <td><?php echo $s['EMPLOYEE_FNAME']." ".$s['EMPLOYEE_LNAME']; ?></td>
+          <td><?php echo $s['STORE_ADDRESS']; ?></td>
+          <td><?php echo $s['STORE_CITY']; ?></td>
+          <td><?php echo $s['STORE_STATE']; ?></td>
+          <td><?php echo $s['STORE_ZIP']; ?></td>
 
 
         </tr>
-
-
+          <?php endforeach; ?>
       </tbody>
     </table>
   </div>
@@ -120,45 +134,53 @@
       <br><br>
       <?php $new=filter_input(INPUT_POST,'newstore');
       if (isset($new)){?>
+      </form>
+        <form method="post" name="newstore" action="addstore.php" id="newstore" style="text-align:center">
           <div style="text-align:left">
+            <!--
           <div class="form-group">
           <label for="storeID"><strong>Store ID: </strong></label>
-        <input name="id" type="text" class="form-control" id="storeID" placeholder="Store ID">
+        <input name="id" type="text" class="form-control" id="storeID" placeholder="Store ID" required>
 
           </div>
+            -->
           <div class="form-group">
         <label for="storePhone"><strong>Store Phone: </strong></label>
-        <input name="sphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="storePhone" placeholder="Store Phone Number">
+        <input name="sphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="storePhone" placeholder="Store Phone Number" required>
 
           </div>
           <div class="form-group">
         <label for="storeAddress"><strong>Store Address: </strong></label>
-        <input name="saddress" type="text" class="form-control" id="storeAddress" placeholder="Store Address">
+        <input name="saddress" type="text" class="form-control" id="storeAddress" placeholder="Store Address" required>
 
           </div>
           <div class="form-group">
         <label for="storeCity"><strong>Store City: </strong></label>
-        <input name="scity" type="text" class="form-control" id="storeCity" placeholder="Store City">
+        <input name="scity" type="text" class="form-control" id="storeCity" placeholder="Store City" required>
 
           </div>
           <div class="form-group">
         <label for="storeState"><strong>Store State: </strong></label>
-        <input name="sstate" type="text" class="form-control" id="storeState" placeholder="Store State">
+        <input name="sstate" type="text" class="form-control" id="storeState" placeholder="Store State" required>
 
           </div>
           <div class="form-group">
         <label for="storeZip"><strong>Store Zip Code: </strong></label>
-        <input name="szip" type="text" class="form-control" id="storeZip" placeholder="Store Zip Code">
+        <input name="szip" type="text" class="form-control" id="storeZip" placeholder="Store Zip Code" required>
 
           </div>
           <div class="form-group">
-          <label for="storeManager"><strong>Store Manager: </strong></label>
-        <input name="sitems" type="text" class="form-control" id="storeManager" placeholder="Store Manager">
+          <label for="storeManagerFname"><strong>Store Manager First Name: </strong></label>
+        <input name="fname" type="text" class="form-control" id="storeManagerFName" placeholder="Store Manager First Name" required>
+        
+              </div>      
+        <div class="form-group">
+          <label for="storeManagerLname"><strong>Store Manager Last Name: </strong></label>
+        <input name="lname" type="text" class="form-control" id="storeManagerFName" placeholder="Store Manager Last Name" required>
 
           </div>
           </div>
-    </form>
-    <form method="post" name="newstore" action="addstore.php" id="newstore" style="text-align:center">
+
       <input type="submit" name="newstore" class="btn btn-warning" value="Click Here to Add New Store">
     </form>
     <?php  }?>

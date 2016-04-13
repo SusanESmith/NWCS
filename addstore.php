@@ -1,3 +1,64 @@
+<?php
+require_once('nwcsdatabase.php');
+//$id = filter_input(INPUT_POST, 'id');
+$phone = filter_input(INPUT_POST, 'sphone');
+$address = filter_input(INPUT_POST, 'saddress');
+$city = filter_input(INPUT_POST, 'scity');
+$state = filter_input(INPUT_POST, 'sstate');
+$zip = filter_input(INPUT_POST, 'szip');
+$fname = filter_input(INPUT_POST, 'fname');
+$lname = filter_input(INPUT_POST, 'lname');
+
+$position = 101;
+
+$query = "INSERT INTO STORE(STORE_PHONE, STORE_ADDRESS, STORE_CITY, STORE_STATE, STORE_ZIP) VALUES(:phone, :address, :city, :state, :zip)";
+$statement = $db->prepare($query);
+
+$statement->bindValue(':phone', $phone);
+$statement->bindValue(':address', $address);
+$statement->bindValue(':city', $city);
+$statement->bindValue(':state', $state);
+$statement->bindValue(':zip', $zip);
+$statement->execute();
+$statement->closeCursor();
+
+$query2 = "SELECT STORE_ID FROM STORE WHERE STORE_ID=LAST_INSERT_ID()";
+$statement2 = $db->prepare($query2);
+$statement2->execute();
+$storeID = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+$query3 = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = :fname AND EMPLOYEE_LNAME = :lname";
+$statement3 = $db->prepare($query3);
+$statement3->bindValue(':fname', $fname);
+$statement3->bindValue(':lname', $lname);
+$statement3->execute();
+$empID = $statement3->fetchColumn();
+$statement3->closeCursor();
+
+$query4 = "INSERT INTO MANAGEMENT(STORE_ID, EMPLOYEE_ID) VALUES(:storeID, :empID)";
+$statement4 = $db->prepare($query4);
+$statement4->bindValue(':storeID', $storeID);
+$statement4->bindValue(':empID', $empID);
+$statement4->execute();
+$statement4->closeCursor();
+
+$query5 = "UPDATE EMPLOYEE_STORE SET STORE_ID = :storeID WHERE EMPLOYEE_ID = :empID";
+$statement5 = $db->prepare($query5);
+$statement5->bindValue(':storeID', $storeID);
+$statement5->bindValue(':empID', $empID);
+$statement5->execute();
+$statement5->closeCursor();
+
+/*
+$query6 = "UPDATE EMPLOYEE SET POSITION_ID = 101 WHERE EMPLOYEE_ID = :empID";
+$statement6 = $db->prepare($query6);
+$statement6->bindValue(':empID', $empID);
+$statement6->execute();
+$statement6->closeCursor();
+*/
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +121,10 @@
           <th>Store ID</th>
           <th>Store Phone</th>
           <th>Store Manager</th>
-
+          <th>Store Address</th>
+          <th>Store City</th>
+          <th>Store State</th>
+          <th>Store ZIP</th>
 
 
 
@@ -69,9 +133,13 @@
       </thead>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><?php echo $storeID; ?></td>
+          <td><?php echo $phone; ?></td>
+          <td><?php echo $fname." ".$lname; ?></td>
+          <td><?php echo $address; ?></td>
+          <td><?php echo $city; ?></td>
+          <td><?php echo $state; ?></td>
+          <td><?php echo $zip; ?></td>
         </tr>
 
 
