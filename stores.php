@@ -1,3 +1,18 @@
+<?php
+
+include('nwcsdatabase.php');
+$position=101;
+
+$manager='SELECT * FROM EMPLOYEE WHERE EMPLOYEE.POSITION_ID=:POSITION';
+$statement= $db->prepare($manager);
+$statement->bindValue(':POSITION', $position);
+$statement->execute();
+$mgr=$statement->fetchAll();
+$statement->closeCursor();
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,11 +166,14 @@
         <input name="szip" type="text" class="form-control" id="storeZip" placeholder="Store Zip Code">
 
           </div>
-          <div class="form-group">
-          <label for="storeManager"><strong>Store Manager: </strong></label>
-        <input name="sitems" type="text" class="form-control" id="storeManager" placeholder="Store Manager">
+          <label>Manager:</label>
+          <select name="storeManager" class="form-control">
+            <?php foreach ($mgr as $m):?>
 
-          </div>
+            <option value="<?php echo $m['EMPLOYEE_ID'];?>"><?php echo $m['EMPLOYEE_LNAME'].", ".$m['EMPLOYEE_FNAME'];?></option>
+          <?php endforeach;  ?>
+          </select>
+
           </div>
     </form>
     <form method="post" name="newstore" action="addstore.php" id="newstore" style="text-align:center">
