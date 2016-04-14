@@ -6,12 +6,30 @@ $emp = $_POST['emp'];
 $query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
 WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
-AND E.EMPLOYEE_ID = '$emp'";
+AND E.EMPLOYEE_ID = :user";
 
 $statement = $db->prepare($query);
+$statement->bindValue(':user', $emp);
 $statement->execute();
 $employee = $statement->fetch(PDO::FETCH_ASSOC);
 $statement->closeCursor();
+
+$empl='SELECT EMPLOYEE_ID,EMPLOYEE_LNAME, EMPLOYEE_FNAME FROM EMPLOYEE';
+$statement2= $db->prepare($empl);
+$statement2->execute();
+$searchemp = $statement2->fetchAll();
+$statement2->closeCursor();
+
+$query2='SELECT EMPLOYEE_LNAME, EMPLOYEE_FNAME
+FROM EMPLOYEE
+WHERE EMPLOYEE_ID=:user';
+$statement1 = $db->prepare($query2);
+$statement1->bindValue(':user',$emp);
+$statement1->execute();
+$EMP = $statement1->fetch();
+$statement1->closeCursor();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +66,7 @@ $statement->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Employee Search Results: ';?>
+      <?php echo 'Search Results for Employee: <span style="color:ORANGE">'.$EMP['EMPLOYEE_LNAME'].", ".$EMP['EMPLOYEE_FNAME'].'</span>';?>
     </h4>
 </div>
 
@@ -103,13 +121,16 @@ $statement->closeCursor();
       </tbody>
     </table>
   </div>
-    <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
+    <label><a href="emptranshistory.php?emp=<?php echo $employee['EMPLOYEE_ID'];?>">Click to see employee transaction history</a></label>
     <br><br>
     <div class="form-group">
 	 <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
-    <label for="emp"><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-
-  <input name="emp" type="text"  id="newemp" >
+     <label>Or Search for a different employee:</label>
+     <select name="emp" class="form-control">
+       <?php foreach ($searchemp as $s):?>
+       <option value="<?php echo $s['EMPLOYEE_ID'];?>"><?php echo $s['EMPLOYEE_ID']." - ".$s['EMPLOYEE_LNAME'].", ".$s['EMPLOYEE_FNAME'];?></option>
+     <?php endforeach;  ?>
+   </select><br>
   <input type="submit" class="btn btn-warning" onclick="window.location.href='empsearch.php'" value="Search">
   </form>
   <br><br>

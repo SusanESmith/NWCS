@@ -1,16 +1,29 @@
 <?php
+session_start();
+$user=$_SESSION['start'];
 require_once('nwcsdatabase.php');
+$var=filter_input(INPUT_GET, 'emp');
 
-$query = "SELECT T.TRANSACTION_ID, P.PRODUCT_NAME, TRANS_PROD_TOTAL, TRANSACTION_TOTAL, STORE_ID, TRANSACTION_TYPE, T.TRANSACTION_DATE
-FROM TRANSACTIONS T, TRANSACTION_DETAILS TD, PRODUCTS P 
-WHERE P.PRODUCT_ID = T.PRODUCT.ID
-AND T.TRANSACTION_ID = TD.TRANSACTION_ID
-AND EMPLOYEE_ID = 1001";
 
+
+$query='SELECT DISTINCT TRANSACTIONS.TRANSACTION_ID, TRANSACTIONS.TRANSACTION_TOTAL, TRANSACTIONS.STORE_ID, PAYMENT.PAYMENT_TYPE, TRANSACTIONS.TRANSACTION_DATE
+FROM TRANSACTIONS, PAYMENT
+WHERE TRANSACTIONS.EMPLOYEE_ID=:user AND PAYMENT.TRANSACTION_ID=TRANSACTIONS.TRANSACTION_ID';
 $statement = $db->prepare($query);
+$statement->bindValue(':user',$var);
 $statement->execute();
-$transaction = $statement->fetch(PDO::FETCH_ASSOC);
+$trans = $statement->fetchAll();
 $statement->closeCursor();
+
+
+$query2='SELECT EMPLOYEE_LNAME, EMPLOYEE_FNAME
+FROM EMPLOYEE
+WHERE EMPLOYEE_ID=:user';
+$statement1 = $db->prepare($query2);
+$statement1->bindValue(':user',$var);
+$statement1->execute();
+$EMP = $statement1->fetch();
+$statement1->closeCursor();
 
 ?>
 <!DOCTYPE html>
@@ -48,7 +61,7 @@ $statement->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Transaction Details for (transaction num):';?>
+        <?php echo 'Transaction Details for Employee: <span style="color:ORANGE">'.$EMP['EMPLOYEE_LNAME'].", ".$EMP['EMPLOYEE_FNAME'].'</span>';?>
     </h4>
 </div>
 
@@ -72,8 +85,7 @@ $statement->closeCursor();
       <thead>
         <tr>
           <th>Transaction ID</th>
-          <th>Product</th>
-          <th>Price</th>
+
           <th>Transaction Total</th>
           <th>Store ID</th>
           <th>Transaction Type</th>
@@ -81,14 +93,13 @@ $statement->closeCursor();
         </tr>
       </thead>
       <tbody>
-	  <?php foreach ($transaction as $t) { ?>
+	  <?php foreach ($trans as $t) { ?>
         <tr>
-          <td><a href="transdetails.php"><?php echo $t['TRANSACTION_ID'] ?></a></td>
-          <td><?php echo $t['PRODUCT_NAME'] ?></td>
-          <td><?php echo $t['TRANS_PROD_TOTAL'] ?></td>
+          <td><?php echo $t['TRANSACTION_ID'] ?></a></td>
+
           <td><?php echo $t['TRANSACTION_TOTAL'] ?></td>
           <td><?php echo $t['STORE_ID'] ?></td>
-          <td><?php echo $t['TRANSACTION_TYPE'] ?></td>
+          <td><?php echo $t['PAYMENT_TYPE'] ?></td>
           <td><?php echo $t['TRANSACTION_DATE'] ?></td>
         </tr>
 	  <?php } ?>

@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$user=$_SESSION['start'];
 include('nwcsdatabase.php');
 
 $pos='SELECT * FROM POSITIONS';
@@ -14,13 +15,20 @@ $statement1->execute();
 $store = $statement1->fetchAll();
 $statement1->closeCursor();
 
+$emp='SELECT EMPLOYEE_ID,EMPLOYEE_LNAME, EMPLOYEE_FNAME FROM EMPLOYEE';
+$statement2= $db->prepare($emp);
+$statement2->execute();
+$searchemp = $statement2->fetchAll();
+$statement2->closeCursor();
+
 
 
 $query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
 WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
-AND E.EMPLOYEE_ID = 1001";
+AND E.EMPLOYEE_ID = :user";
 $statement = $db->prepare($query);
+$statement->bindValue(':user',$user);
 $statement->execute();
 $profile = $statement->fetch(PDO::FETCH_ASSOC);
 $statement->closeCursor();
@@ -37,6 +45,9 @@ $statement->closeCursor();
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link href="css/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+
+<script src="js/bootstrap-formhelpers.min.js"></script>
 
 <!--background-->
 <style>
@@ -61,7 +72,7 @@ $statement->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo $profile['EMPLOYEE_FNAME']." ".$profile['EMPLOYEE_LNAME'];?>
+      <?php echo 'Details for Employee: <span style="color:ORANGE">'.$profile['EMPLOYEE_LNAME'].", ".$profile['EMPLOYEE_FNAME'].'</span>';?>
     </h4>
 </div>
 
@@ -103,7 +114,7 @@ $statement->closeCursor();
     </tbody>
   </table>
 </div>
-    <label><a href="emptranshistory.php">Click to see employee transaction history</a></label>
+    <label><a href="emptranshistory.php?emp=<?php echo $profile['EMPLOYEE_ID'];?>">Click to see employee transaction history</a></label>
   <br><br>
 
 
@@ -120,8 +131,10 @@ $statement->closeCursor();
 <div class="col-md-6 col-md-offset-6" style="float: none; display: table-cell;">
 
 
+  <div class="row">
+  <div class="col-md-12 col-md-offset-3">
   <div class="panel-group" style="text-align:center">
-    <div class="panel panel-default">
+  <div class="panel panel-default">
       <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">";?>
         <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
           <?php echo 'New Employee:';?>
@@ -132,9 +145,14 @@ $statement->closeCursor();
 
       <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
         <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
-            <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-            <input name="emp" type="text">
-
+          <br>
+          <label>Or Search for a different employee:</label>
+          <select name="emp" class="form-control">
+            <?php foreach ($searchemp as $s):?>
+            <option value="<?php echo $s['EMPLOYEE_ID'];?>"><?php echo $s['EMPLOYEE_ID']." - ".$s['EMPLOYEE_LNAME'].", ".$s['EMPLOYEE_FNAME'];?></option>
+          <?php endforeach;  ?>
+          </select>
+          <br>
             <label>&nbsp;</label>
             <input type="submit" name="enterBtn" class="btn btn-warning" value="Search">
             <br><br>
@@ -144,7 +162,7 @@ $statement->closeCursor();
            <form method="post" name="newemp" action="empprofile.php" id="newemp" style="text-align:center">
 
             <div class="form-group">
-            <label for="newemp"><strong>Or add a new employee by entering an employee ID number: </strong></label>
+            <label for="newemp"><strong>Or add a new employee: </strong></label>
               <br>
           <input name="newemp" type="submit"  class="btn btn-warning" id="newemp" value="Add Form">
 
@@ -154,7 +172,6 @@ $statement->closeCursor();
 
 
 
-            <br><br>
 
             <?php $new=filter_input(INPUT_POST,'newemp');
             if (isset($new)){?>
@@ -182,42 +199,42 @@ $statement->closeCursor();
 
               <div class="form-group">
               <label for="lName"><strong>Last Name: </strong></label>
-            <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name">
+            <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name" required>
               </div>
 
               <div class="form-group">
               <label for="fName"><strong>First Name: </strong></label>
-            <input name="fName" type="text" class="form-control" id="fName" placeholder="Employee First Name">
+            <input name="fName" type="text" class="form-control" id="fName" placeholder="Employee First Name" required>
               </div>
 
               <div class="form-group">
               <label for="add"><strong>Address: </strong></label>
-            <input name="add" type="text" class="form-control" id="add" placeholder="Employee Street Address">
+            <input name="add" type="text" class="form-control" id="add" placeholder="Employee Street Address" required>
               </div>
 
               <div class="form-group">
               <label for="city"><strong>City: </strong></label>
-            <input name="city" type="text" class="form-control" id="city" placeholder="Employee City">
+            <input name="city" type="text" class="form-control" id="city" placeholder="Employee City" required>
               </div>
 
               <div class="form-group">
               <label for="state"><strong>State: </strong></label>
-            <input name="state" type="text" class="form-control" id="state" placeholder="Employee State">
-              </div>
+              <select name="state" id="storeState" placeholder="Store State" class="form-control bfh-states" data-country="US" required>
+              </select>     </div>
 
               <div class="form-group">
               <label for="zip"><strong>Zip Code: </strong></label>
-            <input name="zip" type="text" class="form-control" id="zip" placeholder="Employee Zip Code">
+            <input name="zip" type="text" class="form-control" id="zip" placeholder="Employee Zip Code" required>
               </div>
 
               <div class="form-group">
               <label for="phone"><strong> Phone Number: </strong></label>
-            <input name="phone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="phone" placeholder="Employee Phone Number">
+            <input name="phone" type="text" class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="phone" placeholder="Employee Phone Number" required>
           </div>
 
           <div class="form-group">
           <label for="pword"><strong> Employee Password: </strong></label>
-        <input name="pword" type="text" class="form-control" id="pword" placeholder="Set Employee Password">
+        <input name="pword" type="text" class="form-control" id="pword" minlength="15" maxlength="15" placeholder="Set Employee Password" required title="-EMPLOYEE PASSWORDS MUST BE 15 CHARACTERS IN LENGTH-">
           </div>
         </div>
 
@@ -237,8 +254,8 @@ $statement->closeCursor();
 </div>
 <div class="row">
 <div class="col-md-6 col-md-offset-3" style="text-align: center">
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
+<!--<?php
+echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>-->
 
   </div>
 </div>

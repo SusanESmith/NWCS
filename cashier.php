@@ -214,7 +214,7 @@ $empID=$_SESSION['username'];
 
             <div class=\"form-group\">
             <label for=\"card\"><strong>Credit Card Number: </strong></label>
-            <input name=\"card\" type=\"text\" pattern=\"[0-9]\" class=\"form-control\" id=\"card\" minlength=\"16\" maxlength=\"16\" placeholder=\"Customer's Credit Card Number\" title=\"-CREDIT CARD NUMBER MUST BE 16 DIGITS-\">
+            <input name=\"card\" type=\"text\" pattern=\"[0-9]*\" class=\"form-control\" id=\"card\" minlength=\"16\" maxlength=\"16\" placeholder=\"Customer's Credit Card Number\" title=\"-CREDIT CARD NUMBER MUST BE 16 DIGITS-\">
             </div>
 
           </div>
@@ -234,7 +234,7 @@ $empID=$_SESSION['username'];
 
           <div class=\"form-group\">
           <label for=\"num\"><strong>Check Account Number: </strong></label>
-          <input name=\"num\" type=\"text\" pattern=\".{8}\" minlength=\"7\" class=\"form-control\" id=\"num\" placeholder=\"Checking Account Number\" title=\"-CHECKING ACCOUNT MUST BE 7-8 DIGITS-\">
+          <input name=\"num\" type=\"text\" pattern=\"[0-9]*\" minlength=\"7\" maxlength=\"8\" class=\"form-control\" id=\"num\" placeholder=\"Checking Account Number\" title=\"-CHECKING ACCOUNT MUST BE 7-8 DIGITS-\">
           </div>
 
 

@@ -11,6 +11,11 @@ $password=filter_input(INPUT_POST, 'pword');
 $position=filter_input(INPUT_POST, 'pos');
 $store=filter_input(INPUT_POST, 'store');
 
+$emp='SELECT EMPLOYEE_ID,EMPLOYEE_LNAME, EMPLOYEE_FNAME FROM EMPLOYEE';
+$statement2= $db->prepare($emp);
+$statement2->execute();
+$searchemp = $statement2->fetchAll();
+$statement2->closeCursor();
 
 /* $query = "INSERT INTO EMPLOYEE(EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE)
 VALUES ('$lastname','$firstname','$address','$city','$state','$zip','$phone')";
@@ -200,10 +205,14 @@ $statement4->closeCursor();*/
     <label><a href="">Click to see employee transaction history</a></label>
     <br><br>
     <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
-        <label><strong>Or Search for a different employee by entering an employee ID number: </strong></label>
-        <input name="emp" type="text">
+      <label>Or Search for a different employee:</label>
+      <select name="emp" class="form-control">
+        <?php foreach ($searchemp as $s):?>
+        <option value="<?php echo $s['EMPLOYEE_ID'];?>"><?php echo $s['EMPLOYEE_ID']." - ".$s['EMPLOYEE_LNAME'].", ".$s['EMPLOYEE_FNAME'];?></option>
+      <?php endforeach;  ?>
+      </select>
 
-        <label>&nbsp;</label>
+        <label>&nbsp;</label><BR>
         <input type="submit" name="enterBtn"  class="btn btn-warning" value="Search">
         <br><br>
     </form>

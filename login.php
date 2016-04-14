@@ -1,8 +1,7 @@
 <?php $lifetime=60*60*24*14;
 session_set_cookie_params($lifetime,'/');
 session_start();
-$username="Employee ID";
-$_SESSION['login_user']=$username;
+
 //echo $_SESSION['login_user'];
 
 include('nwcsdatabase.php');
@@ -11,6 +10,18 @@ $statement= $db->prepare($STORE);
 $statement->execute();
 $STORES = $statement->fetchAll();
 $statement->closeCursor();
+
+
+/*<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+  <span class=""><strong>  Current Inventory Information for <u>Item</u>: <?php echo $curPrice['PRODUCT_NAME']." - <u>Product ID:</u> ". $prodID ?> at <u>Store</u> <?php echo $storeID ?>:</strong></span><br><br>
+  <strong>Price: </strong> <?php echo "$".$curItem['STOCK_PRICE'] ?><br>
+  <strong>Current Quantity: </strong> <?php echo $curItem['STOCK_QTY'] ?><br>
+  <strong>Current Minimum Quantity: </strong> <?php echo $curItem['STOCK_MIN_QTY'] ?><br>
+  <strong>Last Inventory Update for this Item: </strong> <?php echo $curItem['STOCK_LAST_RESTOCK'] ?><br>
+
+</div>*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,11 +55,11 @@ $statement->closeCursor();
 </div>
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656">
 
-  <form method="post" action="menu.php" id="empLogin" style="text-align:center">
+  <form method="post" action="login.php" id="empLogin" style="text-align:center">
     <div style="text-align:left">
     <div class="form-group">
     <label for="username"><strong>Employee ID: </strong></label>
-  <input name="username" type="text" class="form-control" id="username" placeholder="Employee Identification Number">
+  <input name="username" type="text" minlength="4" maxlength="4" pattern="[0-9]*" class="form-control" id="username" placeholder="Employee Identification Number" required title="-EMPLOYEE ID'S CONTAIN 4 NUMERIC DIGITS-">
     </div>
 
     <label>Store Location:</label>
@@ -60,13 +71,44 @@ $statement->closeCursor();
 <br>
     <div class="form-group">
     <label for="password"><strong>Employee Password: </strong></label>
-  <input name="password" type="password" class="form-control" id="password" placeholder="Employee Password">
+  <input name="password" type="password" minlength="15" maxlength="15" class="form-control" id="password" placeholder="Employee Password" required title="-EMPLOYEE PASSWORDS CONTAIN 15 CHARACTERS-">
     </div>
   </div>
       <label>&nbsp;</label>
-			<input type="submit" class="btn btn-warning" value="Login">
+			<input type="submit" class="btn btn-warning" value="Login" name="login">
 		</form>
+<?php
+$login=filter_input(INPUT_POST, 'login');
+$user=filter_input(INPUT_POST, 'username');
+$pw=filter_input(INPUT_POST, 'password');
 
+if (isset($login)){
+
+  $valid='SELECT EMPLOYEE_ID, EMPLOYEE_PASSWORD FROM EMPLOYEE WHERE EMPLOYEE_ID=:USER AND EMPLOYEE_PASSWORD=:PW';
+  $statement1= $db->prepare($valid);
+  $statement1->bindValue(':USER', $user);
+  $statement1->bindValue(':PW', $pw);
+  $statement1->execute();
+  $validation = $statement1->fetch();
+  $statement1->closeCursor();
+
+//print_r($validation);
+
+  if (count($validation)<2){  ?>
+    <br><br>
+    <div class="alert alert-warning" role="alert" style="text-align: center">
+      <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+      <span class=""><strong>  Invalid Employee ID Number or Password.  Please try again. </strong></span><br><br>
+    </div>
+
+<?php  }
+else {
+  $_SESSION['start']=$user;
+header('Location: menu.php');
+
+}
+
+}?>
   </div>
   </div>
 </div>
