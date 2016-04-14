@@ -40,7 +40,7 @@
 <!--panel body-->
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='vieworders.php'"><strong>View Current Open Orders</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='vieworders.php'"><strong>View/Edit Current Open Orders</strong></button>
   <br><br>
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='ordering.php'"><strong>Order Form</strong></button>
   <br><br>

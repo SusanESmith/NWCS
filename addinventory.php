@@ -60,7 +60,7 @@ $statement->closeCursor();
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Add Inventory</h1>
+    <h1><span class="label label-primary">Add New Inventory Items Here</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
@@ -101,11 +101,11 @@ $statement->closeCursor();
 
     <div class="form-group">
   <label for="minStock"><strong>Minimum Stock Quantity: </strong></label>
-<input name="minStock" type="text" class="form-control" id="minStock" placeholder="Minimum Stock Quantity for this Item" required>  </div>
+<input name="minStock" type="number" class="form-control" id="minStock" placeholder="Minimum Stock Quantity for this Item" required>  </div>
 
     <div class="form-group">
     <label for="quantity"><strong>Quantity: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to Add" required>  </div>
+  <input name="quantity" type="number" class="form-control" id="quantity" placeholder="Quantity of Item to Add" required>  </div>
 
     <div class="form-group">
     <label for="prodName"><strong>Product Name: </strong></label>
@@ -116,7 +116,7 @@ $statement->closeCursor();
     <label for="price">Price:</label>
     <div class="input-group">
       <div class="input-group-addon">$</div>
-      <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item" required >    </div>
+      <input name="price" type="number" step="any" class="form-control" id="price" placeholder="Price of Item" required >    </div>
   </div>
 
   <div class="form-group">

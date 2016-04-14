@@ -35,7 +35,7 @@ $empID=$_SESSION['username'];
   $prodSelect = $statement1->fetchAll();
   $statement1->closeCursor();
 
-  $acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
+  $acctID='SELECT ACCOUNT_ID, CHG_ACCT_BALANCE, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
   $statement7= $db->prepare($acctID);
   //$statement->bindValue(':POSITION', $position);
   $statement7->execute();
@@ -132,7 +132,7 @@ $empID=$_SESSION['username'];
 
     <div class="form-group">
     <label for="quantity"><strong>Quantity: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item" required>
+  <input name="quantity" type="number" min="0" class="form-control" id="quantity" placeholder="Quantity of Item" required>
     </div>
   </div>
 
@@ -186,7 +186,7 @@ $empID=$_SESSION['username'];
               <label  for=\"cash\">Total Cash Received: </label>
             <div class=\"input-group\">
             <div class=\"input-group-addon\">$</div>
-              <input type=\"text\" class=\"form-control\" name=\"cash\" id=\"cash\" placeholder=\"Total Cash Received\" onchange=\"calcChange()\" required>
+              <input type=\"number\" step=\"any\" class=\"form-control\" name=\"cash\" id=\"cash\" placeholder=\"Total Cash Received\" onchange=\"calcChange()\" required>
             </div>
             </div>
 
@@ -195,7 +195,7 @@ $empID=$_SESSION['username'];
                 <label  for=\"change\">Change Owed: </label>
               <div class=\"input-group\">
               <div class=\"input-group-addon\">$</div>
-                <input type=\"text\" class=\"form-control\" id=\"change\" placeholder=\"Change Amount Auto here\" required disabled=\"true\">
+                <input type=\"number\" min=\"0\" class=\"form-control\" id=\"change\" placeholder=\"Change Amount Auto here\" required disabled=\"true\">
               </div>
               </div>
 
@@ -214,7 +214,7 @@ $empID=$_SESSION['username'];
 
             <div class=\"form-group\">
             <label for=\"card\"><strong>Credit Card Number: </strong></label>
-            <input name=\"card\" type=\"text\" class=\"form-control\" id=\"card\" placeholder=\"Customer's Credit Card Number\">
+            <input name=\"card\" type=\"text\" pattern=\"[0-9]\" class=\"form-control\" id=\"card\" minlength=\"16\" maxlength=\"16\" placeholder=\"Customer's Credit Card Number\" title=\"-CREDIT CARD NUMBER MUST BE 16 DIGITS-\">
             </div>
 
           </div>
@@ -234,7 +234,7 @@ $empID=$_SESSION['username'];
 
           <div class=\"form-group\">
           <label for=\"num\"><strong>Check Account Number: </strong></label>
-          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Checking Account Number\">
+          <input name=\"num\" type=\"text\" pattern=\".{8}\" minlength=\"7\" class=\"form-control\" id=\"num\" placeholder=\"Checking Account Number\" title=\"-CHECKING ACCOUNT MUST BE 7-8 DIGITS-\">
           </div>
 
 
@@ -308,7 +308,7 @@ $empID=$_SESSION['username'];
 
             if (isset($enterBtn)){
 
-              $query='SELECT PRODUCT_NAME, STOCK_PRICE FROM PRODUCTS, STOCK WHERE STOCK.STORE_ID=:STOREID AND PRODUCTS.PRODUCT_ID=:PRODID AND STOCK.PRODUCT_ID=PRODUCTS.PRODUCT_ID';
+              $query='SELECT PRODUCT_NAME, STOCK_PRICE, STOCK_QTY FROM PRODUCTS, STOCK WHERE STOCK.STORE_ID=:STOREID AND PRODUCTS.PRODUCT_ID=:PRODID AND STOCK.PRODUCT_ID=PRODUCTS.PRODUCT_ID';
               $statement3= $db->prepare($query);
               $statement3->bindValue(':STOREID', $storeID);
               $statement3->bindValue(':PRODID', $prodID);
@@ -319,8 +319,16 @@ $empID=$_SESSION['username'];
               $prodName=$shop['PRODUCT_NAME'];
               $price=$shop['STOCK_PRICE'];
               $item=array("prodID"=>$prodID,"prodName"=>$prodName, "quantity"=>$quantity, "price"=>$price);
+              $SQ=$shop['STOCK_QTY'];
+              if ($quantity>$SQ){?>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <span class="glyphicon glyphicon-exclamation-sign"></span><strong>  Notice!  </strong><span class="glyphicon glyphicon-exclamation-sign"></span> There are only <?php echo $SQ?> of this item in stock at this store location. Please enter a valid quantity.
+        </div>
 
-              $_SESSION['cart'][]=$item;}?>
+            <?php  } else {
+
+              $_SESSION['cart'][]=$item;}}?>
 
               <div class="container-fluid">
                 <div class="row">
@@ -401,7 +409,25 @@ if (isset($ccnum)){
 
 if (isset($done)){
   $cartTotal=number_format($cartTotal, 2);
+if (!is_null($act)){
+$balq='SELECT CHG_ACCT_BALANCE FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:AI';
+$statement11=$db->prepare($balq);
+$statement11->bindValue(':AI', $act);
+$statement11->execute();
+$chgbal=$statement11->fetchColumn();
+$statement11->closeCursor();
+if ($chgbal<$cartTotal){?>
+  <br>
+  <div class="alert alert-warning alert-dismissible" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<span class="glyphicon glyphicon-exclamation-sign"></span><strong>  Notice!  </strong><span class="glyphicon glyphicon-exclamation-sign"></span> The chosen account has a balance of <?php echo $chgbal?> and the purchase total is <?php echo $cartTotal?>.  Please choose another method of payment.
+</div>
+<?php $status="false"; }
 
+else {$status="true";}
+
+}
+if ($status=="true"){
   $tDate=date('Y-m-d');
 
   $t='INSERT INTO TRANSACTIONS
@@ -475,13 +501,14 @@ $statement9->execute();
 $statement9->closeCursor();
 }
 unset($_SESSION['cart']);
+unset($_SESSION['regID']);
 ?>
 <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
 
   <?php echo '<br>Transaction Complete! Transaction ID Number: <span style=color:orange>\''.$transID.'\'</span> <br>Thank you for your business and come again soon!';?>
 </h4>
 <?php }
-
+}
 
 
 

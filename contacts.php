@@ -45,11 +45,11 @@
           <br><br>
           <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='stores.php'"><strong>Stores</strong></button>
           <br><br>
-          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='central.php'"><strong>Central</strong></button>
+          <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='central.php'"><strong>NWCS Central Office</strong></button>
           <br><br>
           <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='warehouse.php'"><strong>Warehouse</strong></button>
 
-        	
+
           </div>
             <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
             <p><strong><a href="logout.php">Click here to logout</a></strong></p>

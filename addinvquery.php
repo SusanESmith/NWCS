@@ -16,9 +16,9 @@ require_once('nwcsdatabase.php');
 
 //insert new inv into product table
   $queryProduct='INSERT INTO PRODUCTS
-                 (PRODUCT_NAME, VENDOR_ID, CATEGORY_ID, PRODUCT_DESCRIPTION, PRODUCT_PRICE)
+                 (PRODUCT_NAME, VENDOR_ID, CATEGORY_ID, PRODUCT_DESCRIPTION)
               VALUES
-                 (:productName, :vendor, :cat, :pDesc, :price)';
+                 (:productName, :vendor, :cat, :pDesc)';
 
   $statement = $db->prepare($queryProduct);
   $statement->bindValue(':productName', $prodName);
@@ -27,7 +27,7 @@ require_once('nwcsdatabase.php');
  $statement->bindValue(':vendor', $vendor);
  $statement->bindValue(':cat', $category);
  $statement->bindValue(':pDesc', $pDesc);
- $statement->bindValue(':price', $price);
+ //$statement->bindValue(':price', $price);
  $statement->execute();
 $statement->closeCursor();
 
@@ -44,9 +44,9 @@ $statement2->closeCursor();
 
 
 $queryStock = 'INSERT INTO STOCK
-               (PRODUCT_ID, STORE_ID, CATEGORY_ID, STOCK_QTY, STOCK_MIN_QTY, STOCK_LAST_RESTOCK)
+               (PRODUCT_ID, STORE_ID, STOCK_PRICE, CATEGORY_ID, STOCK_QTY, STOCK_MIN_QTY, STOCK_LAST_RESTOCK)
             VALUES
-               (LAST_INSERT_ID(),:storeID, :catID,:quantity, :stockMin, :stockLastRestock)';
+               (LAST_INSERT_ID(),:storeID, :price, :catID,:quantity, :stockMin, :stockLastRestock)';
 
   $statement1 = $db->prepare($queryStock);
   $statement1->bindValue(':storeID', $storeID);
@@ -55,10 +55,11 @@ $queryStock = 'INSERT INTO STOCK
   $statement1->bindValue(':quantity', $quantity);
   $statement1->bindValue(':catID', $category);
   $statement1->bindValue(':stockMin', $minStock);
-  //$statement1->bindValue(':price', $price);
+  $statement1->bindValue(':price', $price);
   $statement1->bindValue(':stockLastRestock', $date);
   $statement1->execute();
   $statement1->closeCursor();
+
 
 
 

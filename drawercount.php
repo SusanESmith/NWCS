@@ -104,62 +104,62 @@ $statement1->closeCursor();
 
       <div class="form-group">
       <label for="hundred"><strong>$ 100's: </strong></label>
-    <input name="hundred" type="text" class="form-control" id="hundred" placeholder="Number of One Hundred Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="hundred" type="number" class="form-control" id="hundred" placeholder="Number of One Hundred Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="fifty"><strong>$ 50's: </strong></label>
-    <input name="fifty" type="text" class="form-control" id="fifty" placeholder="Number of Fifty Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="fifty" type="number"  class="form-control" id="fifty" placeholder="Number of Fifty Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="twenty"><strong>$ 20's: </strong></label>
-    <input name="twenty" type="text" class="form-control" id="twenty" placeholder="Number of Twenty Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="twenty" type="number" class="form-control" id="twenty" placeholder="Number of Twenty Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="ten"><strong>$ 10's: </strong></label>
-    <input name="ten" type="text" class="form-control" id="ten" placeholder="Number of Ten Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="ten" type="number" class="form-control" id="ten" placeholder="Number of Ten Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="five"><strong>$ 5's: </strong></label>
-    <input name="five" type="text" class="form-control" id="five" placeholder="Number of Five Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="five" type="number" class="form-control" id="five" placeholder="Number of Five Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="one"><strong>$ 1's: </strong></label>
-    <input name="one" type="text" class="form-control" id="one" placeholder="Number of One  Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="one" type="number" class="form-control" id="one" placeholder="Number of One  Dollar Bills" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="quarters"><strong>25 &cent;: </strong></label>
-    <input name="quarters" type="text" class="form-control" id="quarters" placeholder="Number of Quarters" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="quarters" type="number" class="form-control" id="quarters" placeholder="Number of Quarters" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="dimes"><strong>10 &cent;: </strong></label>
-    <input name="dimes" type="text" class="form-control" id="dimes" placeholder="Number of Dimes" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="dimes" type="number" class="form-control" id="dimes" placeholder="Number of Dimes" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="nickels"><strong>5 &cent;: </strong></label>
-    <input name="nickels" type="text" class="form-control" id="nickels" placeholder="Number of Nickels" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="nickels" type="number" class="form-control" id="nickels" placeholder="Number of Nickels" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="pennies"><strong>1 &cent;: </strong></label>
-    <input name="pennies" type="text" class="form-control" id="pennies" placeholder="Number of Pennies" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="pennies" type="number" class="form-control" id="pennies" placeholder="Number of Pennies" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="checks"><strong>Checks: </strong></label>
-    <input name="checks" type="text" class="form-control" id="checks" placeholder="Number of Checks" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+    <input name="checks" type="number" class="form-control" id="checks" placeholder="Number of Checks" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
       <div class="form-group">
       <label for="card"><strong>Cards: </strong></label>
-      <input name="card" type="text" class="form-control" id="card" placeholder="Number of Card Transactions" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+      <input name="card" type="number" class="form-control" id="card" placeholder="Number of Card Transactions" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
       </div>
 
     </div>

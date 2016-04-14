@@ -24,6 +24,9 @@ $statement2->closeCursor();
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="css/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+
+   <script src="js/bootstrap-formhelpers.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--background-->
     <style>
@@ -154,7 +157,7 @@ $statement2->closeCursor();
 
                   <div class="form-group">
                     <label for="vphone"><strong>Vendor Phone: </strong></label>
-                  <input name="vphone" type="text"  required class="input-medium bfh-phone; form-control" data-country="US" id="vphone" placeholder="Vendor Phone Number">
+                  <input name="vphone" type="text"  required class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="vphone" placeholder="Vendor Phone Number">
                     </div>
 
 					<div class="form-group">
@@ -169,7 +172,8 @@ $statement2->closeCursor();
 
                         <div class="form-group">
                           <label for="vstate"><strong>Vendor State: </strong></label>
-                        <input name="vstate" required type="text" class="form-control" id="vstate" placeholder="Vendor State">
+                        <select name="vstate" required type="text" class="form-control bfh-states" data-country="US" id="vstate" placeholder="Vendor State">
+                        </select>
                           </div>
 
                           <div class="form-group">

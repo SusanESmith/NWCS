@@ -68,50 +68,50 @@ $iflag=0;
 
     <div class="form-group">
     <label for="busName"><strong>Business Name: </strong></label>
-  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business">
+  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business" required>
     </div>
 
     <div class="form-group">
     <label for="busLname"><strong>Point of Contact Last Name: </strong></label>
-  <input name="busLname" type="text" class="form-control" id="busLname" placeholder="Last name of Point of Contact">
+  <input name="busLname" type="text" class="form-control" id="busLname" placeholder="Last name of Point of Contact" required>
     </div>
 
     <div class="form-group">
     <label for="busFname"><strong>Point of Contact First Name: </strong></label>
-  <input name="busFname" type="text" class="form-control" id="busFname" placeholder="First name of Point of Contact">
+  <input name="busFname" type="text" class="form-control" id="busFname" placeholder="First name of Point of Contact" required>
     </div>
 
     <div class="form-group">
     <label for="busAdd"><strong>Address: </strong></label>
-    <input name="busAdd" type="text" class="form-control" id="busAdd" placeholder="Business Street Address">
+    <input name="busAdd" type="text" class="form-control" id="busAdd" placeholder="Business Street Address" required>
     </div>
 
     <div class="form-group">
     <label for="busCity"><strong>City: </strong></label>
-  <input name="busCity" type="text" class="form-control" id="busCity" placeholder=" City">
+  <input name="busCity" type="text" class="form-control" id="busCity" placeholder="City" required>
     </div>
 
     <div class="form-group">
     <label for="busState"><strong>State: </strong></label>
-    <select name="busState" class="form-control bfh-states" data-country="US">
+    <select name="busState" class="form-control bfh-states" data-country="US" required>
 
     </select>    </div>
 
     <div class="form-group">
     <label for="busZip"><strong>Zip Code: </strong></label>
-  <input name="busZip" type="text" class="form-control" id="busZip" placeholder=" Zip Code">
+  <input name="busZip" type="text" class="form-control" id="busZip" placeholder=" Zip Code" required>
     </div>
 
     <div class="form-group">
     <label for="busPhone"><strong>Phone Number: </strong></label>
-  <input name="busPhone" type="text" class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="busPhone" placeholder="Phone Number">
+  <input name="busPhone" type="text" class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="busPhone" placeholder="Phone Number" required>
     </div>
     <div class="form-group">
       <label for="limit"><strong>Charge Account Limit: </strong></label>
 
       <div class="input-group">
       <div class="input-group-addon">$</div>
-  <input name="limit" type="text" class="form-control"  id="phone" placeholder="Charge Account Limit">
+  <input name="limit" type="text" class="form-control"  id="phone" placeholder="Charge Account Limit" required>
     </div>
 
   </div>
@@ -131,46 +131,46 @@ else if (isset($ind)){ ?>
   <br>
   <div class="form-group">
   <label for="lastName"><strong>Customer Last Name: </strong></label>
-<input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last name of Customer">
+<input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last name of Customer" required>
   </div>
 
   <div class="form-group">
   <label for="firstName"><strong>Customer First Name: </strong></label>
-<input name="firstName" type="text" class="form-control" id="firstName" placeholder="First name of Customer">
+<input name="firstName" type="text" class="form-control" id="firstName" placeholder="First name of Customer" required>
   </div>
 
   <div class="form-group">
   <label for="add"><strong>Address: </strong></label>
-  <input name="add" type="text" class="form-control" id="add" placeholder="Street Address">
+  <input name="add" type="text" class="form-control" id="add" placeholder="Street Address" required>
   </div>
 
   <div class="form-group">
   <label for="city"><strong>City: </strong></label>
-<input name="city" type="text" class="form-control" id="city" placeholder="City">
+<input name="city" type="text" class="form-control" id="city" placeholder="City" required>
   </div>
 
   <div class="form-group">
   <label for="state"><strong>State: </strong></label>
-  <select name="state" class="form-control bfh-states" data-country="US">
+  <select name="state" class="form-control bfh-states" data-country="US" required>
 
   </select>
   </div>
 
   <div class="form-group">
   <label for="zip"><strong>Zip Code: </strong></label>
-<input name="zip" type="text" class="form-control" id="zip" placeholder="Zip Code">
+<input name="zip" type="text" class="form-control" id="zip" placeholder="Zip Code" required>
   </div>
 
   <div class="form-group">
   <label for="phone"><strong>Phone Number: </strong></label>
-<input name="phone" type="text" class="input-medium bfh-phone form-control"  data-format="ddd-ddd-dddd" id="phone" placeholder="Phone Number">
+<input name="phone" type="text" class="input-medium bfh-phone form-control"  data-format="ddd-ddd-dddd" id="phone" placeholder="Phone Number" required>
   </div>
 
   <div class="form-group">
   <label for="limit"><strong>Charge Account Limit: </strong></label>
     <div class="input-group">
     <div class="input-group-addon">$</div>
-<input name="limit" type="text" class="form-control"  id="limit" placeholder="Charge Account Limit">
+<input name="limit" type="text" class="form-control"  id="limit" placeholder="Charge Account Limit" required>
   </div>
 
 </div>

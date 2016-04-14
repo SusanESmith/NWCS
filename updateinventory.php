@@ -131,18 +131,18 @@ $statement->closeCursor();
             <label for="price">Price: </label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input name="price" type="text" class="form-control" id="price" placeholder="Price of Item" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
+              <input name="price" type="number" step="any" class="form-control" id="price" placeholder="Price of Item" required data-fv-notempty-message="The Price is required.  If you don't wish to change it, use the current value.">
             </div>
           </div>
 
           <div class="form-group">
           <label for="stock"><strong>Add to Current Quantity: </strong></label>
-          <input name="stock" type="text" class="form-control" id="stock" placeholder="Add this Amount to Current Stock"  required data-fv-notempty-message="The Quantity is required.  If you don't wish to change it, use the current value." >
+          <input name="stock" type="number" class="form-control" id="stock" placeholder="Add this Amount to Current Stock"  required data-fv-notempty-message="The Quantity is required.  If you don't wish to change it, use the current value." >
           </div>
 
         <div class="form-group">
       <label for="min"><strong>Minimum Quantity: </strong></label>
-      <input name="stockMin" type="text" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock"  required data-fv-notempty-message="The Minimum Quantity is required. If you don't wish to change it, enter zero." >
+      <input name="stockMin" type="number" class="form-control" id="min" placeholder="Minimum Item Quantity to be in Stock"  required data-fv-notempty-message="The Minimum Quantity is required. If you don't wish to change it, enter zero." >
         </div>
 
 

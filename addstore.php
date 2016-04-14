@@ -6,8 +6,7 @@ $address = filter_input(INPUT_POST, 'saddress');
 $city = filter_input(INPUT_POST, 'scity');
 $state = filter_input(INPUT_POST, 'sstate');
 $zip = filter_input(INPUT_POST, 'szip');
-$fname = filter_input(INPUT_POST, 'fname');
-$lname = filter_input(INPUT_POST, 'lname');
+$emp=filter_input(INPUT_POST,'storeManager');
 
 $position = 101;
 
@@ -27,28 +26,47 @@ $statement2 = $db->prepare($query2);
 $statement2->execute();
 $storeID = $statement2->fetchColumn();
 $statement2->closeCursor();
+//ECHO $storeID;
+//echo $emp;
 
-$query3 = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = :fname AND EMPLOYEE_LNAME = :lname";
+/*$query3 = "SELECT EMPLOYEE_ID FROM EMPLOYEE WHERE EMPLOYEE_FNAME = :fname AND EMPLOYEE_LNAME = :lname";
 $statement3 = $db->prepare($query3);
 $statement3->bindValue(':fname', $fname);
 $statement3->bindValue(':lname', $lname);
 $statement3->execute();
 $empID = $statement3->fetchColumn();
-$statement3->closeCursor();
+$statement3->closeCursor();*/
 
-$query4 = "INSERT INTO MANAGEMENT(STORE_ID, EMPLOYEE_ID) VALUES(:storeID, :empID)";
+$query3 = "SELECT EMPLOYEE_FNAME, EMPLOYEE_LNAME, MANAGER_ID FROM EMPLOYEE, MANAGEMENT WHERE EMPLOYEE.EMPLOYEE_ID=:EMPLOYEE_ID AND EMPLOYEE.EMPLOYEE_ID=MANAGEMENT.EMPLOYEE_ID";
+$statement3 = $db->prepare($query3);
+$statement3->bindValue(':EMPLOYEE_ID', $emp);
+$statement3->execute();
+$empID = $statement3->fetch();
+$statement3->closeCursor();
+//echo $empID['MANAGER_ID'];
+
+$query4 = "INSERT INTO MANAGEMENT(STORE_ID, EMPLOYEE_ID) VALUES( :storeID, :empID)";
 $statement4 = $db->prepare($query4);
 $statement4->bindValue(':storeID', $storeID);
-$statement4->bindValue(':empID', $empID);
+$statement4->bindValue(':empID', $emp);
+//$statement4->bindValue(':manID', $empID['MANAGER_ID']);
 $statement4->execute();
 $statement4->closeCursor();
 
-$query5 = "UPDATE EMPLOYEE_STORE SET STORE_ID = :storeID WHERE EMPLOYEE_ID = :empID";
+$query5 = "INSERT INTO EMPLOYEE_STORE(POSITION_ID, STORE_ID, EMPLOYEE_ID) VALUES(:posID, :storeID, :empID)";
 $statement5 = $db->prepare($query5);
 $statement5->bindValue(':storeID', $storeID);
-$statement5->bindValue(':empID', $empID);
+$statement5->bindValue(':empID', $emp);
+$statement5->bindValue(':posID', $position);
 $statement5->execute();
 $statement5->closeCursor();
+
+/*$query5 = "UPDATE EMPLOYEE_STORE SET STORE_ID = :storeID WHERE EMPLOYEE_ID = :empID";
+$statement5 = $db->prepare($query5);
+$statement5->bindValue(':storeID', $storeID);
+$statement5->bindValue(':empID', $emp);
+$statement5->execute();
+$statement5->closeCursor();*/
 
 /*
 $query6 = "UPDATE EMPLOYEE SET POSITION_ID = 101 WHERE EMPLOYEE_ID = :empID";
@@ -135,7 +153,7 @@ $statement6->closeCursor();
         <tr>
           <td><?php echo $storeID; ?></td>
           <td><?php echo $phone; ?></td>
-          <td><?php echo $fname." ".$lname; ?></td>
+          <td><?php echo $empID['EMPLOYEE_LNAME'].", ".$empID['EMPLOYEE_FNAME']; ?></td>
           <td><?php echo $address; ?></td>
           <td><?php echo $city; ?></td>
           <td><?php echo $state; ?></td>

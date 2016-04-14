@@ -1,7 +1,7 @@
 <?php
 require_once('nwcsdatabase.php');
 
-$query = "SELECT * FROM STORE WHERE STORE_ID = 39";
+$query = "SELECT * FROM STORE WHERE STORE_ID = 59";
 
 $statement = $db->prepare($query);
 $statement->execute();
@@ -71,7 +71,7 @@ $statement->closeCursor();
           <th>Central Office State</th>
           <th>Central Office ZIP</th>
           <th>Central Office Phone</th>
-          
+
 
 
 

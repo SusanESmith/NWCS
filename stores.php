@@ -16,7 +16,8 @@ $statement->closeCursor();
 $query = "SELECT S.STORE_ID, STORE_PHONE, EMPLOYEE_FNAME, EMPLOYEE_LNAME, STORE_ADDRESS, STORE_CITY, STORE_STATE, STORE_ZIP
 FROM STORE S, MANAGEMENT M, EMPLOYEE E
 WHERE S.STORE_ID = M.STORE_ID
-AND M.EMPLOYEE_ID = E.EMPLOYEE_ID";
+AND M.EMPLOYEE_ID = E.EMPLOYEE_ID
+ORDER BY S.STORE_ID";
 
 $statement = $db->prepare($query);
 $statement->execute();
@@ -36,6 +37,9 @@ $statement->closeCursor();
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link href="css/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+
+<script src="js/bootstrap-formhelpers.min.js"></script>
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--background-->
 <style>
@@ -159,7 +163,7 @@ $statement->closeCursor();
             -->
           <div class="form-group">
         <label for="storePhone"><strong>Store Phone: </strong></label>
-        <input name="sphone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="storePhone" placeholder="Store Phone Number" required>
+        <input name="sphone" type="text" class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="storePhone" placeholder="Store Phone Number" required>
 
           </div>
           <div class="form-group">
@@ -174,8 +178,8 @@ $statement->closeCursor();
           </div>
           <div class="form-group">
         <label for="storeState"><strong>Store State: </strong></label>
-        <input name="sstate" type="text" class="form-control" id="storeState" placeholder="Store State" required>
-
+        <select name="sstate" id="storeState" placeholder="Store State" class="form-control bfh-states" data-country="US" required>
+        </select>
           </div>
           <div class="form-group">
         <label for="storeZip"><strong>Store Zip Code: </strong></label>
