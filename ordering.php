@@ -140,7 +140,7 @@ $display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
     <?php endforeach;  ?>
     </select>
 
-    <label>Product:</label>
+    <label>Products Supplied by this Vendor:</label>
 
     <select name="prodID" class="form-control">
       <?php foreach ($PRODUCTS as $p):?>
@@ -150,7 +150,7 @@ $display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
 
     <div class="form-group">
     <label for="quantity"><strong>Quantity of Item to be Ordered: </strong></label>
-  <input name="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity of Item to be Ordered" required>
+  <input name="quantity" type="number" class="form-control" id="quantity" min="1" placeholder="Quantity of Item to be Ordered" required>
     </div>
 
     <div class="form-group">
@@ -165,7 +165,7 @@ $display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
   <form method="post" name="enter" action="ordering.php" id="ordeSubmit" style="text-align:center">
 <br>
         <label>&nbsp;</label>
-      <input type="submit" class="btn btn-warning" value="Submit Order">
+      <input type="submit" name="done" class="btn btn-warning" value="Submit Order">
     </form>
 
   </div>
@@ -277,13 +277,73 @@ $display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
                 </div>
 
 
-            <?php if (isset($add)){
+            <?php          $done=filter_input(INPUT_POST,'done', FILTER_VALIDATE_FLOAT);
+if (isset($add)||isset($done)){
               $tax=$total*.095;
               $orderTotal=$total+$tax;?>
                 <h3><span class="label label-primary"><?php echo "<strong>Total Cost: $</strong>".number_format($total, 2);?></span></h3>
             <h3><span class="label label-primary"><?php echo "<strong>Tax: $</strong>".number_format($tax, 2);?></span></h3>
                 <h3><span class="label label-primary" ><?php echo "<strong>Total Amount for this Order: $</strong>"?> <span id="due"><?php echo number_format($orderTotal, 2); ?></span></span></h3>
-        <?php } ?>
+        <?php }
+
+        if (isset($done)){
+          if (count($_SESSION['order'])>0) {
+            $status='true';
+          } else {
+            $status='false';
+          }
+          if ($status=='true') {
+            $orderTotal=number_format($orderTotal, 2);
+
+              $orderDate=date("Y-m-d");
+
+            $O='INSERT INTO ORDERS
+                           (VENDOR_ID, ORDER_DATE, ORDER_TOTAL)
+                        VALUES
+                           (:V, :ODATE,:TOTAL)';
+
+            $statement5 = $db->prepare($O);
+            $statement5->bindValue(':V', $vendorID);
+            $statement5->bindValue(':ODATE', $orderDate);
+            $statement5->bindValue(':TOTAL', $orderTotal);
+            $statement5->execute();
+            $statement5->closeCursor();
+
+            $oID='SELECT ORDER_ID FROM ORDERS WHERE ORDER_ID=LAST_INSERT_ID()';
+            $statement8= $db->prepare($oID);
+            //$statement->bindValue(':POSITION', $position);
+            $statement8->execute();
+            $orderID=$statement8->fetchColumn();
+            $statement8->closeCursor();
+
+
+            foreach($_SESSION['order'] as $i){
+              $tot=$i['price']*$i['quantity'];
+              $td='INSERT INTO ORDER_DETAILS
+                             (ORDER_ID, PRODUCT_ID, STORE_ID, ORDER_QUANTITY,ORDER_PRICE)
+                          VALUES
+                             (:ORDERID, :PID, :SID, :QTY, :PRICE)';
+
+              $statement3 = $db->prepare($td);
+              $statement3->bindValue(':ORDERID', $orderID);
+              $statement3->bindValue(':PID', $i['prodID']);
+              $statement3->bindValue(':SID', $i['store']);
+              $statement3->bindValue(':QTY', $i['quantity']);
+              $statement3->bindValue(':PRICE', $tot);
+              $statement3->execute();
+              $statement3->closeCursor();
+            }
+            unset($_SESSION['vendID']);
+            unset($_SESSION['order']);
+          }
+
+?>
+            <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+
+              <?php echo '<br>Order Complete! Order ID Number: <span style=color:orange>\''.$orderID.'\'</span> <br>You can view this order in the \'View/Edit Current Open Orders\' page.';?>
+            </h4><br><br>
+        <?php  }
+        ?>
 
 
         </div>

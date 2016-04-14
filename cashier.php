@@ -408,6 +408,11 @@ if (isset($ccnum)){
 }
 
 if (isset($done)){
+  if (count($_SESSION['cart'])>0) {
+    $status='true';
+  } else {
+    $status='false';
+  }
   $cartTotal=number_format($cartTotal, 2);
 if (!is_null($act)){
 $balq='SELECT CHG_ACCT_BALANCE FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:AI';
@@ -422,7 +427,7 @@ if ($chgbal<$cartTotal){?>
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <span class="glyphicon glyphicon-exclamation-sign"></span><strong>  Notice!  </strong><span class="glyphicon glyphicon-exclamation-sign"></span> The chosen account has a balance of <?php echo $chgbal?> and the purchase total is <?php echo $cartTotal?>.  Please choose another method of payment.
 </div>
-<?php $status="false"; }
+<?php $status="false";}
 
 else {$status="true";}
 
