@@ -1,3 +1,13 @@
+<?php
+require_once('nwcsdatabase.php');
+
+$query = "SELECT * FROM STORE WHERE STORE_ID = 39";
+
+$statement = $db->prepare($query);
+$statement->execute();
+$co = $statement->fetch();
+$statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +67,11 @@
       <thead>
         <tr>
           <th>Central Office Address</th>
+          <th>Central Office City</th>
+          <th>Central Office State</th>
+          <th>Central Office ZIP</th>
           <th>Central Office Phone</th>
+          
 
 
 
@@ -65,8 +79,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>1010 Clarksville Hwy</td>
-          <td>931-792-4444</td>
+          <td><?php echo $co['STORE_ADDRESS']; ?></td>
+          <td><?php echo $co['STORE_CITY']; ?></td>
+          <td><?php echo $co['STORE_STATE']; ?></td>
+          <td><?php echo $co['STORE_ZIP']; ?></td>
+          <td><?php echo $co['STORE_PHONE']; ?></td>
 
 
 

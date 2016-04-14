@@ -30,7 +30,7 @@ $phone = filter_input(INPUT_POST, 'phone');
 $store = filter_input(INPUT_POST, 'store');
 $password = filter_input(INPUT_POST, 'pword'); */
 
-<<<<<<< HEAD
+
 /*echo $position."<br>";
 echo $firstname."<br>";
 echo $lastname."<br>";
@@ -41,8 +41,7 @@ echo $phone."<br>";
 echo $password."<br>";*/
 
 
-=======
->>>>>>> origin/master
+
 $query='INSERT INTO EMPLOYEE
                (POSITION_ID, EMPLOYEE_FNAME, EMPLOYEE_LNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, EMPLOYEE_PASSWORD)
             VALUES
