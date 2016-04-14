@@ -35,6 +35,13 @@ $empID=$_SESSION['username'];
   $prodSelect = $statement1->fetchAll();
   $statement1->closeCursor();
 
+  $acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
+  $statement7= $db->prepare($acctID);
+  //$statement->bindValue(':POSITION', $position);
+  $statement7->execute();
+  $acct=$statement7->fetchAll();
+  $statement7->closeCursor();
+
   $total=0;
   $count=0;
 ?>
@@ -169,7 +176,7 @@ $empID=$_SESSION['username'];
     $payment=filter_input(INPUT_POST, 'payment');
     if ($payment=="cash") {
       echo
-        "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
+        "<form method=\"post\" action=\"cashier.php\" id=\"transSale\" style=\"text-align:center\">
           <br>
         <div style=\"text-align:left\">
 
@@ -179,7 +186,7 @@ $empID=$_SESSION['username'];
               <label  for=\"cash\">Total Cash Received: </label>
             <div class=\"input-group\">
             <div class=\"input-group-addon\">$</div>
-              <input type=\"text\" class=\"form-control\" id=\"cash\" placeholder=\"Total Cash Received\" onchange=\"calcChange()\" required>
+              <input type=\"text\" class=\"form-control\" name=\"cash\" id=\"cash\" placeholder=\"Total Cash Received\" onchange=\"calcChange()\" required>
             </div>
             </div>
 
@@ -195,12 +202,12 @@ $empID=$_SESSION['username'];
 
           </div>
         <label>&nbsp;</label>
-        <input type=\"submit\" class=\"btn btn-warning\"value=\"Process Payment\" >
+        <input type=\"submit\" class=\"btn btn-warning\"value=\"Process Payment\" name=\"done\" >
       </form>";}
       else if ($payment=="card"){
         echo
 
-          "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
+          "<form method=\"post\" action=\"cashier.php\" id=\"transSale\" style=\"text-align:center\">
           <div style=\"text-align:left\">
           <form class=\"form-inline\">
 
@@ -212,60 +219,54 @@ $empID=$_SESSION['username'];
 
           </div>
           <label>&nbsp;</label>
-          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
+          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\" name=\"done\">
         </form>";
         //$cashq='INSERT INTO PAYMENT (TRANSACTION_ID, PAYMENT_TYPE, PAYMENT_AMOUNT, CC_NUMBER) '
       }
       else if ($payment=="check"){
         echo
 
-          "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
+          "<form method=\"post\" action=\"cashier.php\" id=\"transSale\" style=\"text-align:center\">
           <div style=\"text-align:left\">
           <form class=\"form-inline\">
 
 
 
           <div class=\"form-group\">
-          <label for=\"num\"><strong>Check Number: </strong></label>
-          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Customer Check Number\">
+          <label for=\"num\"><strong>Check Account Number: </strong></label>
+          <input name=\"num\" type=\"text\" class=\"form-control\" id=\"num\" placeholder=\"Checking Account Number\">
           </div>
 
-          <div class=\"form-group\">
-          <label for=\"name\"><strong>Name on Check: </strong></label>
-          <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Customer's Name on Check\">
-          </div>
 
           </div>
 
           <label>&nbsp;</label>
-          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
+          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\" name=\"done\">
         </form>";
       }
-      else if ($payment=="charge"){
-        echo
-
-          "<form method=\"post\" action=\"transSale.php\" id=\"transSale\" style=\"text-align:center\">
-          <div style=\"text-align:left\">
-
-          <form class=\"form-inline\">
+      else if ($payment=="charge"){?>
 
 
+          <form method="post" action="cashier.php" id="transSale" style="text-align:center">
+          <div style="text-align:left">
 
-          <div class=\"form-group\">
-          <label for=\"cID\"><strong>Charge Account Number: </strong></label>
-          <input name=\"cID\" type=\"text\" class=\"form-control\" id=\"cID\" placeholder=\"Charge Account Identification Number\">
-          </div>
+          <form class="form-inline">
 
-          <div class=\"form-group\">
-          <label for=\"name\"><strong>Customer Name: </strong></label>
-          <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name on Customer Charge Account\">
-          </div>
+
+
+          <div class="form-group">
+          <label for="account"><strong>Choose a Charge Account: </strong></label>
+          <select name="account" class="form-control">
+            <?php foreach ($acct as $a){?>
+            <option value="<?php echo $a['ACCOUNT_ID'];?>"><?php echo $a['ACCOUNT_ID']." - ". $a['CUSTOMER_LNAME'].", ". $a['CUSTOMER_FNAME'];?></option>
+          <?php }?>
+          </select></div>
           </div>
 
           <label>&nbsp;</label>
-          <input type=\"submit\" class=\"btn btn-warning\" value=\"Process Payment\">
-        </form>";
-      }
+          <input type="submit" class="btn btn-warning" value="Process Payment" name="done">
+        </form>
+    <?php  }
     ?>
 
 
@@ -371,14 +372,122 @@ $empID=$_SESSION['username'];
 </div><?php }?>
         </div>
         <br>
-
+<?php $done= filter_input(INPUT_POST, 'done');?>
 <h3><span class="label label-primary"><?php echo "<strong>Total Cost: $</strong>".number_format($total, 2);?></span></h3>
-    <?php if (isset($pay)||isset($conf)){
+    <?php if (isset($pay)||isset($conf)||isset($done)){
       $tax=$total*.095;
       $cartTotal=$total+$tax;?>
       <h3><span class="label label-primary"><?php echo "<strong>Tax: $</strong>".number_format($tax, 2);?></span></h3>
         <h3><span class="label label-primary" ><?php echo "<strong>Total Amount Due: $</strong>"?> <span id="due"><?php echo number_format($cartTotal, 2); ?></span></span></h3>
-<?php } ?>
+<?php }
+$ccnum= filter_input(INPUT_POST, 'card');
+$chk= filter_input(INPUT_POST, 'num');
+$act= filter_input(INPUT_POST, 'account');
+$cash=filter_input(INPUT_POST, 'cash');
+
+if (!isset($ccnum)){$ccnum=NULL; }
+if (!isset($chk)){$chk=NULL;}
+if (!isset($act)){$act=NULL;}
+
+if (isset($ccnum)){
+  $type="CARD";
+} elseif (isset($chk)){
+  $type="CHECK";
+} elseif (isset($act)){
+  $type="CHARGE ACCOUNT";
+} else {
+  $type="CASH";
+}
+
+if (isset($done)){
+  $cartTotal=number_format($cartTotal, 2);
+
+  $tDate=date('Y-m-d');
+
+  $t='INSERT INTO TRANSACTIONS
+                 (CASHIER_SHIFT_ID, TRANSACTION_DATE, STORE_ID, TRANSACTION_TOTAL)
+              VALUES
+                 (:CSI, :TDATE, :STORE, :TOTAL)';
+
+  $statement5 = $db->prepare($t);
+  $statement5->bindValue(':CSI', 1);
+  $statement5->bindValue(':TDATE', $tDate);
+  $statement5->bindValue(':STORE', $storeID);
+  $statement5->bindValue(':TOTAL', $cartTotal);
+  $statement5->execute();
+  $statement5->closeCursor();
+
+  $tID='SELECT TRANSACTION_ID FROM TRANSACTIONS WHERE TRANSACTION_ID=LAST_INSERT_ID()';
+  $statement8= $db->prepare($tID);
+  //$statement->bindValue(':POSITION', $position);
+  $statement8->execute();
+  $transID=$statement8->fetchColumn();
+  $statement8->closeCursor();
+
+foreach($_SESSION['cart'] as $i){
+  $tot=$i['price']*$i['quantity'];
+  $td='INSERT INTO TRANSACTION_DETAILS
+                 (TRANSACTION_ID, PRODUCT_ID, TRANS_PROD_QTY, STOCK_PRICE,TRANS_PROD_TOTAL)
+              VALUES
+                 (:TID, :PID, :QTY, :PRICE, :TOTAL)';
+
+  $statement3 = $db->prepare($td);
+  $statement3->bindValue(':TID', $transID);
+  $statement3->bindValue(':PID', $i['prodID']);
+  $statement3->bindValue(':QTY', $i['quantity']);
+  $statement3->bindValue(':PRICE', $i['price']);
+  $statement3->bindValue(':TOTAL', $tot);
+  $statement3->execute();
+  $statement3->closeCursor();
+
+  $remove='UPDATE STOCK SET STOCK_QTY=STOCK_QTY-:QTY WHERE STORE_ID=:STORE AND PRODUCT_ID=:PRODUCT';
+  $statement0 = $db->prepare($remove);
+  $statement0->bindValue(':QTY', $i['quantity']);
+  $statement0->bindValue(':STORE', $storeID);
+  $statement0->bindValue(':PRODUCT', $i['prodID']);
+  $statement0->execute();
+  $statement0->closeCursor();
+
+}
+$td='INSERT INTO PAYMENT
+               (TRANSACTION_ID, ACCOUNT_ID, PAYMENT_TYPE, PAYMENT_AMOUNT,CHECK_NUM, CC_NUMBER)
+            VALUES
+               (:TID, :AID, :TYPE, :AMOUNT, :CHNUM, :CC)';
+
+$statement4 = $db->prepare($td);
+$statement4->bindValue(':TID', $transID);
+$statement4->bindValue(':CC', $ccnum);
+$statement4->bindValue(':CHNUM', $chk);
+$statement4->bindValue(':AID', $act);
+$statement4->bindValue(':AMOUNT', $cartTotal);
+$statement4->bindValue(':TYPE', $type);
+
+$statement4->execute();
+$statement4->closeCursor();
+
+if (!is_null($act)){
+$tID='UPDATE CHARGE_ACCOUNT SET CHG_ACCT_BALANCE = CHG_ACCT_BALANCE-:CTOTAL WHERE ACCOUNT_ID=:ACCTID';
+$statement9= $db->prepare($tID);
+$statement9->bindValue(':CTOTAL', $cartTotal);
+$statement9->bindValue(':ACCTID', $act);
+//$statement->bindValue(':POSITION', $position);
+$statement9->execute();
+$statement9->closeCursor();
+}
+unset($_SESSION['cart']);
+?>
+<h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+
+  <?php echo '<br>Transaction Complete! Transaction ID Number: <span style=color:orange>\''.$transID.'\'</span> <br>Thank you for your business and come again soon!';?>
+</h4>
+<?php }
+
+
+
+
+
+?>
+
         <br><br>
 
       </div>

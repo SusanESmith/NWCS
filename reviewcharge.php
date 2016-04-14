@@ -1,3 +1,17 @@
+<?php
+include('nwcsdatabase.php');
+
+
+$acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
+$statement7= $db->prepare($acctID);
+//$statement->bindValue(':POSITION', $position);
+$statement7->execute();
+$acct=$statement7->fetchAll();
+$statement7->closeCursor();
+
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,8 +65,11 @@
     </select>
     <div class="form-group">
     <label for="chargeID"><strong>Or Search For a Specific Charge Account: </strong></label>
-  <input name="chargeID" type="text" class="form-control" id="chargeID" placeholder="Charge Account Identification Number">
-</div>
+    <select name="account" class="form-control">
+      <?php foreach ($acct as $a):?>
+      <option value="<?php echo $a['ACCOUNT_ID'];?>"><?php echo $a['ACCOUNT_ID']." - ". $a['CUSTOMER_LNAME'].", ". $a['CUSTOMER_FNAME'];?></option>
+    <?php endforeach;  ?>
+    </select></div>
 </div>
 
       <label>&nbsp;</label>

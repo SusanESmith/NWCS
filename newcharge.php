@@ -1,3 +1,10 @@
+<?php
+include('nwcsdatabase.php');
+$busflag=0;
+$iflag=0;
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +16,9 @@
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link href="css/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+
+<script src="js/bootstrap-formhelpers.min.js"></script>
 
 <!--background-->
 <style>
@@ -41,14 +51,20 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="newchargequery.php" id="reviewcharge" style="text-align:center">
+  <form method="post" action="newcharge.php" id="newcharge" style="text-align:center">
       <div style="text-align:left" >
-    <label>Customer Type:</label>
-    <select name="custType" class="form-control">
-      <!--drop down menu-->
-      <option value="<?php echo "Individual";?>"><?php echo "Individual";?></option>
-      <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
-    </select>
+    <label>Select a Customer Type:</label>
+  </div>
+
+      <input type="submit" name="individual" class="btn btn-warning" value="Individual"><p></p><input type="submit" name="business" class="btn btn-warning" value="Business">
+      <?php $new=filter_input(INPUT_POST,'business');
+       $ind=filter_input(INPUT_POST,'individual');?>
+       </form>
+      <?php if (isset($new)){?>
+        <form method="post" action="newchargequery.php" id="newcharge" style="text-align:center">
+        <!--<div method="post" name="busFlag"><?php $busflag=1;?></div>-->
+        <input name="busFlag" type= "hidden"  value="<?php echo $busflag;?>">
+  <div style="text-align:left" >
 
     <div class="form-group">
     <label for="busName"><strong>Business Name: </strong></label>
@@ -56,49 +72,115 @@
     </div>
 
     <div class="form-group">
-    <label for="custLName"><strong>Last Name: </strong></label>
-  <input name="custLName" type="text" class="form-control" id="custLName" placeholder="Last name of Customer/Point of Contact">
+    <label for="busLname"><strong>Point of Contact Last Name: </strong></label>
+  <input name="busLname" type="text" class="form-control" id="busLname" placeholder="Last name of Point of Contact">
     </div>
 
     <div class="form-group">
-    <label for="custFName"><strong>First Name: </strong></label>
-  <input name="custFName" type="text" class="form-control" id="custFName" placeholder="First name of Customer/Point of Contact">
+    <label for="busFname"><strong>Point of Contact First Name: </strong></label>
+  <input name="busFname" type="text" class="form-control" id="busFname" placeholder="First name of Point of Contact">
     </div>
 
     <div class="form-group">
-    <label for="address"><strong>Address: </strong></label>
-    <input name="address" type="text" class="form-control" id="address" placeholder="Business/Individual Address">
+    <label for="busAdd"><strong>Address: </strong></label>
+    <input name="busAdd" type="text" class="form-control" id="busAdd" placeholder="Business Street Address">
     </div>
 
     <div class="form-group">
-    <label for="city"><strong>City: </strong></label>
-  <input name="city" type="text" class="form-control" id="city" placeholder="Business/Individual City">
+    <label for="busCity"><strong>City: </strong></label>
+  <input name="busCity" type="text" class="form-control" id="busCity" placeholder=" City">
     </div>
 
     <div class="form-group">
-    <label for="state"><strong>State: </strong></label>
-  <input name="state" type="text" class="form-control" id="state" placeholder="Business/Individual State">
+    <label for="busState"><strong>State: </strong></label>
+    <select name="busState" class="form-control bfh-states" data-country="US">
+
+    </select>    </div>
+
+    <div class="form-group">
+    <label for="busZip"><strong>Zip Code: </strong></label>
+  <input name="busZip" type="text" class="form-control" id="busZip" placeholder=" Zip Code">
     </div>
 
     <div class="form-group">
-    <label for="zip"><strong>Zip Code: </strong></label>
-  <input name="zip" type="text" class="form-control" id="zip" placeholder="Business/Individual Zip Code">
+    <label for="busPhone"><strong>Phone Number: </strong></label>
+  <input name="busPhone" type="text" class="input-medium bfh-phone form-control" data-format="ddd-ddd-dddd" id="busPhone" placeholder="Phone Number">
+    </div>
+    <div class="form-group">
+      <label for="limit"><strong>Charge Account Limit: </strong></label>
+
+      <div class="input-group">
+      <div class="input-group-addon">$</div>
+  <input name="limit" type="text" class="form-control"  id="phone" placeholder="Charge Account Limit">
     </div>
 
-    <div class="form-group">
-    <label for="custPhone"><strong>Customer Phone Number: </strong></label>
-  <input name="custPhone" type="text" class="input-medium bfh-phone; form-control" data-country="US" id="custPhone" placeholder="Phone Number">
-    </div>
+  </div>
 
-    <div class="form-group">
-    <label for="date"><strong>Date of Request: </strong></label>
-  <input name="date" type="date" class="form-control" id="date" placeholder="date">
-    </div>
 </div>
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" class="btn btn-warning" value="Submit">
     </form>
+<?php  }
+else if (isset($ind)){ ?>
+  <form method="post" action="newchargequery.php" id="newcharge" style="text-align:center">
+<!--<div method="post" name="iFlag"><?php $iflag=1; ?> </div>-->
+<input name="iFlag" type="hidden" value="<?php echo $iflag;?>">
+
+<div style="text-align:left" >
+  <br>
+  <div class="form-group">
+  <label for="lastName"><strong>Customer Last Name: </strong></label>
+<input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last name of Customer">
+  </div>
+
+  <div class="form-group">
+  <label for="firstName"><strong>Customer First Name: </strong></label>
+<input name="firstName" type="text" class="form-control" id="firstName" placeholder="First name of Customer">
+  </div>
+
+  <div class="form-group">
+  <label for="add"><strong>Address: </strong></label>
+  <input name="add" type="text" class="form-control" id="add" placeholder="Street Address">
+  </div>
+
+  <div class="form-group">
+  <label for="city"><strong>City: </strong></label>
+<input name="city" type="text" class="form-control" id="city" placeholder="City">
+  </div>
+
+  <div class="form-group">
+  <label for="state"><strong>State: </strong></label>
+  <select name="state" class="form-control bfh-states" data-country="US">
+
+  </select>
+  </div>
+
+  <div class="form-group">
+  <label for="zip"><strong>Zip Code: </strong></label>
+<input name="zip" type="text" class="form-control" id="zip" placeholder="Zip Code">
+  </div>
+
+  <div class="form-group">
+  <label for="phone"><strong>Phone Number: </strong></label>
+<input name="phone" type="text" class="input-medium bfh-phone form-control"  data-format="ddd-ddd-dddd" id="phone" placeholder="Phone Number">
+  </div>
+
+  <div class="form-group">
+  <label for="limit"><strong>Charge Account Limit: </strong></label>
+    <div class="input-group">
+    <div class="input-group-addon">$</div>
+<input name="limit" type="text" class="form-control"  id="limit" placeholder="Charge Account Limit">
+  </div>
+
+</div>
+
+</div>
+    <br><br>
+    <label>&nbsp;</label>
+    <input type="submit" class="btn btn-warning" value="Submit">
+  </form>
+  <?php  }?>
 
   </div>
   <p><strong><a href="charge.php">Back to the Charge Accounts Menu</a></strong></p>
