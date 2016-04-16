@@ -1,3 +1,66 @@
+<?php
+include('nwcsdatabase.php');
+$one= filter_input(INPUT_POST, 'one');
+$all= filter_input(INPUT_POST, 'all');
+
+if (isset($one)){
+  $account= filter_input(INPUT_POST, 'account');
+
+  $query='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT';
+  $statement3 = $db->prepare($query);
+  $statement3->bindValue(':ACCT', $account);
+  $statement3->execute();
+  $acct=$statement3->fetchAll();
+  $statement3->closeCursor();
+  $customer=$acct['CUSTOMER_ID'];
+
+  $query4='SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=:CID';
+  $statement4 = $db->prepare($query4);
+  $statement4->bindValue(':CID', $customer);
+  $statement4->execute();
+  $CID=$statement4->fetchAll();
+  $statement4->closeCursor();
+  $BID=$acct['BUSINESS_ID'];
+  if (is_null($acct['BUSINESS_ID'])){
+    $flag=0;
+  }
+else {
+
+  $query5='SELECT * FROM BUSINESS WHERE BUSINESS_ID=:BID';
+  $statement5 = $db->prepare($query4);
+  $statement5->bindValue(':BID', $BID);
+  $statement5->execute();
+  $BUSID=$statement5->fetchAll();
+  $statement5->closeCursor();
+  $flag==1;
+}
+}
+else if ($isset($all)){
+  $cust= filter_input(INPUT_POST, 'custType');
+if ($cust=="Individual"){
+  $query2='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT AND BUSINESS_ID IS NULL';
+  $statement2 = $db->prepare($query2);
+  $statement2->bindValue(':ACCT', $account);
+  $statement2->execute();
+  $acct=$statement2->fetchColumn();
+  $statement2->closeCursor();
+  $flag==2;
+  }
+  else if($cust=="Business"){
+    $query3='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT AND BUSINESS_ID IS NOT NULL';
+    $statement1 = $db->prepare($query3);
+    $statement1->bindValue(':ACCT', $account);
+    $statement1->execute();
+    $acct=$statement1->fetchColumn();
+    $statement1->closeCursor();
+    $flag==3;
+
+    }
+
+}
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,6 +118,27 @@
     <table class="table table-striped"style="text-align:left">
 
       <thead>
+        <?php if ($flag==0){?>
+        <tr>
+          <th>Charge Account ID Number</th>
+          <th>Customer Type</th>
+          <th>Customer Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Current Account Balance:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $acct['ACCOUNT_ID'];?></td>
+          <td><?php echo "Individual";?></td>
+          <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
+          <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['STATE']." ".$CID['ZIP'];?></td>
+          <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
+          <td><?php echo $acct['CHG_ACCT_BALANCE'];?></td>
+        </tr>
+<?php}
+        else if ($flag==1){?>
         <tr>
           <th>Charge Account ID Number</th>
           <th>Customer Type</th>
@@ -68,16 +152,14 @@
           <th>Zip Code</th>
           <th>Phone</th>
           <th>Date</th>
-
-
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>C27</td>
-          <td>Business</td>
-          <td>Muttly's Pet Grooming</td>
-          <td>B312</td>
+          <td><?php echo $acct['ACCOUNT_ID'];?></td>
+          <td><?php echo "Business";?></td>
+          <td><?php echo $BUSID['BUSINESS_NAME'];?></td>
+          <td><?php echo $BUSID['BUSINESS_ID'];?></td>
           <td>Smith</td>
           <td>Bill</td>
           <td>132 Puppy Ave</td>

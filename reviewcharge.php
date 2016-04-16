@@ -57,14 +57,9 @@ $statement7->closeCursor();
 
   <form method="post" action="reviewchargequery.php" id="reviewcharge" style="text-align:center">
     <div style="text-align:left">
-    <label>Customer Type:</label>
-    <select name="custType" class="form-control">
-      <!--drop down menu-->
-      <option value="<?php echo "Individual";?>"><?php echo "Individual";?></option>
-      <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
-    </select>
+    
     <div class="form-group">
-    <label for="chargeID"><strong>Or Search For a Specific Charge Account: </strong></label>
+    <label for="chargeID"><strong>Search For a Charge Account: </strong></label>
     <select name="account" class="form-control">
       <?php foreach ($acct as $a):?>
       <option value="<?php echo $a['ACCOUNT_ID'];?>"><?php echo $a['ACCOUNT_ID']." - ". $a['CUSTOMER_LNAME'].", ". $a['CUSTOMER_FNAME'];?></option>
@@ -73,7 +68,7 @@ $statement7->closeCursor();
 </div>
 
       <label>&nbsp;</label>
-      <input type="submit" class="btn btn-warning"  value="Submit">
+      <input type="submit" class="btn btn-warning"  name="one" value="Search">
     </form>
 
   </div>
