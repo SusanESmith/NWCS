@@ -1,3 +1,15 @@
+<?php
+session_start();
+include('nwcsdatabase.php');
+$busID = $_SESSION["busID"];
+
+$query = "SELECT ACCOUNT_ID, BUSINESS_NAME, CA.BUSINESS_ID, BUSINESS_POC_LNAME, BUSINESS_POC_FNAME, BUSINESS_ADDRESS, BUSINESS_CITY, BUSINESS_STATE, BUSINESS_ZIP, BUSINESS_POC_PHONE FROM CHARGE_ACCOUNT CA, BUSINESS B WHERE CA.BUSINESS_ID = B.BUSINESS_ID AND CA.BUSINESS_ID = :busID";
+$statement = $db->prepare($query);
+$statement->bindValue(':busID', $busID);
+$statement->execute();
+$bus = $statement->fetch();
+$statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,32 +72,33 @@
           <th>Customer Type</th>
           <th>Business Name</th>
           <th>Business ID</th>
-          <th>Customer Last Name</th>
-          <th>Customer First Name</th>
+          <th>Customer Name</th>
           <th>Address</th>
           <th>City</th>
           <th>State</th>
           <th>Zip Code</th>
           <th>Phone</th>
-          <th>Date</th>
 
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>C27</td>
-          <td>Business</td>
-          <td>Muttly's Pet Grooming</td>
-          <td>B312</td>
-          <td>Smith</td>
-          <td>Bill</td>
-          <td>132 Puppy Ave</td>
-          <td>Clarksville</td>
-          <td>TN</td>
-          <td>37015</td>
-          <td>931-792-1111</td>
-          <td>03/18/2016</td>
+          <td><?php echo $bus['ACCOUNT_ID']; ?></td>
+          <td><?php 
+                if (empty($busID))
+                    echo "Individual";
+                else
+                    echo "Business";
+              ?></td>
+          <td><?php echo $bus['BUSINESS_NAME']; ?></td>
+          <td><?php echo $bus['BUSINESS_ID']; ?></td>
+          <td><?php echo $bus['BUSINESS_POC_FNAME']." ".$bus['BUSINESS_POC_LNAME']; ?></td>
+          <td><?php echo $bus['BUSINESS_ADDRESS']; ?></td>
+          <td><?php echo $bus['BUSINESS_CITY']; ?></td>
+          <td><?php echo $bus['BUSINESS_STATE']; ?></td>
+          <td><?php echo $bus['BUSINESS_ZIP']; ?></td>
+          <td><?php echo $bus['BUSINESS_POC_PHONE']; ?></td>
 
 
         </tr>

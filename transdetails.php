@@ -1,4 +1,35 @@
 <!DOCTYPE html>
+<?php
+session_start();
+include('nwcsdatabase.php');
+$transID = $_SESSION["transID"];
+//echo $_SESSION["transID"];
+
+/*
+$query = "SELECT * FROM TRANSACTION_DETAILS WHERE TRANSACTION_ID = :transID";
+
+$statement = $db->prepare($query);
+$statement->bindValue(':transID', $transID);
+$statement->execute();
+$transaction = $statement->fetchAll();
+$statement->closeCursor();
+*/
+
+$query2 = "SELECT * FROM TRANSACTIONS WHERE TRANSACTION_ID = :transID";
+$statement2 = $db->prepare($query2);
+$statement2->bindValue(':transID', $transID);
+$statement2->execute();
+$details = $statement2->fetch();
+$statement2->closeCursor();
+
+$query3 = "SELECT TD.PRODUCT_ID, PRODUCT_NAME, TRANS_PROD_TOTAL, TRANS_PROD_QTY FROM NWCS.TRANSACTIONS T, NWCS.PRODUCTS P, NWCS.TRANSACTION_DETAILS TD WHERE P.PRODUCT_ID = TD.PRODUCT_ID AND TD.TRANSACTION_ID = T.TRANSACTION_ID AND T.TRANSACTION_ID = :transID";
+$statement3 = $db->prepare($query3);
+$statement3->bindValue(':transID', $transID);
+$statement3->execute();
+$products = $statement3->fetchAll();
+$statement3->closeCursor();
+
+?>
 <html lang="en">
 
  <head>
@@ -60,20 +91,30 @@
           <th>Product</th>
           <th>Price</th>
           <th>Transaction Total</th>
-          <th>Store ID</th>
           <th>Transaction Type</th>
+          <th>Store ID</th>
           <th>Transaction Date</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>T0543</td>
-          <td>Beer<br><br>Cheetos<br><br>Doritos</td>
-          <td>$7.99<br><br>$3.99<br><br>1.99</td>
-          <td>$15.30</td>
-          <td>S02</td>
+          <td><?php echo $transID ?></td>
+          <td><?php
+                foreach($products as $p)
+                {
+                    echo $p['PRODUCT_NAME']." x".$p['TRANS_PROD_QTY']."<br>";
+                }
+              ?></td>
+          <td><?php                 
+              foreach($products as $p)
+                {
+                    echo $p['TRANS_PROD_TOTAL']."<br>";
+                } 
+              ?></td>
+          <td><?php echo $details['TRANSACTION_TOTAL']; ?></td>
           <td>Card</td>
-          <td>03/12/2016</td>
+          <td><?php echo $details['STORE_ID']; ?></td>
+          <td><?php echo $details['TRANSACTION_DATE']; ?></td>
         </tr>
 
         </tr>

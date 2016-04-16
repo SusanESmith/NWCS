@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('nwcsdatabase.php');
 
 $empID = filter_input(INPUT_POST, 'empID');
@@ -13,6 +14,8 @@ $statement->bindValue(':date', $date);
 $statement->execute();
 $report = $statement->fetchAll();
 $statement->closeCursor();
+
+$_SESSION["transID"] = $transID;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +52,7 @@ $statement->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Employee Transaction History for $empID: ';?>
+        <?php echo 'Employee Transaction History for '.$empID.': ';?>
     </h4>
 </div>
 
