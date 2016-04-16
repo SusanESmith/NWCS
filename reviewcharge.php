@@ -2,7 +2,7 @@
 include('nwcsdatabase.php');
 
 
-$acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
+$acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID ORDER BY ACCOUNT_ID';
 $statement7= $db->prepare($acctID);
 //$statement->bindValue(':POSITION', $position);
 $statement7->execute();
@@ -57,7 +57,7 @@ $statement7->closeCursor();
 
   <form method="post" action="reviewchargequery.php" id="reviewcharge" style="text-align:center">
     <div style="text-align:left">
-    
+
     <div class="form-group">
     <label for="chargeID"><strong>Search For a Charge Account: </strong></label>
     <select name="account" class="form-control">

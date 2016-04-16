@@ -3,61 +3,54 @@ include('nwcsdatabase.php');
 $one= filter_input(INPUT_POST, 'one');
 $all= filter_input(INPUT_POST, 'all');
 
-if (isset($one)){
-  $account= filter_input(INPUT_POST, 'account');
+$account= filter_input(INPUT_POST, 'account');
 
+$flag=-1;
+echo $flag."<BR>";
   $query='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT';
   $statement3 = $db->prepare($query);
   $statement3->bindValue(':ACCT', $account);
   $statement3->execute();
-  $acct=$statement3->fetchAll();
+  $acct=$statement3->fetch();
   $statement3->closeCursor();
   $customer=$acct['CUSTOMER_ID'];
+
+
 
   $query4='SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=:CID';
   $statement4 = $db->prepare($query4);
   $statement4->bindValue(':CID', $customer);
   $statement4->execute();
-  $CID=$statement4->fetchAll();
+  $CID=$statement4->fetch();
   $statement4->closeCursor();
   $BID=$acct['BUSINESS_ID'];
-  if (is_null($acct['BUSINESS_ID'])){
+echo $BID."<BR>";
+
+
+  $query1='SELECT PAYMENT_TYPE FROM PAYMENT WHERE ACCOUNT_ID=:ACCT';
+  $statement1 = $db->prepare($query1);
+  $statement1->bindValue(':ACCT', $account);
+  $statement1->execute();
+  $pay=$statement1->fetchColumn();
+  $statement3->closeCursor();
+
+  if (empty($BID)){
     $flag=0;
+    echo $flag."<BR>";
   }
 else {
 
   $query5='SELECT * FROM BUSINESS WHERE BUSINESS_ID=:BID';
-  $statement5 = $db->prepare($query4);
+  $statement5 = $db->prepare($query5);
   $statement5->bindValue(':BID', $BID);
   $statement5->execute();
-  $BUSID=$statement5->fetchAll();
+  $BUSID=$statement5->fetch();
   $statement5->closeCursor();
-  $flag==1;
-}
-}
-else if ($isset($all)){
-  $cust= filter_input(INPUT_POST, 'custType');
-if ($cust=="Individual"){
-  $query2='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT AND BUSINESS_ID IS NULL';
-  $statement2 = $db->prepare($query2);
-  $statement2->bindValue(':ACCT', $account);
-  $statement2->execute();
-  $acct=$statement2->fetchColumn();
-  $statement2->closeCursor();
-  $flag==2;
-  }
-  else if($cust=="Business"){
-    $query3='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT AND BUSINESS_ID IS NOT NULL';
-    $statement1 = $db->prepare($query3);
-    $statement1->bindValue(':ACCT', $account);
-    $statement1->execute();
-    $acct=$statement1->fetchColumn();
-    $statement1->closeCursor();
-    $flag==3;
-
-    }
+  $flag=1;
+  echo $flag."<BR>";
 
 }
+
 
  ?>
 
@@ -96,7 +89,9 @@ if ($cust=="Individual"){
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Charge Account Customer (charge acct num): ';?>
+        <?php if ($flag==0) {echo "Charge Account Customer <span style=color:orange>".$acct['ACCOUNT_ID']." - ".$CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME']."</span>: ";}?>
+        <?php if ($flag==1) {echo "Charge Account Customer <span style=color:orange>".$acct['ACCOUNT_ID']." - ".$BUSID['BUSINESS_NAME']."</span>: ";}?>
+
     </h4>
 </div>
 
@@ -118,7 +113,7 @@ if ($cust=="Individual"){
     <table class="table table-striped"style="text-align:left">
 
       <thead>
-        <?php if ($flag==0){?>
+        <?php if ($flag==0) { ?>
         <tr>
           <th>Charge Account ID Number</th>
           <th>Customer Type</th>
@@ -133,25 +128,21 @@ if ($cust=="Individual"){
           <td><?php echo $acct['ACCOUNT_ID'];?></td>
           <td><?php echo "Individual";?></td>
           <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
-          <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['STATE']." ".$CID['ZIP'];?></td>
+          <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['CUSTOMER_STATE']." ".$CID['CUSTOMER_ZIP'];?></td>
           <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
           <td><?php echo $acct['CHG_ACCT_BALANCE'];?></td>
         </tr>
-<?php}
-        else if ($flag==1){?>
+<?php }
+        else { ?>
         <tr>
           <th>Charge Account ID Number</th>
           <th>Customer Type</th>
           <th>Business Name</th>
           <th>Business ID</th>
-          <th>Customer Last Name</th>
-          <th>Customer First Name</th>
+          <th>Point of Contact</th>
           <th>Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip Code</th>
           <th>Phone</th>
-          <th>Date</th>
+
         </tr>
       </thead>
       <tbody>
@@ -160,18 +151,11 @@ if ($cust=="Individual"){
           <td><?php echo "Business";?></td>
           <td><?php echo $BUSID['BUSINESS_NAME'];?></td>
           <td><?php echo $BUSID['BUSINESS_ID'];?></td>
-          <td>Smith</td>
-          <td>Bill</td>
-          <td>132 Puppy Ave</td>
-          <td>Clarksville</td>
-          <td>TN</td>
-          <td>37015</td>
-          <td>931-792-1111</td>
-          <td>03/18/2016</td>
-
-
+          <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
+          <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['CUSTOMER_STATE']." ".$CID['CUSTOMER_ZIP'];?></td>
+          <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
         </tr>
-
+<?php } ?>
 
       </tbody>
     </table>
