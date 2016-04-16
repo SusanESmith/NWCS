@@ -1,3 +1,18 @@
+<?php
+
+include('nwcsdatabase.php');
+
+$STORE='SELECT * FROM STORE';
+$statement= $db->prepare($STORE);
+$statement->execute();
+$STORES = $statement->fetchAll();
+$statement->closeCursor();
+
+$date = new DateTime('2000-01-01');
+$sDate=$date->format('Y-m-d H:i:s');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +21,14 @@
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
+<script src="js/moment.js"></script>
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <script src="js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+<!--<script src="js/moment-with-locales.js"></script>-->
 
-<!--background-->
 <style>
  body{
    background-color: #4C99B6;
@@ -46,30 +64,58 @@
     <label>Time parameter:</label>
     <select name="time"class="form-control">
       <!--drop down menu-->
-      <option value="<?php echo "hourly";?>"><?php echo "hourly";?></option>
-      <option value="<?php echo "daily";?>"><?php echo "daily";?></option>
-      <option value="<?php echo "weekly";?>"><?php echo "weekly";?></option>
-      <option value="<?php echo "monthly";?>"><?php echo "monthly";?></option>
-      <option value="<?php echo "quarterly";?>"><?php echo "quarterly";?></option>
-      <option value="<?php echo "yearly";?>"><?php echo "yearly";?></option>
+    <span class="glyphicon glyphicon-time">
+      <option value="<?php echo "Hourly";?>"><?php echo "Hourly";?></option>
+      <option value="<?php echo "Daily";?>"><?php echo "Daily";?></option>
+      <option value="<?php echo "Weekly";?>"><?php echo "Weekly";?></option>
+      <option value="<?php echo "Monthly";?>"><?php echo "Monthly";?></option>
+      <option value="<?php echo "Quarterly";?>"><?php echo "Quarterly";?></option>
+      <option value="<?php echo "Yearly";?>"><?php echo "Yearly";?></option>
 
     </select>
 
-    <div class="form-group">
-    <label for="storeID"><strong>Store ID: </strong></label>
-  <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
-    </div>
+    <label>Store ID:</label>
+    <select name="storeID" class="form-control">
+      <?php foreach ($STORES as $s):?>
+      <option value="<?php echo $s['STORE_ID'];?>"><?php echo $s['STORE_ID']." - ".$s['STORE_ADDRESS'];?></option>
+    <?php endforeach;  ?>
+    </select>
 
-    <div class="form-group">
-    <label for="bDate"><strong>Beginning Date: </strong></label>
-    <input name="bDate" type="date" class="form-control" id="bDate" placeholder="Beginning Date for Sales Report">
-    </div>
 
-    <div class="form-group">
-    <label for="eDate"><strong>Ending Date: </strong></label>
-  <input name="eDate" type="date" class="form-control" id="eDate" placeholder="Ending Date for Sales Report">
-    </div>
-  </div>
+
+  <label for="bDate"><strong>Beginning Date: </strong></label>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' name="bDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+
+        <label for="eDate"><strong>Ending Date: </strong></label>
+                  <div class="form-group">
+                      <div class='input-group date' id='datetimepicker2'>
+                          <input type='text' name="eDate" class="form-control" />
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+
+              <script type="text/javascript">
+                  $(function () {
+                      $('#datetimepicker2').datetimepicker();
+                  });
+              </script>
+
+</div>
       <label>&nbsp;</label>
       <input type="submit"class="btn btn-warning" value="Submit">
     </form>

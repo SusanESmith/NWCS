@@ -433,7 +433,10 @@ else {$status="true";}
 
 }
 if ($status=="true"){
-  $tDate=date('Y-m-d');
+//new date format
+  $date = new DateTime('2000-01-01');
+  $tDate=$date->format('Y-m-d H:i:s');
+
 
   $t='INSERT INTO TRANSACTIONS
                  (CASHIER_SHIFT_ID, TRANSACTION_DATE, STORE_ID, TRANSACTION_TOTAL)
