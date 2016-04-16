@@ -1,4 +1,15 @@
+<?php
+include('nwcsdatabase.php');
 
+$query2='SELECT * FROM EMPLOYEE';
+$statement1 = $db->prepare($query2);
+//$statement1->bindValue(':user',$var);
+$statement1->execute();
+$emp = $statement1->fetchAll();
+$statement1->closeCursor();
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +44,7 @@
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
       <?php echo 'Please enter the following information:';?>
     </h4>
 </div>
@@ -42,31 +53,53 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="transreportquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="transactionreport.php" id="inventory" style="text-align:center">
 
     <div style="text-align:left">
     <div class="form-group">
     <label for="empID"><strong>Employee ID: </strong></label>
-  <input name="empID" type="text" class="form-control" id="empID" placeholder="Employee Identification Number" required>
-    </div>
+      <select name="empID" class="form-control">
+      <?php foreach ($emp as $s):?>
+      <option value="<?php echo $s['EMPLOYEE_ID']?>"><?php echo $s['EMPLOYEE_ID']." - ".$s['EMPLOYEE_LNAME'].", ".$s['EMPLOYEE_FNAME'];?></option>
+    <?php endforeach;  ?>
+  </select>
+  <label>&nbsp;</label>
+</div></div>
 
+  <input type="submit" name="e" class="btn btn-warning" value="Select Employee">
+</form>
+<?php
+$eid=filter_input(INPUT_POST, 'e');
+if(isset($eid)){
+
+$empID=filter_input(INPUT_POST, 'empID');
+//echo $empID;
+  $query='SELECT * FROM TRANSACTIONS WHERE EMPLOYEE_ID=:EID';
+  $statement = $db->prepare($query);
+  $statement->bindValue(':EID',$empID);
+  $statement->execute();
+  $t= $statement->fetchAll();
+  $statement->closeCursor();
+ ?>
+<form method="post" action="transreportquery.php" id="inventory" style="text-align:center">
+<div style="text-align:left">
     <div class="form-group">
-    <label for="storeID"><strong>Transaction ID: </strong></label>
-  <input name="transID" type="text" class="form-control" id="transID" placeholder="Transaction Identification Number" required>
+    <label for="transID"><strong>Transaction ID: </strong></label>
+      <select name="transID" class="form-control">
+    <?php foreach ($t as $tr):?>
+    <option value="<?php echo $tr['TRANSACTION_ID'];?>"><?php echo $tr['TRANSACTION_ID'];?></option>
+  <?php endforeach;  ?>
+</select>
     </div>
 
-    <div class="form-group">
-    <label for="transDate"><strong>Date of Transaction: </strong></label>
-  <input name="transDate" type="text" class="form-control" id="transDate" placeholder="Date of Transaction" required>
 
-    </div>
   </div>
-
+<input type="text" value="<?php echo $empID?>" name="empID" hidden="true">
       <br><br>
       <label>&nbsp;</label>
       <input type="submit" class="btn btn-warning" value="Submit">
     </form>
-
+<?php } ?>
   </div>
   <p><strong><a href="reporting.php">Back to the Reporting Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>

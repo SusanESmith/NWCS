@@ -98,7 +98,7 @@ $queryStock = 'INSERT INTO STOCK
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-tasks"></span>
         <?php echo 'You have successfully added to Store <span style=color:orange>'.$storeID.'</span>\'s inventory: ';?>
     </h4>
 </div>

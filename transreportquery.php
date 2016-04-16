@@ -4,17 +4,26 @@ include('nwcsdatabase.php');
 
 $empID = filter_input(INPUT_POST, 'empID');
 $transID = filter_input(INPUT_POST, 'transID');
-$date = filter_input(INPUT_POST, 'transDate');
 
-$query = "SELECT * FROM TRANSACTIONS WHERE EMPLOYEE_ID = :empID AND TRANSACTION_ID = :transID AND TRANSACTION_DATE = :date";
+//$date = filter_input(INPUT_POST, 'transDate');
+
+$query = "SELECT * FROM TRANSACTIONS WHERE EMPLOYEE_ID = :empID AND TRANSACTION_ID = :transID";
 $statement = $db->prepare($query);
 $statement->bindValue(':empID', $empID);
 $statement->bindValue(':transID', $transID);
-$statement->bindValue(':date', $date);
+//$statement->bindValue(':date', $date);
 $statement->execute();
 $report = $statement->fetchAll();
 $statement->closeCursor();
 
+$query2 = "SELECT EMPLOYEE_LNAME, EMPLOYEE_FNAME FROM EMPLOYEE WHERE EMPLOYEE_ID = :empID";
+$statement1 = $db->prepare($query2);
+$statement1->bindValue(':empID', $empID);
+//$statement->bindValue(':date', $date);
+$statement1->execute();
+$emp = $statement1->fetch();
+$statement1->closeCursor();
+echo $emp['EMPLOYEE_LNAME'];
 $_SESSION["transID"] = $transID;
 ?>
 <!DOCTYPE html>
@@ -51,8 +60,8 @@ $_SESSION["transID"] = $transID;
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Employee Transaction History for '.$empID.': ';?>
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
+        <?php echo " Employee Transaction History for <span style=\"color:ORANGE\">".$empID." - ".$emp['EMPLOYEE_LNAME'].", ".$emp['EMPLOYEE_FNAME']."'</span>: ";?>
     </h4>
 </div>
 
@@ -78,6 +87,7 @@ $_SESSION["transID"] = $transID;
 
           <th>Transaction ID Number</th>
           <th>Transaction Total</th>
+          <th>Store Location</th>
           <th>Transaction Date</th>
 
 
@@ -88,7 +98,8 @@ $_SESSION["transID"] = $transID;
           <?php foreach($report as $r): ?>
         <tr>
           <td><a href="transdetails.php"><?php echo $r['TRANSACTION_ID']; ?></a></td>
-          <td><?php echo $r['TRANSACTION_TOTAL']; ?></td>
+          <td><?php echo "$".$r['TRANSACTION_TOTAL']; ?></td>
+          <td><?php echo $r['STORE_ID']; ?></td>
           <td><?php echo $r['TRANSACTION_DATE']; ?></td>
 
         </tr>

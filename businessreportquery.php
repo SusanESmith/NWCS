@@ -2,13 +2,13 @@
 session_start();
 include('nwcsdatabase.php');
 $id = filter_input(INPUT_POST, 'busID');
-$name = filter_input(INPUT_POST, 'busName');
+//$name = filter_input(INPUT_POST, 'busName');
 
-$query = "SELECT * FROM BUSINESS WHERE BUSINESS_ID = :id AND BUSINESS_NAME = :name";
+$query = "SELECT * FROM BUSINESS WHERE BUSINESS_ID = :id";
 
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $id);
-$statement->bindValue(':name', $name);
+//$statement->bindValue(':name', $name);
 $statement->execute();
 $business = $statement->fetch();
 $statement->closeCursor();
@@ -63,8 +63,8 @@ $_SESSION["busID"] = $id;
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'This Business with ID '.$id.' is a NWCS valued customer: ';?>
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
+        <?php echo '<span style="color:ORANGE"> \''.$business['BUSINESS_NAME'].'\'</span> is a valued NWCS customer: ';?>
     </h4>
 </div>
 

@@ -32,8 +32,8 @@
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo '(Time -weekly)Sales report for Store (store ID): ';?>
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
+        <?php echo ' (Time -weekly)Sales report for Store (store ID): ';?>
     </h4>
 </div>
 

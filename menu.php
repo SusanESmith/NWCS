@@ -59,19 +59,19 @@
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='cashiermenu.php'"><strong>Cashier Menu</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='cashiermenu.php'"><strong>Cashier Menu      </strong><span class="glyphicon glyphicon-shopping-cart"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='inventory.php'"><strong>Inventory</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='inventory.php'"><strong>Inventory            </strong><span class="glyphicon glyphicon-tasks"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='orders.php'"><strong>Ordering</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='orders.php'"><strong>Ordering              </strong><span class="glyphicon glyphicon-th-large"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reporting.php'"><strong>Reports</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reporting.php'"><strong>Reports     </strong><span class="glyphicon glyphicon-list-alt"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='charge.php'"><strong>Charge Accounts</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='charge.php'"><strong>Charge Accounts       </strong> <span class="glyphicon glyphicon-user"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='contacts.php'"><strong>Contacts</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='contacts.php'"><strong>Contacts           </strong><span class="glyphicon glyphicon-envelope"></span></button>
 <br><br>
-<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='empprofile.php'"><strong>Employee Profile</strong></button>
+<button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='empprofile.php'"><strong>Employee Profile           </strong><span class="glyphicon glyphicon-leaf"></span></button>
 
 
 
