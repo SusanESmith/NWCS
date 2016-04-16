@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,17 +47,17 @@
     <div style="text-align:left">
     <div class="form-group">
     <label for="empID"><strong>Employee ID: </strong></label>
-  <input name="empID" type="text" class="form-control" id="empID" placeholder="Employee Identification Number">
+  <input name="empID" type="text" class="form-control" id="empID" placeholder="Employee Identification Number" required>
     </div>
 
     <div class="form-group">
     <label for="storeID"><strong>Transaction ID: </strong></label>
-  <input name="transID" type="text" class="form-control" id="transID" placeholder="Transaction Identification Number">
+  <input name="transID" type="text" class="form-control" id="transID" placeholder="Transaction Identification Number" required>
     </div>
 
     <div class="form-group">
     <label for="transDate"><strong>Date of Transaction: </strong></label>
-  <input name="transDate" type="text" class="form-control" id="transDate" placeholder="Date of Transaction">
+  <input name="transDate" type="text" class="form-control" id="transDate" placeholder="Date of Transaction" required>
 
     </div>
   </div>

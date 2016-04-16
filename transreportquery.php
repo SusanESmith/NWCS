@@ -1,3 +1,22 @@
+<?php
+session_start();
+include('nwcsdatabase.php');
+
+$empID = filter_input(INPUT_POST, 'empID');
+$transID = filter_input(INPUT_POST, 'transID');
+$date = filter_input(INPUT_POST, 'transDate');
+
+$query = "SELECT * FROM TRANSACTIONS WHERE EMPLOYEE_ID = :empID AND TRANSACTION_ID = :transID AND TRANSACTION_DATE = :date";
+$statement = $db->prepare($query);
+$statement->bindValue(':empID', $empID);
+$statement->bindValue(':transID', $transID);
+$statement->bindValue(':date', $date);
+$statement->execute();
+$report = $statement->fetchAll();
+$statement->closeCursor();
+
+$_SESSION["transID"] = $transID;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +52,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Employee Transaction History for (emp ID): ';?>
+        <?php echo 'Employee Transaction History for '.$empID.': ';?>
     </h4>
 </div>
 
@@ -58,7 +77,7 @@
         <tr>
 
           <th>Transaction ID Number</th>
-          <th>Transaction total</th>
+          <th>Transaction Total</th>
           <th>Transaction Date</th>
 
 
@@ -66,23 +85,14 @@
         </tr>
       </thead>
       <tbody>
+          <?php foreach($report as $r): ?>
         <tr>
-          <td><a href="transdetails.php">T0543</a></td>
-          <td>$15.30</td>
-          <td>03/12/2016</td>
+          <td><a href="transdetails.php"><?php echo $r['TRANSACTION_ID']; ?></a></td>
+          <td><?php echo $r['TRANSACTION_TOTAL']; ?></td>
+          <td><?php echo $r['TRANSACTION_DATE']; ?></td>
 
         </tr>
-        <tr>
-          <td><a href="transdetails.php">T0563</a></td>
-          <td>$22.38</td>
-          <td>03/14/2016</td>
-
-        </tr>
-        <tr>
-          <td><a href="transdetails.php">T0486</a></td>
-          <td>$6.42</td>
-          <td>03/17/2016</td>
-        </tr>
+          <?php endforeach; ?>
       </tbody>
     </table>
   </div>

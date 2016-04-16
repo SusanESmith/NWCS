@@ -1,4 +1,5 @@
 <?php
+
 include('nwcsdatabase.php');
 $one= filter_input(INPUT_POST, 'one');
 $all= filter_input(INPUT_POST, 'all');
@@ -6,7 +7,7 @@ $all= filter_input(INPUT_POST, 'all');
 $account= filter_input(INPUT_POST, 'account');
 
 $flag=-1;
-echo $flag."<BR>";
+
   $query='SELECT * FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:ACCT';
   $statement3 = $db->prepare($query);
   $statement3->bindValue(':ACCT', $account);
@@ -24,7 +25,7 @@ echo $flag."<BR>";
   $CID=$statement4->fetch();
   $statement4->closeCursor();
   $BID=$acct['BUSINESS_ID'];
-echo $BID."<BR>";
+
 
 
   $query1='SELECT PAYMENT_TYPE FROM PAYMENT WHERE ACCOUNT_ID=:ACCT';
@@ -36,7 +37,7 @@ echo $BID."<BR>";
 
   if (empty($BID)){
     $flag=0;
-    echo $flag."<BR>";
+
   }
 else {
 
@@ -47,12 +48,12 @@ else {
   $BUSID=$statement5->fetch();
   $statement5->closeCursor();
   $flag=1;
-  echo $flag."<BR>";
 
 }
 
 
  ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -139,14 +140,19 @@ else {
           <th>Customer Type</th>
           <th>Business Name</th>
           <th>Business ID</th>
+
           <th>Point of Contact</th>
+
           <th>Address</th>
           <th>Phone</th>
+
+
 
         </tr>
       </thead>
       <tbody>
         <tr>
+
           <td><?php echo $acct['ACCOUNT_ID'];?></td>
           <td><?php echo "Business";?></td>
           <td><?php echo $BUSID['BUSINESS_NAME'];?></td>
@@ -154,6 +160,7 @@ else {
           <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
           <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['CUSTOMER_STATE']." ".$CID['CUSTOMER_ZIP'];?></td>
           <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
+
         </tr>
 <?php } ?>
 

@@ -1,3 +1,34 @@
+<?php
+session_start();
+include('nwcsdatabase.php');
+$id = filter_input(INPUT_POST, 'busID');
+$name = filter_input(INPUT_POST, 'busName');
+
+$query = "SELECT * FROM BUSINESS WHERE BUSINESS_ID = :id AND BUSINESS_NAME = :name";
+
+$statement = $db->prepare($query);
+$statement->bindValue(':id', $id);
+$statement->bindValue(':name', $name);
+$statement->execute();
+$business = $statement->fetch();
+$statement->closeCursor();
+
+$charge_flag = "YES";
+
+$query2 = "SELECT ACCOUNT_ID FROM CHARGE_ACCOUNTS WHERE BUSINESS_ID = :id";
+$statement2 = $db->prepare($query2);
+$statement2->bindValue(':id', $id);
+$statement2->execute();
+$account = $statement2->fetchColumn();
+$statement2->closeCursor();
+
+if (empty($account))
+{
+    $charge_flag = "NO";
+}
+
+$_SESSION["busID"] = $id;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +64,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'This Business (business ID or Name) is a NWCS valued customer: ';?>
+        <?php echo 'This Business with ID '.$id.' is a NWCS valued customer: ';?>
     </h4>
 </div>
 
@@ -73,17 +104,20 @@
       </thead>
       <tbody>
         <tr>
-          <td>Muttly's Pet Grooming</td>
-          <td>B312</td>
-          <td>Bill Smith</td>
-          <td>132 Puppy Avenue</td>
-          <td>Clarksville</td>
-          <td>TN</td>
-          <td>37015</td>
-          <td>931-792-1111</td>
-          <td><a href="reviewchargequery.php">Yes</a></td>
-
-
+          <td><?php echo $business['BUSINESS_NAME']; ?></td>
+          <td><?php echo $business['BUSINESS_ID']; ?></td>
+          <td><?php echo $business['BUSINESS_POC_FNAME']." ".$business['BUSINESS_POC_LNAME']; ?></td>
+          <td><?php echo $business['BUSINESS_ADDRESS']; ?></td>
+          <td><?php echo $business['BUSINESS_CITY']; ?></td>
+          <td><?php echo $business['BUSINESS_STATE']; ?></td>
+          <td><?php echo $business['BUSINESS_ZIP']; ?></td>
+          <td><?php echo $business['BUSINESS_POC_PHONE']; ?></td>
+        <?php
+            if ($charge_flag = "YES")
+                echo "<td><a href=\"reviewchargequery.php\">Yes</a></td>";
+            else
+                echo "<td>No</td>";
+        ?>
 
         </tr>
 
