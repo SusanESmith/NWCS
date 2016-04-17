@@ -80,6 +80,7 @@ $statement->closeCursor();
 <?php
 $login=filter_input(INPUT_POST, 'login');
 $user=filter_input(INPUT_POST, 'username');
+$store=filter_input(INPUT_POST, 'store');
 $pw=filter_input(INPUT_POST, 'password');
 
 if (isset($login)){
@@ -104,6 +105,7 @@ if (isset($login)){
 <?php  }
 else {
   $_SESSION['start']=$user;
+  $_SESSION['store']=$store;
 header('Location: menu.php');
 
 }

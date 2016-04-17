@@ -16,7 +16,7 @@ if ($pid!==NULL){
 }
 $storeID=$_SESSION['store'];
 
-$empID=$_SESSION['username'];
+$empID=$_SESSION['start'];
 
   include('nwcsdatabase.php');
 
