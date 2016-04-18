@@ -1,3 +1,4 @@
+
 <?php
 
 include('nwcsdatabase.php');
@@ -73,73 +74,6 @@ $sDate=$date->format('Y-m-d H:i:s');
       <option value="<?php echo "Yearly";?>"><?php echo "Yearly";?></option>
 
     </select>
-<<<<<<< HEAD
-        <?php
-        /*
-        if(isset($_POST['time']))
-        {
-            $time = $_POST['time'];
-        }
-        */
-        ?>
-    <div class="form-group">
-    <label for="storeID"><strong>Store ID: </strong></label>
-  <input name="storeID" type="text" class="form-control" id="storeID" placeholder="Store Identification Number">
-    </div>
-
-    <div class="form-group">
-    <label for="bDate"><strong>Beginning Date: </strong></label>
-    <input name="bDate" type="date" class="form-control" id="bDate" placeholder="Beginning Date for Sales Report (yyyy-mm-dd)">
-    </div>
-
-    <div class="form-group">
-    <label for="eDate"><strong>Ending Date: </strong></label>
-  <input name="eDate" type="date" class="form-control" id="eDate" placeholder="Ending Date for Sales Report (yyyy-mm-dd)">
-    </div>
-        
-    <div class="form-group">
-    <label for="bTime"><strong>Beginning Time(leave blank if inapplicable): </strong></label>
-  <input name="bTime" type="time" class="form-control" id="bTime" placeholder="Beginning Time for Sales Report (hh:mm)">
-    </div>
-        
-    <div class="form-group">
-    <label for="eTime"><strong>Ending Time(leave blank if inapplicable): </strong></label>
-  <input name="eTime" type="time" class="form-control" id="eTime" placeholder="Ending Time for Sales Report (hh:mm)">
-    </div>
-   
-    
-    <?php
-        /*
-      if ($time == 'hourly')
-        {
-             echo "<div class=\"form-group\">
-                    <label for=\"bTime\"><strong>Beginning Time: </strong></label>
-                    <input name=\"bTime\" type=\"time\" class=\"form-control\" id=\"bTime\" placeholder=\"Beginning Time for Sales Report\">
-                    </div>";
-             echo "<div class=\"form-group\">
-                    <label for=\"eTime\"><strong>Ending Time: </strong></label>
-                    <input name=\"eTime\" type=\"time\" class=\"form-control\" id=\"eTime\" placeholder=\"Ending Time for Sales Report\">
-                    </div>";
-        }
-          */
-
-    ?>
-<!--
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#time").change(function() {
-        var time = $(this).val();
-        $("#panel-body").html('');
-        if(selVal == 'hourly') {
-                $("#panel-body").append("<div class=\"form-group\"><label for=\"eTime\"><strong>Ending Time: </strong></label><input name=\"eTime\" type=\"time\" class=\"form-control\" id=\"eTime\" placeholder=\"Ending Time for Sales Report\"></div>");
-                 $("#panel-body").append("<div class=\"form-group\"><label for=\"eTime\"><strong>Ending Time: </strong></label><input name=\"eTime\" type=\"time\" class=\"form-control\" id=\"eTime\" placeholder=\"Ending Time for Sales Report\"></div>");
-        }
-    });
-});
-</script>
--->
-  </div>
-=======
 
     <label>Store ID:</label>
     <select name="storeID" class="form-control">
@@ -183,10 +117,8 @@ $(document).ready(function() {
               </script>
 
 </div>
->>>>>>> origin/master
       <label>&nbsp;</label>
       <input type="submit"class="btn btn-warning" value="Submit">
-      
     </form>
 
   </div>
@@ -207,3 +139,4 @@ echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
 </body>
 </html>
+
