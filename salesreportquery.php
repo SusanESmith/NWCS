@@ -1,3 +1,43 @@
+<?php
+include('nwcsdatabase.php');
+
+$time = filter_input(INPUT_POST, 'time');
+$storeID = filter_input(INPUT_POST, 'storeID');
+$bDate = filter_input(INPUT_POST, 'bDate');
+$eDate = filter_input(INPUT_POST, 'eDate');
+$bTime = filter_input(INPUT_POST, 'bTime');
+$eTime = filter_input(INPUT_POST, 'eTime');
+
+$bTime = $bTime.':00';
+$eTime = $eTime.':00';
+
+$bdatetime = $bDate.' '.$bTime;
+$edatetime = $eDate.' '.$eTime;
+
+if ($time == 'hourly')
+{
+    $query = "SELECT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':storeID', $storeID);
+    $statement->bindValue(':bdatetime', $bdatetime);
+    $statement->bindValue(':edatetime', $edatetime);
+    $statement->execute();
+    $sales = $statement->fetchColumn();
+    $statement->closeCursor();
+    //echo $sales;
+}
+else
+{
+    $query = "SELECT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bDate AND :eDate";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':storeID', $storeID);
+    $statement->bindValue(':bDate', $bDate);
+    $statement->bindValue(':eDate', $eDate);
+    $statement->execute();
+    $sales = $statement->fetchColumn();
+    $statement->closeCursor();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +73,7 @@
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo '(Time -weekly)Sales report for Store (store ID): ';?>
+        <?php echo '(Time - '.$time.')Sales report for Store ('.$storeID.'): ';?>
     </h4>
 </div>
 
@@ -66,21 +106,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>3/10/2016</td>
-          <td>3/16/2016</td>
-          <td>$8,472.68</td>
-
-        </tr>
-        <tr>
-          <td>3/3/2016</td>
-          <td>3/9/2016</td>
-          <td>$10,479.63</td>
-
-        </tr>
-        <tr>
-          <td>2/25/2016</td>
-          <td>3/2/2016</td>
-          <td>$6,383.68</td>
+          <td><?php echo $bDate ?></td>
+          <td><?php echo $eDate ?></td>
+          <td><?php echo "$".$sales ?></td>
 
         </tr>
       </tbody>
