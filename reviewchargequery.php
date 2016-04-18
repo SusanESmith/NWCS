@@ -131,7 +131,7 @@ else {
           <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
           <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['CUSTOMER_STATE']." ".$CID['CUSTOMER_ZIP'];?></td>
           <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
-          <td><?php echo $acct['CHG_ACCT_BALANCE'];?></td>
+          <td><?php echo "$".$acct['CHG_ACCT_BALANCE'];?></td>
         </tr>
 <?php }
         else { ?>
@@ -145,6 +145,7 @@ else {
 
           <th>Address</th>
           <th>Phone</th>
+          <th>Current Account Balance</th>
 
 
 
@@ -160,6 +161,7 @@ else {
           <td><?php echo $CID['CUSTOMER_LNAME'].", ".$CID['CUSTOMER_FNAME'];?></td>
           <td><?php echo $CID['CUSTOMER_ADDRESS']." ".$CID['CUSTOMER_CITY'].", ".$CID['CUSTOMER_STATE']." ".$CID['CUSTOMER_ZIP'];?></td>
           <td><?PHP echo $CID['CUSTOMER_PHONE_NUM'];?></td>
+          <td><?php echo "$".$acct['CHG_ACCT_BALANCE'];?></td>
 
         </tr>
 <?php } ?>
