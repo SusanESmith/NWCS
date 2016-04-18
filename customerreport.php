@@ -1,3 +1,15 @@
+<?php
+include('nwcsdatabase.php');
+
+$query2='SELECT * FROM BUSINESS';
+$statement1 = $db->prepare($query2);
+//$statement1->bindValue(':user',$var);
+$statement1->execute();
+$B = $statement1->fetchAll();
+$statement1->closeCursor();
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +44,7 @@
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
       <?php echo 'Please enter the following information:';?>
     </h4>
 </div>
@@ -44,15 +56,13 @@
   <form method="post" action="businessreportquery.php" id="inventory" style="text-align:center">
 
     <div style="text-align:left">
-    <div class="form-group">
-    <label for="busID"><strong>Business ID: </strong></label>
-  <input name="busID" type="text" class="form-control" id="busID" placeholder="Business Identification Number">
-    </div>
-
-    <div class="form-group">
-    <label for="busName"><strong>Business Name: </strong></label>
-  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business">
-    </div>
+      <label for="busID"><strong>Business: </strong></label>
+        <select name="busID" class="form-control">
+        <?php foreach ($B as $b):?>
+        <option value="<?php echo $b['BUSINESS_ID'];?>"><?php echo $b['BUSINESS_ID']." - ".$b['BUSINESS_NAME'];?></option>
+      <?php endforeach;  ?>
+    </select>
+    <br>
   </div>
 
       <label>&nbsp;</label>

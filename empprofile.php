@@ -71,7 +71,7 @@ $statement->closeCursor();
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-leaf"></span>
       <?php echo 'Details for Employee: <span style="color:ORANGE">'.$profile['EMPLOYEE_LNAME'].", ".$profile['EMPLOYEE_FNAME'].'</span>';?>
     </h4>
 </div>

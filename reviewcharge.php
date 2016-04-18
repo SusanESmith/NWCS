@@ -2,7 +2,7 @@
 include('nwcsdatabase.php');
 
 
-$acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID';
+$acctID='SELECT ACCOUNT_ID, CUSTOMER_LNAME, CUSTOMER_FNAME FROM CHARGE_ACCOUNT, CUSTOMER WHERE CHARGE_ACCOUNT.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID ORDER BY ACCOUNT_ID';
 $statement7= $db->prepare($acctID);
 //$statement->bindValue(':POSITION', $position);
 $statement7->execute();
@@ -46,8 +46,8 @@ $statement7->closeCursor();
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-      <?php echo 'Please choose a customer type:';?>
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"> <span class="glyphicon glyphicon-user"></span>
+      <?php echo '   Please choose a customer type:';?>
     </h4>
 </div>
 
@@ -57,14 +57,9 @@ $statement7->closeCursor();
 
   <form method="post" action="reviewchargequery.php" id="reviewcharge" style="text-align:center">
     <div style="text-align:left">
-    <label>Customer Type:</label>
-    <select name="custType" class="form-control">
-      <!--drop down menu-->
-      <option value="<?php echo "Individual";?>"><?php echo "Individual";?></option>
-      <option value="<?php echo "Business";?>"><?php echo "Business";?></option>
-    </select>
+
     <div class="form-group">
-    <label for="chargeID"><strong>Or Search For a Specific Charge Account: </strong></label>
+    <label for="chargeID"><strong>Search For a Charge Account: </strong></label>
     <select name="account" class="form-control">
       <?php foreach ($acct as $a):?>
       <option value="<?php echo $a['ACCOUNT_ID'];?>"><?php echo $a['ACCOUNT_ID']." - ". $a['CUSTOMER_LNAME'].", ". $a['CUSTOMER_FNAME'];?></option>
@@ -73,7 +68,7 @@ $statement7->closeCursor();
 </div>
 
       <label>&nbsp;</label>
-      <input type="submit" class="btn btn-warning"  value="Submit">
+      <input type="submit" class="btn btn-warning"  name="one" value="Search">
     </form>
 
   </div>

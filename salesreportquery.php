@@ -72,8 +72,13 @@ else
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
+<<<<<<< HEAD
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
         <?php echo '(Time - '.$time.')Sales report for Store ('.$storeID.'): ';?>
+=======
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
+        <?php echo ' (Time -weekly)Sales report for Store (store ID): ';?>
+>>>>>>> origin/master
     </h4>
 </div>
 

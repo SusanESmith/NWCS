@@ -45,7 +45,7 @@
   <br><br>
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='transactionreport.php'"><strong>Transaction Reporting</strong></button>
   <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='customerreport.php'"><strong>Customer Reporting</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='customerreport.php'"><strong>Business Customer Reporting</strong></button>
   </div>
 
 

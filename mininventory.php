@@ -60,7 +60,7 @@ $check=count($stock);
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
+    <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-tasks"></span>
       <?php if ($check==0){
         echo 'All Items at Store Location <span style=color:orange>\''.$stID." - ".$storeID['STORE_ADDRESS'].'\' </span> are in Stock Above the Minimum Inventory Amount. ';?>
 
