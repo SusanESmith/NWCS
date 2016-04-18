@@ -1,3 +1,4 @@
+
 <?php
 
 include('nwcsdatabase.php');
@@ -138,3 +139,4 @@ echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
 </body>
 </html>
+

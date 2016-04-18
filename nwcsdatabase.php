@@ -10,7 +10,9 @@
 
 //PDO object
 	try{
+
 		$db=new PDO($dsn, $username, $password);
+
 			//echo "Success";
 	}catch(PDOException $e){
 		$error=$e->getMessage();
