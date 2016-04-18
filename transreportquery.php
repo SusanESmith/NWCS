@@ -23,7 +23,7 @@ $statement1->bindValue(':empID', $empID);
 $statement1->execute();
 $emp = $statement1->fetch();
 $statement1->closeCursor();
-echo $emp['EMPLOYEE_LNAME'];
+//echo $emp['EMPLOYEE_LNAME'];
 $_SESSION["transID"] = $transID;
 ?>
 <!DOCTYPE html>
