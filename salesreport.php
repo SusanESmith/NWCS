@@ -70,7 +70,6 @@ $sDate=$date->format('Y-m-d H:i:s');
       <option value="<?php echo "Daily";?>"><?php echo "Daily";?></option>
       <option value="<?php echo "Weekly";?>"><?php echo "Weekly";?></option>
       <option value="<?php echo "Monthly";?>"><?php echo "Monthly";?></option>
-      <option value="<?php echo "Quarterly";?>"><?php echo "Quarterly";?></option>
       <option value="<?php echo "Yearly";?>"><?php echo "Yearly";?></option>
 
     </select>
@@ -139,4 +138,3 @@ echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
 </body>
 </html>
-

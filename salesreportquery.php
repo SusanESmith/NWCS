@@ -5,30 +5,246 @@ $time = filter_input(INPUT_POST, 'time');
 $storeID = filter_input(INPUT_POST, 'storeID');
 $bDate = filter_input(INPUT_POST, 'bDate');
 $eDate = filter_input(INPUT_POST, 'eDate');
-$bTime = filter_input(INPUT_POST, 'bTime');
-$eTime = filter_input(INPUT_POST, 'eTime');
 
-$bTime = $bTime.':00';
-$eTime = $eTime.':00';
 
-$bdatetime = $bDate.' '.$bTime;
-$edatetime = $eDate.' '.$eTime;
+//echo $storeID;
 
-if ($time == 'hourly')
+$bdatetime = $bDate;
+$edatetime = $eDate;
+
+$title="blah";
+
+
+//roundTime($d1,$precision);
+//roundTime($d2,$precision);
+//$s= $d1->diff($d2)->s;
+//$h= $d1->diff($d2)->h;
+//$d= $d1->diff($d2)->d;
+//$w= $d1->diff($d2)->W;
+//$m= $d1->diff($d2)->m;
+//$y= $d1->diff($d2)->y;
+
+/*echo $s."<br>";
+echo $h."<br>";
+echo $d."<br>";
+//echo $w."<br>";
+echo $m."<br>";
+echo $y."<br>";*/
+
+
+
+if ($time == 'Hourly')
 {
-    $query = "SELECT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':storeID', $storeID);
-    $statement->bindValue(':bdatetime', $bdatetime);
-    $statement->bindValue(':edatetime', $edatetime);
-    $statement->execute();
-    $sales = $statement->fetchColumn();
-    $statement->closeCursor();
-    //echo $sales;
+  $b=date('Y-m-d H:00:00', strtotime($bdatetime));
+  $e=date('Y-m-d H:00:00', strtotime($edatetime));
+  $b=new datetime($b);
+  $e=new datetime($e);
+
+  $d1 = new DateTime($bdatetime);
+  $d2 = new DateTime($edatetime);
+  $array= array();
+  while ($b<$e){
+
+  $hend=clone $b;
+  $hend->add(new DateInterval('PT59M'));
+  //echo $hend->format('Y-m-d H:i:s')."<br>";
+  $query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':bdatetime', $b->format('Y-m-d H:i:s'));
+  $statement->bindValue(':edatetime', $hend->format('Y-m-d H:i:s'));
+  $statement->execute();
+  $sales = $statement->fetchColumn();
+  $statement->closeCursor();
+
+//echo $sales."<br>";
+if (!empty($sales)){
+  $row=array($sales,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+
+
+}
+else {  $row=array(0,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+}
+  array_push($array, $row);
+
+  $b->add(new DateInterval('PT1H'));
+
+  }
+//  print_r($array);
+    $title="Hourly";
+
+
+//$d1 = new \DateTime($bdatetime);
+//$d2 = new \DateTime($edatetime);
+//echo $d1->diff($d2)->hours;
+
+
+}
+else if ($time=='Weekly'){
+  $b=date('Y-m-d 00:00:00', strtotime($bdatetime));
+  $e=date('Y-m-d 23:59:00', strtotime($edatetime));
+  $b=new datetime($b);
+  $e=new datetime($e);
+
+  $d1 = new DateTime($bdatetime);
+  $d2 = new DateTime($edatetime);
+  $title="Weekly";
+  $array= array();
+  while ($b<$e){
+
+  $hend=clone $b;
+  $hend->add(new DateInterval('P6DT23H59M'));
+  //echo $hend->format('Y-m-d H:i:s')."<br>";
+  $query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':bdatetime', $b->format('Y-m-d H:i:s'));
+  $statement->bindValue(':edatetime', $hend->format('Y-m-d H:i:s'));
+  $statement->execute();
+  $sales = $statement->fetchColumn();
+  $statement->closeCursor();
+
+//echo $sales."<br>";
+if (!empty($sales)){
+  $row=array($sales,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+
+
+}
+else {  $row=array(0,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+}
+  array_push($array, $row);
+
+  $b->add(new DateInterval('P7D'));
+
+  }
+
+}
+else if ($time=='Daily'){
+  $title="Daily";
+  $b=date('Y-m-d 00:00:00', strtotime($bdatetime));
+  $e=date('Y-m-d 23:59:00', strtotime($edatetime));
+  $b=new datetime($b);
+  $e=new datetime($e);
+
+  $d1 = new DateTime($bdatetime);
+  $d2 = new DateTime($edatetime);
+
+  $array= array();
+  while ($b<$e){
+
+  $hend=clone $b;
+  $hend->add(new DateInterval('PT23H59M'));
+  //echo $hend->format('Y-m-d H:i:s')."<br>";
+  $query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':bdatetime', $b->format('Y-m-d H:i:s'));
+  $statement->bindValue(':edatetime', $hend->format('Y-m-d H:i:s'));
+  $statement->execute();
+  $sales = $statement->fetchColumn();
+  $statement->closeCursor();
+
+//echo $sales."<br>";
+if (!empty($sales)){
+  $row=array($sales,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+
+
+}
+else {  $row=array(0,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+}
+  array_push($array, $row);
+
+  $b->add(new DateInterval('P1D'));
+
+  }
+
+}
+else if ($time=="Monthly"){
+  $title="Monthly";
+  $b=date('Y-m-d 00:00:00', strtotime($bdatetime));
+  $e=date('Y-m-d 23:59:00', strtotime($edatetime));
+  $b=new datetime($b);
+  $e=new datetime($e);
+
+  $d1 = new DateTime($bdatetime);
+  $d2 = new DateTime($edatetime);
+
+  $array= array();
+  while ($b<$e){
+
+  $hend=clone $b;
+  $hend->add(new DateInterval('P1M'));
+  $hend->modify("-1 second");
+  //echo $hend->format('Y-m-d H:i:s')."<br>";
+  $query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':bdatetime', $b->format('Y-m-d H:i:s'));
+  $statement->bindValue(':edatetime', $hend->format('Y-m-d H:i:s'));
+  $statement->execute();
+  $sales = $statement->fetchColumn();
+  $statement->closeCursor();
+
+//echo $sales."<br>";
+if (!empty($sales)){
+  $row=array($sales,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+
+
+}
+else {  $row=array(0,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+}
+  array_push($array, $row);
+
+  $b->add(new DateInterval('P1M'));
+
+  }
+
+}
+
+else if ($time=="Yearly"){
+  $title="Yearly";
+  $b=date('Y-m-d 00:00:00', strtotime($bdatetime));
+  $e=date('Y-m-d 23:59:00', strtotime($edatetime));
+  $b=new datetime($b);
+  $e=new datetime($e);
+
+  $d1 = new DateTime($bdatetime);
+  $d2 = new DateTime($edatetime);
+
+  $array= array();
+  while ($b<$e){
+
+  $hend=clone $b;
+  $hend->add(new DateInterval('P1Y'));
+  $hend->modify("-1 second");
+  //echo $hend->format('Y-m-d H:i:s')."<br>";
+  $query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':storeID', $storeID);
+  $statement->bindValue(':bdatetime', $b->format('Y-m-d H:i:s'));
+  $statement->bindValue(':edatetime', $hend->format('Y-m-d H:i:s'));
+  $statement->execute();
+  $sales = $statement->fetchColumn();
+  $statement->closeCursor();
+
+//echo $sales."<br>";
+if (!empty($sales)){
+  $row=array($sales,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+
+
+}
+else {  $row=array(0,$b->format('Y-m-d H:i:s'),$hend->format('Y-m-d H:i:s'));
+}
+  array_push($array, $row);
+
+  $b->add(new DateInterval('P1Y'));
+
+  }
+
 }
 else
 {
-    $query = "SELECT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bDate AND :eDate";
+    $query = "SELECT TRANSACTION_TOTAL FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bDate AND :eDate";
     $statement = $db->prepare($query);
     $statement->bindValue(':storeID', $storeID);
     $statement->bindValue(':bDate', $bDate);
@@ -72,13 +288,10 @@ else
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
-<<<<<<< HEAD
-    <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo '(Time - '.$time.')Sales report for Store ('.$storeID.'): ';?>
-=======
+
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-list-alt"></span>
-        <?php echo ' (Time -weekly)Sales report for Store (store ID): ';?>
->>>>>>> origin/master
+        <?php echo"<span style=color:orange>  '".$title."' </span> Sales report for Store <span style=color:orange>'".$storeID."'</span>";?>
+
     </h4>
 </div>
 
@@ -101,8 +314,8 @@ else
 
       <thead>
         <tr>
-          <th>Beginning Date</th>
-          <th>Ending Date</th>
+          <th>Report Starting Point</th>
+          <th>Report Ending Point</th>
           <th>Total Sales</th>
 
 
@@ -110,12 +323,14 @@ else
         </tr>
       </thead>
       <tbody>
+        <?php foreach($array as $a) {?>
         <tr>
-          <td><?php echo $bDate ?></td>
-          <td><?php echo $eDate ?></td>
-          <td><?php echo "$".$sales ?></td>
+          <td><?php echo $a[1]; ?></td>
+          <td><?php echo $a[2]; ?></td>
+          <td><?php echo "$".$a[0]; ?></td>
 
         </tr>
+        <?php } ?>
       </tbody>
     </table>
   </div>
