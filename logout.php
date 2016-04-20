@@ -49,7 +49,7 @@ session_destroy(); ?>
 	<p><strong>You have successfully logged out!</strong></p>
 
   </div>
-    <p><strong><a href="login.php">Back to the Login Page</a></strong></p>
+    <p><strong><a href="index.php">Back to the Login Page</a></strong></p>
   </div>
 </div>
 

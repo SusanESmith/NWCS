@@ -364,11 +364,11 @@ if (isset($add)||isset($done)){
   </div>
 </div>
 
-</body>
+
 <div style="text-align:center">
 <h4><span class="label label-info" style="padding:10px;">
 <?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
 </span></h4>
-
+</body>
 </div>
 </html>

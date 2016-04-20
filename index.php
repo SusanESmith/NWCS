@@ -57,7 +57,7 @@ $statement->closeCursor();
 </div>
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656">
 
-  <form method="post" action="login.php" id="empLogin" style="text-align:center">
+  <form method="post" action="index.php" id="empLogin" style="text-align:center">
     <div style="text-align:left">
     <div class="form-group">
     <label for="username"><strong>Employee ID: </strong></label>
