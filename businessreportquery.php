@@ -1,5 +1,7 @@
 <?php
-session_start();
+include('loginredirect.php');
+
+
 include('nwcsdatabase.php');
 $id = filter_input(INPUT_POST, 'busID');
 //$name = filter_input(INPUT_POST, 'busName');
@@ -13,19 +15,16 @@ $statement->execute();
 $business = $statement->fetch();
 $statement->closeCursor();
 
-$charge_flag = "YES";
 
-$query2 = "SELECT ACCOUNT_ID FROM CHARGE_ACCOUNTS WHERE BUSINESS_ID = :id";
+
+$query2 = "SELECT CHG_ACCT_BALANCE FROM CHARGE_ACCOUNT WHERE BUSINESS_ID = :id";
 $statement2 = $db->prepare($query2);
 $statement2->bindValue(':id', $id);
 $statement2->execute();
 $account = $statement2->fetchColumn();
 $statement2->closeCursor();
 
-if (empty($account))
-{
-    $charge_flag = "NO";
-}
+
 
 $_SESSION["busID"] = $id;
 ?>
@@ -96,7 +95,7 @@ $_SESSION["busID"] = $id;
           <th>Business State</th>
           <th>Business Zip Code</th>
           <th>Business Phone</th>
-          <th>Charge Account Holder</th>
+          <th>Charge Account Balance</th>
 
 
 
@@ -112,12 +111,8 @@ $_SESSION["busID"] = $id;
           <td><?php echo $business['BUSINESS_STATE']; ?></td>
           <td><?php echo $business['BUSINESS_ZIP']; ?></td>
           <td><?php echo $business['BUSINESS_POC_PHONE']; ?></td>
-        <?php
-            if ($charge_flag = "YES")
-                echo "<td><a href=\"reviewchargequery.php\">Yes</a></td>";
-            else
-                echo "<td>No</td>";
-        ?>
+          <td><?php echo "$".$account; ?></td>
+
 
         </tr>
 
@@ -142,9 +137,12 @@ $_SESSION["busID"] = $id;
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
   </div>
 </div>
 </div>

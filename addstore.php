@@ -1,4 +1,6 @@
 <?php
+include('loginredirect.php');
+adminrights();
 require_once('nwcsdatabase.php');
 //$id = filter_input(INPUT_POST, 'id');
 $phone = filter_input(INPUT_POST, 'sphone');
@@ -7,6 +9,7 @@ $city = filter_input(INPUT_POST, 'scity');
 $state = filter_input(INPUT_POST, 'sstate');
 $zip = filter_input(INPUT_POST, 'szip');
 $emp=filter_input(INPUT_POST,'storeManager');
+
 
 $position = 101;
 
@@ -185,12 +188,15 @@ $statement6->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

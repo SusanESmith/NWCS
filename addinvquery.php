@@ -10,7 +10,10 @@ $category=filter_input(INPUT_POST, 'category');
 $minStock=filter_input(INPUT_POST, 'minStock');
 $prodName=filter_input(INPUT_POST, 'prodName');
 require_once('nwcsdatabase.php');
+
 //$productName= 'test item';
+include('loginredirect.php');
+adminrights();
 
 
 
@@ -168,12 +171,15 @@ $queryStock = 'INSERT INTO STOCK
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

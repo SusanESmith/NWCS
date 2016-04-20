@@ -1,5 +1,7 @@
 
 <?php
+include('loginredirect.php');
+adminrights();
 require_once('nwcsdatabase.php');
 $name = filter_input(INPUT_POST, 'name');
 $phone = filter_input(INPUT_POST, 'vphone');
@@ -8,8 +10,8 @@ $city = filter_input(INPUT_POST, 'vcity');
 $state = filter_input(INPUT_POST, 'vstate');
 $zip = filter_input(INPUT_POST, 'vzip');
 
-$query = 'INSERT INTO VENDOR 
-(VENDOR_NAME, VENDOR_POC_PHONE, VENDOR_ADDRESS, VENDOR_CITY, VENDOR_STATE, VENDOR_ZIP) 
+$query = 'INSERT INTO VENDOR
+(VENDOR_NAME, VENDOR_POC_PHONE, VENDOR_ADDRESS, VENDOR_CITY, VENDOR_STATE, VENDOR_ZIP)
 VALUES (:name, :phone, :address, :city, :state, :zip)';
 
 $statement = $db->prepare($query);
@@ -140,12 +142,15 @@ $statement2->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

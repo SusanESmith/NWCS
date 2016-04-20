@@ -1,4 +1,6 @@
 <?php
+include('loginredirect.php');
+adminrights();
 /*$query='UPDATE STOCK SET PRODUCT_ID=$PRODUCT_ID, STORE_ID=$STORE_ID, PRICE=$PRICE, CATEGORY_ID=$CATEGORY_ID, STOCK_QTY=$STOCK_QTY,STOCK_MIN_QTY=$STOCK_MIN_QTY, DATE=$DATE
 VALUES (:PRODUCT_ID,:STORE_ID,:CATEGORY_ID,:STOCK_QTY, :STOCK_MIN_QTY, :DATE)
 WHERE STOCK.STORE_ID=STORE.STORE_ID AND PRODUCT.PRODUCT_ID=STOCK.PRODUCT_ID;';
@@ -169,12 +171,15 @@ $statement->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

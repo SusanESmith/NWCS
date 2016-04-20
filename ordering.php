@@ -1,5 +1,6 @@
 <?php
-session_start();
+include('loginredirect.php');
+
 
 $confirm=filter_input(INPUT_POST, 'confirm');
 if (isset($confirm)){
@@ -23,7 +24,7 @@ $_SESSION['order']=$temp;
 }
 //$storeID=$_SESSION['store'];
 
-$empID=$_SESSION['username'];
+$empID=$_SESSION['start'];
 
 include('nwcsdatabase.php');
 $VENDOR='SELECT * FROM VENDOR';
@@ -364,5 +365,10 @@ if (isset($add)||isset($done)){
 </div>
 
 </body>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </html>

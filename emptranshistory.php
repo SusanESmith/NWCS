@@ -61,7 +61,7 @@ $statement1->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%"><span class="glyphicon glyphicon-leaf"></span>
-  
+
         <?php echo 'Transaction Details for Employee: <span style="color:ORANGE">'.$EMP['EMPLOYEE_LNAME'].", ".$EMP['EMPLOYEE_FNAME'].'</span>';?>
     </h4>
 </div>
@@ -125,12 +125,15 @@ $statement1->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

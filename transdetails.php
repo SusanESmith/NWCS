@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+
 <?php
-session_start();
+include('loginredirect.php');
+
 include('nwcsdatabase.php');
 $transID = $_SESSION["transID"];
 //echo $_SESSION["transID"];
@@ -30,6 +31,7 @@ $products = $statement3->fetchAll();
 $statement3->closeCursor();
 
 ?>
+<!DOCTYPE html>
 <html lang="en">
 
  <head>
@@ -105,11 +107,11 @@ $statement3->closeCursor();
                     echo $p['PRODUCT_NAME']." x".$p['TRANS_PROD_QTY']."<br>";
                 }
               ?></td>
-          <td><?php                 
+          <td><?php
               foreach($products as $p)
                 {
                     echo $p['TRANS_PROD_TOTAL']."<br>";
-                } 
+                }
               ?></td>
           <td><?php echo $details['TRANSACTION_TOTAL']; ?></td>
           <td>Card</td>
@@ -141,12 +143,15 @@ $statement3->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

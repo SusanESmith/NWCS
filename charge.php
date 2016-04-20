@@ -1,3 +1,5 @@
+<?php include('loginredirect.php');?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,19 +45,22 @@
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='newcharge.php'"><strong>Request a New Charge Account</strong></button>
   <br><br>
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reviewcharge.php'"><strong>Review Current Charge Accounts</strong></button>
-  
+
   </div>
     <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
     <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

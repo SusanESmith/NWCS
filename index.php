@@ -1,7 +1,7 @@
 <?php $lifetime=60*60*24*14;
 session_set_cookie_params($lifetime,'/');
 session_start();
-
+date_default_timezone_set('America/Chicago');
 //echo $_SESSION['login_user'];
 
 include('nwcsdatabase.php');
@@ -10,6 +10,8 @@ $statement= $db->prepare($STORE);
 $statement->execute();
 $STORES = $statement->fetchAll();
 $statement->closeCursor();
+
+
 
 
 /*<div class="alert alert-warning" role="alert">
@@ -85,7 +87,7 @@ $pw=filter_input(INPUT_POST, 'password');
 
 if (isset($login)){
 
-  $valid='SELECT EMPLOYEE_ID, EMPLOYEE_PASSWORD FROM EMPLOYEE WHERE EMPLOYEE_ID=:USER AND EMPLOYEE_PASSWORD=:PW';
+  $valid='SELECT EMPLOYEE_ID, EMPLOYEE_PASSWORD, POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=:USER AND EMPLOYEE_PASSWORD=:PW';
   $statement1= $db->prepare($valid);
   $statement1->bindValue(':USER', $user);
   $statement1->bindValue(':PW', $pw);
@@ -106,7 +108,8 @@ if (isset($login)){
 else {
   $_SESSION['start']=$user;
   $_SESSION['store']=$store;
-header('Location: menu.php');
+  $_SESSION['posid']=$validation['POSITION_ID'];
+  header('Location: menu.php');
 
 }
 
@@ -114,10 +117,14 @@ header('Location: menu.php');
   </div>
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
-
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-4">
+<br><br><h4><span class="label label-info" style="padding:10px; margin-left:57px">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
   </div>
+</div>
+</div>
 </div>
 </div>
 

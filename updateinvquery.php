@@ -1,6 +1,7 @@
 <?php
+include('loginredirect.php');
 include('nwcsdatabase.php');
-
+adminrights();
 $prodID=filter_input(INPUT_POST, 'prodID');
 $storeID=filter_input(INPUT_POST, 'storeID');
 $price=filter_input(INPUT_POST, 'price');
@@ -185,12 +186,15 @@ $statement2->closeCursor();
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

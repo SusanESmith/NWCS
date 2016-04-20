@@ -1,5 +1,6 @@
 <?php
-  session_start();
+include('loginredirect.php');
+
 
 $pid=filter_input(INPUT_GET, 'pid');
 if ($pid!==NULL){
@@ -530,15 +531,14 @@ unset($_SESSION['regID']);
 
   </div>
 </div>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3" style="text-align: center">
-    <?php
-    echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
-  </div>
-</div>
 
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 <script>
 function calcChange(){

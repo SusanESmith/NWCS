@@ -1,4 +1,5 @@
 <?php
+include('loginredirect.php');
 include('nwcsdatabase.php');
 $query='SELECT * FROM VENDOR';
 $statement1= $db->prepare($query);
@@ -131,6 +132,7 @@ $statement2->closeCursor();
         </div>
       </div>
       <br>
+        <?php if ($_SESSION['admin']==true){?>
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <div class="panel-group" style="text-align:center">
@@ -188,18 +190,20 @@ $statement2->closeCursor();
                 </form>
 
 
-                <?php  }?>
+                <?php  }}?>
               </div>
               <br><br>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3" style="text-align: center">
-          <?php echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
-        </div>
-      </div>
+      
+    </div>
+    <div style="text-align:center">
+    <h4><span class="label label-info" style="padding:10px;">
+    <?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+    </span></h4>
+
     </div>
   </body>
 </html>

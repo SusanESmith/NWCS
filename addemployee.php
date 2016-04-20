@@ -1,5 +1,6 @@
 <?php
 require_once('nwcsdatabase.php');
+include('loginredirect.php');
 $lastname = filter_input(INPUT_POST, 'lName');
 $firstname = filter_input(INPUT_POST, 'fName');
 $address = filter_input(INPUT_POST, 'add');
@@ -234,12 +235,15 @@ $statement4->closeCursor();*/
 
   </div>
 </div>
-<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
 
   </div>
 </div>
 </div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
 
+</div>
 </body>
 </html>

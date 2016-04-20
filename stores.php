@@ -1,4 +1,5 @@
 <?php
+include('loginredirect.php');
 
 include('nwcsdatabase.php');
 $position=101;
@@ -134,6 +135,7 @@ $statement->closeCursor();
 </div>
 </div>
 <br>
+  <?php if ($_SESSION['admin']==true){?>
 <div class="row">
 <div class="col-md-4 col-md-offset-4">
 <div class="panel-group" style="text-align:center">
@@ -145,12 +147,14 @@ $statement->closeCursor();
   </div>
   <!--panel body-->
   <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+
     <form method="post" name="newstore" action="stores.php" id="newstore">
 
       <input type="submit" name="newstore" class="btn btn-warning"  value="Add Form">
       <br><br>
       <?php $new=filter_input(INPUT_POST,'newstore');
-      if (isset($new)){?>
+      if (isset($new)){
+        ?>
       </form>
         <form method="post" name="newstore" action="addstore.php" id="newstore" style="text-align:center">
           <div style="text-align:left">
@@ -200,18 +204,20 @@ $statement->closeCursor();
 
       <input type="submit" name="newstore" class="btn btn-warning" value="Click Here to Add New Store">
     </form>
-    <?php  }?>
+    <?php  }}?>
   </div>
   <br><br>
 </div>
 </div>
 </div>
 </div>
-<div class="row">
-<div class="col-md-6 col-md-offset-3" style="text-align: center">
-<?php echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>
+
 </div>
-</div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
+
 </div>
 </body>
 </html>

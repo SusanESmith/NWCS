@@ -1,5 +1,6 @@
 <?php
-session_start();
+include('loginredirect.php');
+
 $user=$_SESSION['start'];
 include('nwcsdatabase.php');
 
@@ -128,11 +129,10 @@ $statement->closeCursor();
   </div>
 </div>
 
-<div class="col-md-6 col-md-offset-6" style="float: none; display: table-cell;">
+<div class="col-md-3 col-md-offset-5" style="float: none; display: table-cell;">
 
+  <?php if ($_SESSION['admin']==true){?>
 
-  <div class="row">
-  <div class="col-md-12 col-md-offset-3">
   <div class="panel-group" style="text-align:center">
   <div class="panel panel-default">
       <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading\">";?>
@@ -143,7 +143,7 @@ $statement->closeCursor();
 
       <!--panel body-->
 
-      <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
+      <div class="panel-body"  style="background-color:#C8F8FF; border:2px solid #FFC656" >
         <form method="post" name="searchemp" action="empsearch.php" id="empsearch" style="text-align:center">
           <br>
           <label>Or Search for a different employee:</label>
@@ -241,7 +241,7 @@ $statement->closeCursor();
 
             <input type="submit" name="newemp" class="btn btn-warning" value="Add New Employee">
           </form>
-      <?php  }?>
+      <?php  }}?>
 
       </div>
 
@@ -250,16 +250,14 @@ $statement->closeCursor();
     </div>
   </div>
 
-</div>
-</div>
-<div class="row">
-<div class="col-md-6 col-md-offset-3" style="text-align: center">
-<!--<?php
-echo "The date is ".date("Y-m-d ")."and the time is ".date("h:i:sa "); ?>-->
 
-  </div>
-</div>
-</div>
 
+</div>
+<div style="text-align:center">
+<h4><span class="label label-info" style="padding:10px;">
+<?php echo "Date: ".date("Y-m-d ")." Time: ".date("h:i:sa "); ?>
+</span></h4>
+
+</div>
 </body>
 </html>
