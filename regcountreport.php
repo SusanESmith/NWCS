@@ -19,7 +19,7 @@ $sDate=$date->format('Y-m-d H:i:s');
 <html lang="en">
 
  <head>
-   <title>Sales Reports</title>
+   <title>Register Count Reports</title>
 <meta charset="utf-8">
 
 <!--get bootstrap requirements-->
@@ -47,7 +47,7 @@ $sDate=$date->format('Y-m-d H:i:s');
 <div class="page-header" style="text-align: center">
     <h1 style="padding-right:15px"><strong><span class= "label label-warning">North Willow Convenience Stores</span></strong></h1>
       <br>
-    <h1><span class="label label-primary">Sales Reporting</h1>
+    <h1><span class="label label-primary">Register Count Reporting</h1>
 </div>
 <div class="panel-group" style="text-align:center">
 <div class="panel panel-default">
@@ -61,19 +61,9 @@ $sDate=$date->format('Y-m-d H:i:s');
 
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
 
-  <form method="post" action="salesreportquery.php" id="inventory" style="text-align:center">
+  <form method="post" action="regcountreportquery.php" id="inventory" style="text-align:center">
     <div style="text-align:left">
-    <label>Time parameter:</label>
-    <select name="time"class="form-control">
-      <!--drop down menu-->
-    <span class="glyphicon glyphicon-time">
-      <option value="<?php echo "Hourly";?>"><?php echo "Hourly";?></option>
-      <option value="<?php echo "Daily";?>"><?php echo "Daily";?></option>
-      <option value="<?php echo "Weekly";?>"><?php echo "Weekly";?></option>
-      <option value="<?php echo "Monthly";?>"><?php echo "Monthly";?></option>
-      <option value="<?php echo "Yearly";?>"><?php echo "Yearly";?></option>
 
-    </select>
 
     <label>Store ID:</label>
     <select name="storeID" class="form-control">

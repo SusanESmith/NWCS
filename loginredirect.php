@@ -4,7 +4,7 @@ date_default_timezone_set('America/Chicago');
 if (!isset($_SESSION['start'])||!isset($_SESSION['posid'])){
 header('Location: index.php');
 }
-if ($_SESSION['posid']==102){
+if ($_SESSION['posid']==102 || $_SESSION['posid']==104){
 $_SESSION['admin']=false;
 }
 else{

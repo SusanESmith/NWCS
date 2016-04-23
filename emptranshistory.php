@@ -98,7 +98,7 @@ $statement1->closeCursor();
         <tr>
           <td><?php echo $t['TRANSACTION_ID'] ?></a></td>
 
-          <td><?php echo $t['TRANSACTION_TOTAL'] ?></td>
+          <td><?php echo "$ ".$t['TRANSACTION_TOTAL'] ?></td>
           <td><?php echo $t['STORE_ID'] ?></td>
           <td><?php echo $t['PAYMENT_TYPE'] ?></td>
           <td><?php echo $t['TRANSACTION_DATE'] ?></td>

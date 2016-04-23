@@ -180,7 +180,7 @@ $statement2->closeCursor();
 
                           <div class="form-group">
                             <label for="vzip"><strong>Vendor Zip Code: </strong></label>
-                          <input name="vzip" required type="text" class="form-control" id="vzip" placeholder="Vendor Zip Code">
+                          <input name="vzip" required type="number" class="form-control" id="vzip" placeholder="Vendor Zip Code">
                             </div>
 
 
@@ -197,7 +197,7 @@ $statement2->closeCursor();
           </div>
         </div>
       </div>
-      
+
     </div>
     <div style="text-align:center">
     <h4><span class="label label-info" style="padding:10px;">

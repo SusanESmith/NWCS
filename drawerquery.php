@@ -19,7 +19,7 @@ $store=filter_input(INPUT_POST, 'store');
 $manager=filter_input(INPUT_POST, 'manager');
 
 
-$currentDate = date("Y-m-d");
+$currentDate = date('Y-m-d H:i:s');
 
 $q=$quarters*.25;
 $d=$dimes*.1;
@@ -41,28 +41,32 @@ $statement2->execute();
 $empID = $statement2->fetchColumn();
 $statement2->closeCursor();
 
+/*$cashier='SELECT CASHIER_SHIFT_ID FROM CASHIER WHERE EMPLOYEE_ID=:EMP';
+$statement3= $db->prepare($cashier);
+$statement3->bindValue(':EMP', $empID);
+$statement3->execute();
+$c = $statement3->fetchColumn();
+$statement3->closeCursor();*/
 
 
+$c=1;
 //$productName= 'test item';
 
-
-
 $query = 'INSERT INTO REGISTER_COUNT
-               (REGISTER_ID,STORE_ID, COUNT_DATE, MANAGER_ID, EMPLOYEE_ID,HUNDRED_NUM, FIFTY_NUM,
-               TWENTY_NUM, TEN_NUM, FIVE_NUM, ONE_NUM, QUARTER_NUM, DIME_NUM, NICKEL_NUM, PENNY_NUM, REGISTER_TOTAL,
+               (CASHIER_SHIFT_ID, STORE_ID, COUNT_DATE, MANAGER_ID, HUNDRED_NUM, FIFTY_NUM, TWENTY_NUM, TEN_NUM, FIVE_NUM, ONE_NUM, QUARTER_NUM, DIME_NUM, NICKEL_NUM, PENNY_NUM, REGISTER_TOTAL,
                 NUM_OF_CHECKS, NUM_CARD_TRANS)
             VALUES
-               ( :REGISTER_ID, :STORE_ID, :COUNT_DATE,:MANAGER_ID, :EMPLOYEE_ID, :HUNDRED_NUM,
-               :FIFTY_NUM, :TWENTY_NUM, :TEN_NUM, :FIVE_NUM, :ONE_NUM, :QUARTER_NUM, :DIME_NUM, :NICKEL_NUM,
+               (:CSI, :STORE_ID, :COUNT_DATE,:MANAGER_ID,  :HUNDRED_NUM, :FIFTY_NUM, :TWENTY_NUM, :TEN_NUM, :FIVE_NUM, :ONE_NUM, :QUARTER_NUM, :DIME_NUM, :NICKEL_NUM,
                 :PENNY_NUM, :REGISTER_TOTAL, :NUM_OF_CHECKS, :NUM_CARD_TRANS)';
 
   $statement = $db->prepare($query);
+  $statement->bindValue(':CSI', $c);
 
-  $statement->bindValue(':REGISTER_ID', $regID);
+  //$statement->bindValue(':REGISTER_ID', $regID);
   $statement->bindValue(':STORE_ID', $store);
   $statement->bindValue(':COUNT_DATE', $currentDate);
   $statement->bindValue(':MANAGER_ID', $manager);
-  $statement->bindValue(':EMPLOYEE_ID', $empID);
+  //$statement->bindValue(':EMPLOYEE_ID', $empID);
   $statement->bindValue(':HUNDRED_NUM', $hundred);
   $statement->bindValue(':FIFTY_NUM', $fifty);
   $statement->bindValue(':TWENTY_NUM', $twenty);

@@ -24,7 +24,7 @@ $statement2->closeCursor();
 
 
 
-$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID,E.POSITION_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
 WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
 AND E.EMPLOYEE_ID = :user";
@@ -33,6 +33,18 @@ $statement->bindValue(':user',$user);
 $statement->execute();
 $profile = $statement->fetch(PDO::FETCH_ASSOC);
 $statement->closeCursor();
+
+$pos=$profile['POSITION_ID'];
+$posit='SELECT POSITION_NAME FROM POSITIONS, EMPLOYEE WHERE :pos=POSITIONS.POSITION_ID';
+$statement5= $db->prepare($posit);
+$statement5->bindValue(':pos',$pos);
+$statement5->execute();
+$empp = $statement5->fetchColumn();
+$statement5->closeCursor();
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +105,7 @@ $statement->closeCursor();
         <th>Zip</th>
         <th>Phone</th>
         <th>Current Store Location</th>
-
+        <th>Employee Position</th>
 
 
       </tr>
@@ -108,6 +120,11 @@ $statement->closeCursor();
         <td><?php echo $profile['EMPLOYEE_ZIP']; ?></td>
         <td><?php echo $profile['EMPLOYEE_PHONE']; ?></td>
         <td><?php echo $profile['STORE_ID']; ?></td>
+
+
+        <td><?php echo $empp; ?></td>
+
+
 
 
 
@@ -224,7 +241,7 @@ $statement->closeCursor();
 
               <div class="form-group">
               <label for="zip"><strong>Zip Code: </strong></label>
-            <input name="zip" type="text" class="form-control" id="zip" placeholder="Employee Zip Code" required>
+            <input name="zip" type="number" class="form-control" id="zip" placeholder="Employee Zip Code" required>
               </div>
 
               <div class="form-group">

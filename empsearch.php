@@ -5,7 +5,7 @@ require_once('nwcsdatabase.php');
 
 $emp = $_POST['emp'];
 
-$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID
+$query = "SELECT E.EMPLOYEE_ID, EMPLOYEE_LNAME, EMPLOYEE_FNAME, EMPLOYEE_ADDRESS, EMPLOYEE_CITY, EMPLOYEE_STATE, EMPLOYEE_ZIP, EMPLOYEE_PHONE, ES.STORE_ID, E.POSITION_ID
 FROM EMPLOYEE E, EMPLOYEE_STORE ES
 WHERE E.EMPLOYEE_ID = ES.EMPLOYEE_ID
 AND E.EMPLOYEE_ID = :user";
@@ -31,7 +31,13 @@ $statement1->execute();
 $EMP = $statement1->fetch();
 $statement1->closeCursor();
 
-
+$pos=$employee['POSITION_ID'];
+$posit='SELECT POSITION_NAME FROM POSITIONS, EMPLOYEE WHERE :pos=POSITIONS.POSITION_ID';
+$statement5= $db->prepare($posit);
+$statement5->bindValue(':pos',$pos);
+$statement5->execute();
+$empp = $statement5->fetchColumn();
+$statement5->closeCursor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,6 +106,7 @@ $statement1->closeCursor();
           <th>Zip</th>
           <th>Phone</th>
           <th>Current Store Location</th>
+          <th>Employee Position</th>
 
 
 
@@ -115,7 +122,7 @@ $statement1->closeCursor();
         <td><?php echo $employee['EMPLOYEE_ZIP']; ?></td>
         <td><?php echo $employee['EMPLOYEE_PHONE']; ?></td>
         <td><?php echo $employee['STORE_ID']; ?></td>
-
+        <td><?php echo $empp; ?></td>
 
 
         </tr>

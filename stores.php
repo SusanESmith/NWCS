@@ -187,7 +187,7 @@ $statement->closeCursor();
           </div>
           <div class="form-group">
         <label for="storeZip"><strong>Store Zip Code: </strong></label>
-        <input name="szip" type="text" class="form-control" id="storeZip" placeholder="Store Zip Code" required>
+        <input name="szip" type="number" class="form-control" id="storeZip" placeholder="Store Zip Code" required>
 
           </div>
 

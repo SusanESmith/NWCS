@@ -64,7 +64,8 @@ $empID=$_SESSION['start'];
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+ <script src="js/bootstrap-datetimepicker.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
 <!--background-->
 <style>
  body{
@@ -191,6 +192,8 @@ $empID=$_SESSION['start'];
             </div>
             </div>
 
+
+
             <form class=\"form-inline\">
               <div class=\"form-group\">
                 <label  for=\"change\">Change Owed: </label>
@@ -202,6 +205,7 @@ $empID=$_SESSION['start'];
 
 
           </div>
+
         <label>&nbsp;</label>
         <input type=\"submit\" class=\"btn btn-warning\"value=\"Process Payment\" name=\"done\" >
       </form>";}
@@ -415,6 +419,12 @@ if (isset($done)){
     $status='false';
   }
   $cartTotal=number_format($cartTotal, 2);
+
+  if ($type=="CASH" && $cash<$cartTotal) {
+    $status=false;
+    echo "<h2><span class=\"glyphicon glyphicon-piggy-bank\" aria-hidden=\"true\"></span><strong> Please enter an valid total payment amount greater than $".$cartTotal."</strong></h2>";
+  }
+
 if (!is_null($act)){
 $balq='SELECT CHG_ACCT_BALANCE FROM CHARGE_ACCOUNT WHERE ACCOUNT_ID=:AI';
 $statement11=$db->prepare($balq);
@@ -435,20 +445,21 @@ else {$status="true";}
 }
 if ($status=="true"){
 //new date format
-  $date = new DateTime('2000-01-01');
-  $tDate=$date->format('Y-m-d H:i:s');
+
+  $tDate=date('Y-m-d G:i:s');
 
 
   $t='INSERT INTO TRANSACTIONS
-                 (CASHIER_SHIFT_ID, TRANSACTION_DATE, STORE_ID, TRANSACTION_TOTAL)
+                 (CASHIER_SHIFT_ID, TRANSACTION_DATE, STORE_ID, TRANSACTION_TOTAL, EMPLOYEE_ID)
               VALUES
-                 (:CSI, :TDATE, :STORE, :TOTAL)';
+                 (:CSI, :TDATE, :STORE, :TOTAL, :EMP)';
 
   $statement5 = $db->prepare($t);
   $statement5->bindValue(':CSI', 1);
   $statement5->bindValue(':TDATE', $tDate);
   $statement5->bindValue(':STORE', $storeID);
   $statement5->bindValue(':TOTAL', $cartTotal);
+  $statement5->bindValue(':EMP', $empID);
   $statement5->execute();
   $statement5->closeCursor();
 
