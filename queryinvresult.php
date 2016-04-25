@@ -90,6 +90,12 @@ $statement4->closeCursor();*/
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
         <div class="table-responsive">
+          <?php if (empty($stock['STOCK_QTY'])) { ?>
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                <span class=""><h3>  This item: '<strong><?php echo $prodName?></strong>' is not in stock at Store Location '<strong><?php echo $storeID?></strong>.' </h3></span><br><br>
+              <?php }
+            else {?></div>
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -106,7 +112,6 @@ $statement4->closeCursor();*/
       </thead>
       <tbody>
         <tr>
-
           <td><?php echo $prodName; ?></td>
           <td><?php echo $stock['PRODUCT_ID']; ?></td>
           <td><?php echo $category; ?></td>
@@ -118,6 +123,7 @@ $statement4->closeCursor();*/
 
           <td><?php echo $stock['STOCK_MIN_QTY']; ?></td>
           <td><?php echo $stock['STOCK_LAST_RESTOCK']; ?></td>
+          <?php }?>
         </tr>
 
       </tbody>
