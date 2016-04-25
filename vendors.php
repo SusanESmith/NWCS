@@ -154,7 +154,7 @@ $statement2->closeCursor();
                     <div style="text-align:left">
                     <div class="form-group">
                     <label for="name"><strong>Vendor Name: </strong></label>
-                  <input name="name" type="text" required class="form-control" id="name" placeholder="Vendor Name">
+                  <input name="name" type="text" required class="form-control" maxlength="20" id="name" placeholder="Vendor Name">
                     </div>
 
                   <div class="form-group">
@@ -164,12 +164,12 @@ $statement2->closeCursor();
 
 					<div class="form-group">
                       <label for="vaddress"><strong>Vendor Address: </strong></label>
-                    <input name="vaddress" required type="text" class="form-control" id="vaddress" placeholder="Vendor Street Address">
+                    <input name="vaddress" required type="text" class="form-control" id="vaddress" maxlength="20" placeholder="Vendor Street Address">
                       </div>
 
                       <div class="form-group">
                         <label for="vcity"><strong>Vendor City: </strong></label>
-                      <input name="vcity" required type="text" class="form-control" id="vcity" placeholder="Vendor City">
+                      <input name="vcity" required type="text" class="form-control" maxlength="15" id="vcity" placeholder="Vendor City">
                         </div>
 
                         <div class="form-group">

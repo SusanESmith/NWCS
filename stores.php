@@ -172,12 +172,12 @@ $statement->closeCursor();
           </div>
           <div class="form-group">
         <label for="storeAddress"><strong>Store Address: </strong></label>
-        <input name="saddress" type="text" class="form-control" id="storeAddress" placeholder="Store Address" required>
+        <input name="saddress" type="text" class="form-control" maxlength="20" id="storeAddress" placeholder="Store Address" required>
 
           </div>
           <div class="form-group">
         <label for="storeCity"><strong>Store City: </strong></label>
-        <input name="scity" type="text" class="form-control" id="storeCity" placeholder="Store City" required>
+        <input name="scity" type="text" class="form-control" maxlength="15" id="storeCity" placeholder="Store City" required>
 
           </div>
           <div class="form-group">

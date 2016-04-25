@@ -70,27 +70,27 @@ $iflag=0;
 
     <div class="form-group">
     <label for="busName"><strong>Business Name: </strong></label>
-  <input name="busName" type="text" class="form-control" id="busName" placeholder="Name of Business" required>
+  <input name="busName" type="text" class="form-control" maxlength="20" id="busName" placeholder="Name of Business" required>
     </div>
 
     <div class="form-group">
     <label for="busLname"><strong>Point of Contact Last Name: </strong></label>
-  <input name="busLname" type="text" class="form-control" id="busLname" placeholder="Last name of Point of Contact" required>
+  <input name="busLname" type="text" class="form-control" maxlength="15" id="busLname" placeholder="Last name of Point of Contact" required>
     </div>
 
     <div class="form-group">
     <label for="busFname"><strong>Point of Contact First Name: </strong></label>
-  <input name="busFname" type="text" class="form-control" id="busFname" placeholder="First name of Point of Contact" required>
+  <input name="busFname" type="text" class="form-control" maxlength="15" id="busFname" placeholder="First name of Point of Contact" required>
     </div>
 
     <div class="form-group">
     <label for="busAdd"><strong>Address: </strong></label>
-    <input name="busAdd" type="text" class="form-control" id="busAdd" placeholder="Business Street Address" required>
+    <input name="busAdd" type="text" class="form-control" id="busAdd" maxlength="20" placeholder="Business Street Address" required>
     </div>
 
     <div class="form-group">
     <label for="busCity"><strong>City: </strong></label>
-  <input name="busCity" type="text" class="form-control" id="busCity" placeholder="City" required>
+  <input name="busCity" type="text" class="form-control" maxlength="15" id="busCity" placeholder="City" required>
     </div>
 
     <div class="form-group">
@@ -133,22 +133,22 @@ else if (isset($ind)){ ?>
   <br>
   <div class="form-group">
   <label for="lastName"><strong>Customer Last Name: </strong></label>
-<input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last name of Customer" required>
+<input name="lastName" type="text" class="form-control" maxlength="15" id="lastName" placeholder="Last name of Customer" required>
   </div>
 
   <div class="form-group">
   <label for="firstName"><strong>Customer First Name: </strong></label>
-<input name="firstName" type="text" class="form-control" id="firstName" placeholder="First name of Customer" required>
+<input name="firstName" type="text" class="form-control" maxlength="15" id="firstName" placeholder="First name of Customer" required>
   </div>
 
   <div class="form-group">
   <label for="add"><strong>Address: </strong></label>
-  <input name="add" type="text" class="form-control" id="add" placeholder="Street Address" required>
+  <input name="add" type="text" class="form-control" id="add" maxlength="20" placeholder="Street Address" required>
   </div>
 
   <div class="form-group">
   <label for="city"><strong>City: </strong></label>
-<input name="city" type="text" class="form-control" id="city" placeholder="City" required>
+<input name="city" type="text" class="form-control" id="city" maxlength="15" placeholder="City" required>
   </div>
 
   <div class="form-group">
@@ -172,7 +172,7 @@ else if (isset($ind)){ ?>
   <label for="limit"><strong>Charge Account Limit: </strong></label>
     <div class="input-group">
     <div class="input-group-addon">$</div>
-<input name="limit" type="text" class="form-control"  id="limit" placeholder="Charge Account Limit" required>
+<input name="limit" type="number" class="form-control"  id="limit" placeholder="Charge Account Limit" required>
   </div>
 
 </div>

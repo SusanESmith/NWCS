@@ -154,10 +154,7 @@ $display="The dateeee is ".date("Y-m-d ")."and the time is ".date("h:i:sa ");
   <input name="quantity" type="number" class="form-control" id="quantity" min="1" placeholder="Quantity of Item to be Ordered" required>
     </div>
 
-    <div class="form-group">
-    <label for="orderDate"><strong>Order Date: </strong></label>
-  <input name="orderDate" value="<?php echo date("Y-m-d");?>" type="date" class="form-control" id="orderDate" placeholder="Date Order is to be submitted">
-    </div>
+    
   </div>
   <label>&nbsp;</label>
   <input type="submit" name="add" class="btn btn-warning" value="Add item to Order">

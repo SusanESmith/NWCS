@@ -111,7 +111,7 @@ $statement->closeCursor();
 
     <div class="form-group">
     <label for="prodName"><strong>Product Name: </strong></label>
-  <input name="prodName" type="text" class="form-control" id="prodName" placeholder="Name of New Inventory Item" required>  </div>
+  <input name="prodName" type="text" class="form-control" id="prodName" maxlength="15" placeholder="Name of New Inventory Item" required>  </div>
 
     <form class="form-inline">
   <div class="form-group">

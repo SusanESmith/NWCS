@@ -216,22 +216,22 @@ $statement5->closeCursor();
 
               <div class="form-group">
               <label for="lName"><strong>Last Name: </strong></label>
-            <input name="lName" type="text" class="form-control" id="lName" placeholder="Employee Last Name" required>
+            <input name="lName" type="text" class="form-control" maxlength="15" id="lName" placeholder="Employee Last Name" required>
               </div>
 
               <div class="form-group">
               <label for="fName"><strong>First Name: </strong></label>
-            <input name="fName" type="text" class="form-control" id="fName" placeholder="Employee First Name" required>
+            <input name="fName" type="text" class="form-control" id="fName" maxlength="15" placeholder="Employee First Name" required>
               </div>
 
               <div class="form-group">
               <label for="add"><strong>Address: </strong></label>
-            <input name="add" type="text" class="form-control" id="add" placeholder="Employee Street Address" required>
+            <input name="add" type="text" class="form-control" id="add" maxlength="20" placeholder="Employee Street Address" required>
               </div>
 
               <div class="form-group">
               <label for="city"><strong>City: </strong></label>
-            <input name="city" type="text" class="form-control" id="city" placeholder="Employee City" required>
+            <input name="city" type="text" class="form-control" id="city" maxlength="15" placeholder="Employee City" required>
               </div>
 
               <div class="form-group">
