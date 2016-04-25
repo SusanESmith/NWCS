@@ -101,7 +101,7 @@ $iflag=0;
 
     <div class="form-group">
     <label for="busZip"><strong>Zip Code: </strong></label>
-  <input name="busZip" type="text" class="form-control" id="busZip" placeholder=" Zip Code" required>
+  <input name="busZip" type="number" class="form-control" id="busZip" placeholder=" Zip Code" required>
     </div>
 
     <div class="form-group">
@@ -113,7 +113,7 @@ $iflag=0;
 
       <div class="input-group">
       <div class="input-group-addon">$</div>
-  <input name="limit" type="text" class="form-control"  id="phone" placeholder="Charge Account Limit" required>
+  <input name="limit" type="number" pattern="[0-9]*" class="form-control"  id="phone" placeholder="Charge Account Limit" required>
     </div>
 
   </div>

@@ -27,7 +27,7 @@ $statement->execute();
 $store = $statement->fetchAll();
 $statement->closeCursor();
 
-
+$upDate=date("Y-m-d");
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,10 +149,7 @@ $statement->closeCursor();
 
 
 
-        <div class="form-group">
-      <label for="date"><strong>Date: </strong></label>
-      <input name="date" value ="<?php echo date("Y-m-d");?>" type="date" class="form-control" id="date" placeholder="Date of Inventory Update">
-        </div>
+      
       </div>
       <label>&nbsp;</label>
       <input name="storeID" type="hidden" class="form-control" id="storeID" value="<?php echo $storeID?>">

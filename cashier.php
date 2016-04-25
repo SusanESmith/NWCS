@@ -325,7 +325,17 @@ $empID=$_SESSION['start'];
               $price=$shop['STOCK_PRICE'];
               $item=array("prodID"=>$prodID,"prodName"=>$prodName, "quantity"=>$quantity, "price"=>$price);
               $SQ=$shop['STOCK_QTY'];
-              if ($quantity>$SQ){?>
+
+              $itemQty=0;
+              foreach ($_SESSION['cart'] as $i) {
+                if ($i['prodID']==$prodID) {
+                  $itemQty=$itemQty+$i['quantity'];
+                }
+              }
+
+              $totQty=intVal($quantity)+intVal($itemQty);
+
+              if ($totQty>$SQ){?>
                 <div class="alert alert-warning alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <span class="glyphicon glyphicon-exclamation-sign"></span><strong>  Notice!  </strong><span class="glyphicon glyphicon-exclamation-sign"></span> There are only <?php echo $SQ?> of this item in stock at this store location. Please enter a valid quantity.

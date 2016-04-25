@@ -2,14 +2,23 @@
 include('loginredirect.php');
 include('nwcsdatabase.php');
 
-$query2='SELECT * FROM ORDERS, VENDOR WHERE ORDER_RECEIVED_DATE IS NULL AND ORDERS.VENDOR_ID=VENDOR.VENDOR_ID';
+$date=date('Y-m-d');
+
+$oID=filter_input(INPUT_GET,'oID');
+  if(isset($oID)){
+    $update='UPDATE ORDERS SET ORDER_RECEIVED_DATE=:RECDATE WHERE ORDER_ID=:ORDERID';
+    $statement6= $db->prepare($update);
+    $statement6->bindValue(':ORDERID', $oID);
+    $statement6->bindValue(':RECDATE', $date);
+    $statement6->execute();
+    $statement6->closeCursor();
+  }
+
+$query2='SELECT * FROM ORDERS, VENDOR WHERE ORDER_RECEIVED_DATE IS NULL AND ORDERS.VENDOR_ID=VENDOR.VENDOR_ID ORDER BY ORDER_ID';
 $statement= $db->prepare($query2);
 $statement->execute();
 $orders= $statement->fetchAll();
 $statement->closeCursor();
-
-$date=date('Y-m-d');
-
 
  ?>
 
@@ -83,7 +92,7 @@ $date=date('Y-m-d');
                             <tbody>
                               <?php foreach ($orders as $o){
 
-                                $query3='SELECT * FROM ORDER_DETAILS, PRODUCTS, STORE WHERE ORDER_ID=:ORDERID AND ORDER_DETAILS.PRODUCT_ID=PRODUCTS.PRODUCT_ID AND ORDER_DETAILS.STORE_ID=STORE.STORE_ID';
+                                $query3='SELECT * FROM ORDER_DETAILS, PRODUCTS, STORE WHERE ORDER_ID=:ORDERID AND ORDER_DETAILS.PRODUCT_ID=PRODUCTS.PRODUCT_ID AND ORDER_DETAILS.STORE_ID=STORE.STORE_ID ORDER BY ORDER_ID';
                                 $statement4= $db->prepare($query3);
                                 $statement4->bindValue('ORDERID', $o['ORDER_ID']);
                                 $statement4->execute();
@@ -113,17 +122,25 @@ $date=date('Y-m-d');
 
                                 <?php }
 
-
-                                $oID=filter_input(INPUT_GET,'oID');
                                   if(isset($oID)){
-                                    $update='UPDATE ORDERS SET ORDER_RECEIVED_DATE=:RECDATE WHERE ORDER_ID=:ORDERID';
-                                    $statement6= $db->prepare($update);
-                                    $statement6->bindValue(':ORDERID', $oID);
-                                    $statement6->bindValue(':RECDATE', $date);
-                                    $statement6->execute();
+                                    $select='SELECT * FROM ORDER_DETAILS WHERE ORDER_ID=:ORDERID';
+                                    $statement7= $db->prepare($select);
+                                    $statement7->bindValue(':ORDERID', $oID);
+                                    //$statement7->bindValue(':RECDATE', $date);
+                                    $statement7->execute();
+                                    $getorder=$statement7->fetchAll();
+                                    $statement7->closeCursor();
 
-                                    $statement6->closeCursor();
 
+                                    foreach ($getorder as $g){
+                                      $stock='UPDATE STOCK SET STOCK_QTY = :SQ + STOCK_QTY WHERE PRODUCT_ID=:PI AND STORE_ID=:SI';
+                                      $statement8= $db->prepare($stock);
+                                      $statement8->bindValue(':SQ', $g['ORDER_QUANTITY']);
+                                      $statement8->bindValue(':PI', $g['PRODUCT_ID']);
+                                      $statement8->bindValue(':SI', $g['STORE_ID']);
+                                      $statement8->execute();
+                                      $statement8->closeCursor();
+                                    }
                                   }
                                 ?>
 

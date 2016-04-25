@@ -59,6 +59,7 @@ echo $y."<br>";*/
   $statement->closeCursor();
 
 
+
   /*$query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
   $statement = $db->prepare($query);
   $statement->bindValue(':storeID', $storeID);
