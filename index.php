@@ -87,7 +87,7 @@ $pw=filter_input(INPUT_POST, 'password');
 
 if (isset($login)){
 
-  $valid='SELECT EMPLOYEE_ID, EMPLOYEE_PASSWORD, POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=:USER AND EMPLOYEE_PASSWORD=:PW';
+  $valid='SELECT EMPLOYEE_ID, EMPLOYEE_PASSWORD, POSITION_ID FROM EMPLOYEE WHERE EMPLOYEE_ID=:USER AND BINARY EMPLOYEE_PASSWORD=:PW';
   $statement1= $db->prepare($valid);
   $statement1->bindValue(':USER', $user);
   $statement1->bindValue(':PW', $pw);
