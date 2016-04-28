@@ -49,7 +49,7 @@ $statement7->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%"> <span class="glyphicon glyphicon-user"></span>
-      <?php echo '   Please choose a customer type:';?>
+      <?php echo '   Please choose a charge account customer:';?>
     </h4>
 </div>
 
@@ -70,7 +70,7 @@ $statement7->closeCursor();
 </div>
 
       <label>&nbsp;</label>
-      <input type="submit" class="btn btn-warning"  name="one" value="Search">
+      <input type="submit" class="btn btn-warning"  name="one" value="Review Account">  <input type="submit" class="btn btn-warning"  name="edit" value="Edit Account">
     </form>
 
   </div>

@@ -121,13 +121,14 @@ $check=count($stock);
       </tbody>
     </table>
   </div>
+    <?php if ($_SESSION['admin']==true){?>
     <form method="post" name="searchemp" action="ordering.php" id="minorder" style="text-align:center">
         <label><strong>Go to Order Form? </strong></label>
 
 
         <label>&nbsp;</label>
         <input type="submit" name="enterBtn"class="btn btn-warning"  value="Go">
-          <?php } ?>
+          <?php } }?>
         <br><br>
   </div>
 </div>

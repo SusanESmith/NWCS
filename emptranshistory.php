@@ -80,6 +80,12 @@ $statement1->closeCursor();
       <div class="col-md-12 col-md-offset-0">
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
+      <?php if (empty($trans)) { ?>
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+            <span class=""><h3>  This employee has not completed any transactions </h3></span><br><br>
+          <?php }
+        else {?>
         <div class="table-responsive">
     <table class="table table-striped"style="text-align:left">
 
@@ -106,6 +112,7 @@ $statement1->closeCursor();
 	  <?php } ?>
       </tbody>
     </table>
+    <?php }?>
   </div>
   </div>
 </div>

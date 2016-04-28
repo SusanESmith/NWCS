@@ -59,7 +59,6 @@ echo $y."<br>";*/
   $statement->closeCursor();
 
 
-
   /*$query = "SELECT DISTINCT SUM(TRANSACTION_TOTAL) FROM TRANSACTIONS WHERE STORE_ID = :storeID AND TRANSACTION_DATE BETWEEN :bdatetime AND :edatetime";
   $statement = $db->prepare($query);
   $statement->bindValue(':storeID', $storeID);
@@ -128,6 +127,12 @@ echo $y."<br>";*/
         <!--<h3><span class="label label-primary">In stock items at (store number)</h3>-->
       <!--<p>The .table-striped class adds zebra-stripes to a table:</p>-->
         <div class="table-responsive">
+          <?php if (empty($sales)) { ?>
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                <span class=""><h3>  No register counts were calculated during the chosen time period at store location: '<strong><?php echo $storeID?></strong>' </h3></span><br><br>
+              <?php }
+            else {?>
     <table class="table table-striped"style="text-align:left">
 
       <thead>
@@ -176,6 +181,7 @@ echo $y."<br>";*/
         <?php } ?>
       </tbody>
     </table>
+    <?php } ?>
   </div>
   </div>
 </div>

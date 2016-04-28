@@ -3,7 +3,7 @@ include('loginredirect.php');
 
 require_once('nwcsdatabase.php');
 
-$query = "SELECT * FROM STORE WHERE STORE_ID = 59";
+$query = "SELECT * FROM STORE WHERE STORE_ID = 62";
 
 $statement = $db->prepare($query);
 $statement->execute();

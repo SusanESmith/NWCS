@@ -66,7 +66,7 @@ $statement3->closeCursor();
 <div class="panel panel-default">
   <?php echo "<div class=\"panel-heading\" role=\"tab\" id=\"heading".$test."\">";?>
     <h4 class="panel-title" style="font-weight:bold; font-size: 150%">
-        <?php echo 'Transaction Details for (transaction num):';?>
+        <?php echo "Transaction ID: <span style=color:orange> '".$transID."' </span>Information";?>
     </h4>
 </div>
 

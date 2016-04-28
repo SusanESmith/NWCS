@@ -154,7 +154,7 @@ $statement2->closeCursor();
                     <div style="text-align:left">
                     <div class="form-group">
                     <label for="name"><strong>Vendor Name: </strong></label>
-                  <input name="name" type="text" required class="form-control" maxlength="20" id="name" placeholder="Vendor Name">
+                  <input name="name" type="text" required class="form-control" maxlength="35" id="name" placeholder="Vendor Name">
                     </div>
 
                   <div class="form-group">

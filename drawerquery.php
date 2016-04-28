@@ -200,7 +200,7 @@ $query = 'INSERT INTO REGISTER_COUNT
 
 
   </div>
-  <p><strong><a href="cashier.php">Back to the Cashier Menu</a></strong></p>
+  <p><strong><a href="cashiermenu.php">Back to the Cashier Menu</a></strong></p>
   <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
   <p><strong><a href="logout.php">Click here to logout</a></strong></p>
 

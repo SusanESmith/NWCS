@@ -123,17 +123,19 @@ $statement4->closeCursor();*/
 
           <td><?php echo $stock['STOCK_MIN_QTY']; ?></td>
           <td><?php echo $stock['STOCK_LAST_RESTOCK']; ?></td>
+          </div>
           <?php }?>
         </tr>
 
       </tbody>
     </table>
-  </div>
+
   </div>
 </div>
 </div>
 
   </body>
+
   </html>
 
 

@@ -44,7 +44,7 @@
 <div class="panel-body" style="background-color:#C8F8FF; border:2px solid #FFC656" >
   <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='newcharge.php'"><strong>Request a New Charge Account</strong></button>
   <br><br>
-  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reviewcharge.php'"><strong>Review Current Charge Accounts</strong></button>
+  <button type="button" class="btn btn-warning btn-lg btn-block" onclick="window.location.href='reviewcharge.php'"><strong>Review or Edit Current Charge Accounts</strong></button>
 
   </div>
     <p><strong><a href="menu.php">Back to the Main Menu</a></strong></p>
